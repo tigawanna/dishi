@@ -1,0 +1,25 @@
+{
+  "name": "townhall",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
+    "format": "oxfmt .",
+    "format:fix": "oxfmt .",
+    "check-types": "turbo run check-types",
+    "quality": "turbo run //#lint //#format",
+    "quality:fix": "turbo run //#lint:fix //#format:fix"
+  },
+  "devDependencies": {
+    "oxfmt": "^0.27.0",
+    "oxlint": "^1.42.0",
+    "turbo": "^2.7.3",
+    "typescript": "5.9.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "pnpm@10.27.0"
+}
