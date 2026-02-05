@@ -25,7 +25,23 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'Dishi',
+        description: 'Dishi is a hyperlocal food discovery platform connecting neighborhood kitchens with nearby customers.',
+        keywords: 'food, discovery, hyperlocal, neighborhood, kitchens, nearby customers',
+        og: {
+          title: 'Dishi',
+          description: 'Dishi is a hyperlocal food discovery platform connecting neighborhood kitchens with nearby customers.',
+          image: 'https://dishi.app/og.png',
+          url: 'https://dishi.app',
+          type: 'website',
+        },
+        twitter: {
+          card: 'summary_large_image',
+          image: 'https://dishi.app/og.png',
+        },
+        facebook: {
+          appId: '1234567890',
+        },
       },
     ],
     links: [
