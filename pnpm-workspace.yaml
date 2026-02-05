@@ -5,3 +5,6 @@ packages:
 onlyBuiltDependencies:
   - es5-ext
   - esbuild
+  - protobufjs
+  - sharp
+  - workerd
