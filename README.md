@@ -1,135 +1,115 @@
-# Turborepo starter
+# Dishi
 
-This Turborepo starter is maintained by the Turborepo core team.
+Hyperlocal food discovery platform -- a pnpm + Turborepo monorepo.
 
-## Using this example
+## Prerequisites
 
-Run the following command:
+- Node.js >= 20
+- pnpm >= 10
+- PostgreSQL with **PostGIS** and **pgvector** extensions
 
-```sh
-npx create-turbo@latest
+## Getting started
+
+```bash
+pnpm install
 ```
 
-## What's inside?
+Copy the environment file in each app that needs one and fill in the values:
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+```bash
+cp apps/api/.env.example apps/api/.env
+cp apps/client/.env.example apps/client/.env
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+## Monorepo structure
 
 ```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+apps/
+  api/          Elysia.js backend API
+  client/       TanStack React SPA (admin dashboard)
+  site/         TanStack Start SSR site (public-facing)
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+packages/
+  auth/         Better Auth server & client factories, roles/permissions
+  db/           Drizzle ORM schema, migrations, relations, helpers
+  isomorphic/   Shared TypeScript types and utilities
+  ui/           Shared UI components
+  typescript-config/  Shared tsconfig presets
 ```
 
-### Develop
+## Development
 
-To develop all apps and packages, run the following command:
+```bash
+# Start everything
+pnpm dev
 
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
+# Start a specific app
+pnpm --filter api dev
+pnpm --filter client dev
+pnpm --filter site dev
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+## Database
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
+All database commands target `@repo/db` (`packages/db`).
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
+```bash
+# Generate a Drizzle migration from schema changes
+pnpm --filter @repo/db db:gen
 
-### Remote Caching
+# Apply pending migrations
+pnpm --filter @repo/db db:migrate
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+# Push schema directly (development only, no migration files)
+pnpm --filter @repo/db db:push
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+# Open Drizzle Studio
+pnpm --filter @repo/db db:studio
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+See [`packages/db/SCHEMA.md`](packages/db/SCHEMA.md) for schema documentation and design decisions.
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+## Authentication (Better Auth)
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
+Auth configuration lives in `@repo/auth` (`packages/auth`).
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+```bash
+# Regenerate the Better Auth schema after adding/changing plugins
+pnpm --filter @repo/auth gen:schema
 ```
 
-## Useful Links
+After regenerating, create and apply a migration:
 
-Learn more about the power of Turborepo:
+```bash
+pnpm --filter @repo/db db:gen && pnpm --filter @repo/db db:migrate
+```
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+Full chain (schema + migration + apply) in one line:
+
+```bash
+pnpm --filter @repo/auth gen:schema && pnpm --filter @repo/db db:gen && pnpm --filter @repo/db db:migrate
+```
+
+See [`packages/auth/README.md`](packages/auth/README.md) for details on roles, plugins, and adding new auth plugins.
+
+## Build
+
+```bash
+# Build everything
+pnpm build
+
+# Build a specific app/package
+pnpm --filter api build
+pnpm --filter @repo/db build
+```
+
+## Type checking
+
+```bash
+# Check types across the whole repo
+pnpm check-types
+
+# Check a specific package
+pnpm --filter @repo/auth check-types
+pnpm --filter @repo/db check-types
+```

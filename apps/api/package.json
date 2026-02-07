@@ -23,6 +23,7 @@
     "@elysiajs/node": "^1.4.3",
     "@elysiajs/openapi": "^1.4.13",
     "@repo/auth": "workspace:*",
+    "@repo/config": "workspace:*",
     "@repo/db": "workspace:*",
     "@repo/isomorphic": "workspace:*",
     "@sinclair/typebox": "^0.34.46",

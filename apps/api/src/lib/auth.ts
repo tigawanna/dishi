@@ -1,6 +1,6 @@
 import { db } from "@backend/db/client";
-import { AUTHORIZED_ORIGINS } from "@backend/utils/constants";
-import { createAuth, type Auth } from "@repo/auth/server";
+import { createAuth } from "@repo/auth/server";
+import { AUTHORIZED_ORIGINS } from "@repo/config/origins";
 
 export const auth = createAuth({
   database: db,

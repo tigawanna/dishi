@@ -41,6 +41,9 @@ importers:
       '@repo/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@repo/config':
+        specifier: workspace:*
+        version: link:../../packages/config
       '@repo/db':
         specifier: workspace:*
         version: link:../../packages/db
@@ -545,9 +548,24 @@ importers:
 
   packages/auth:
     dependencies:
+      '@repo/config':
+        specifier: workspace:*
+        version: link:../config
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../db
       better-auth:
         specifier: '*'
         version: 1.4.18(@tanstack/react-start@1.158.1(crossws@0.4.4(srvx@0.11.0))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vite@7.3.1(@types/node@25.2.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2)))(drizzle-kit@0.31.8)(drizzle-orm@0.45.1(@neondatabase/serverless@1.0.2)(@types/pg@8.16.0)(gel@2.2.0)(kysely@0.28.11)(pg@8.16.3))(pg@8.16.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(solid-js@1.9.10)(vitest@4.0.18(@types/node@25.2.0)(jiti@2.6.1)(jsdom@27.4.0(@noble/hashes@2.0.1))(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2))
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      typescript:
+        specifier: '*'
+        version: 5.9.3
+
+  packages/config:
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
