@@ -1,3 +1,2 @@
-export * from "./auth-schema";
-export * from "./audit-log-schema";
-export * from "./proposals-schema";
+export * from "./auth-schema.js";
+export * from "./dishi-schema.js";
