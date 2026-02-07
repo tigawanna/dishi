@@ -3,10 +3,10 @@ import {
   buildOrderBy,
   buildPaginatedResponse,
   calculateOffset,
+  createSimpleQueryEngine,
   listQueryParamsSchema,
-  SimpleQueryEngine,
-} from "@backend/db/helpers/QueryEngine";
-import { member, organization, user } from "@backend/db/schema";
+} from "@repo/db";
+import { member, organization, user } from "@repo/db";
 import { auth } from "@backend/lib/auth";
 import { adminRoleSchema } from "@backend/lib/extras";
 import { betterAuthZMiddleware } from "@backend/middleware/better-auth-authz";
@@ -42,7 +42,7 @@ export const adminRoute = new Elysia()
     "/admin/organizations",
     async ({ headers, query }) => {
       try {
-        const org = new SimpleQueryEngine(organization);
+        const org = createSimpleQueryEngine(db, organization);
         const paginatedOrgs = await org.listPaged({
           searchOn: ["name", "slug"],
           searchTerm: query.searchTerm,
@@ -157,7 +157,7 @@ export const adminRoute = new Elysia()
     "/admin/users",
     async ({ headers, query }) => {
       try {
-        const usersQueryEngine = new SimpleQueryEngine(user);
+        const usersQueryEngine = createSimpleQueryEngine(db, user);
         const paginatedUsers = await usersQueryEngine.listPaged({
           searchOn: ["name", "email"],
           searchTerm: query.searchTerm,

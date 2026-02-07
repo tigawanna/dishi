@@ -11,10 +11,10 @@ Complete Drizzle ORM schema for a multi-tenant governance platform where communi
 Following Drizzle best practices, schemas are organized by domain:
 
 ```
-src/db/schema/
+src/schema/
 ├── auth-schema.ts    # Better Auth tables (user, session, account, organization, member)
-├── proposals.ts      # Governance: proposals, votes, comments
-├── audit-log.ts      # Audit trail for all governance actions
+├── proposals-schema.ts   # Governance: proposals, votes, comments
+├── audit-log-schema.ts  # Audit trail for all governance actions
 └── index.ts          # Schema exports
 ```
 
@@ -108,95 +108,25 @@ Immutable log of all governance actions for transparency.
 - **council** - Review & approval authority
 - **citizen** - Default member role
 
-## Governance Workflow
-
-```
-┌─────────────┐
-│   Citizen   │ creates proposal (status: draft)
-│   drafts    │
-└──────┬──────┘
-       │
-       │ submits for review (status: under_review)
-       ▼
-┌─────────────┐
-│   Council   │ reviews proposal
-│   review    │
-└──────┬──────┘
-       │
-       ├─── approves ──→ ┌─────────────┐
-       │                 │   Voting    │ (status: voting)
-       │                 │   stage     │
-       │                 └──────┬──────┘
-       │                        │
-       │                        │ all members vote
-       │                        ▼
-       │                 ┌─────────────┐
-       │                 │   Passed/   │ (status: passed/rejected)
-       │                 │  Rejected   │
-       │                 └─────────────┘
-       │
-       └─── rejects ──→  (status: rejected)
-```
-
-## Relations
-
-### User Relations
-
-- `sessions` - User's active sessions
-- `accounts` - OAuth/credential accounts
-- `members` - Townhall memberships
-- `authoredProposals` - Proposals created by user
-- `reviewedProposals` - Proposals reviewed by user (council)
-- `votes` - Votes cast by user
-- `comments` - Comments made by user
-- `auditLogs` - Actions performed by user
-
-### Organization (Townhall) Relations
-
-- `members` - All townhall members
-- `invitations` - Pending invitations
-- `proposals` - All proposals in townhall
-- `auditLogs` - Audit trail for townhall
-
-### Proposal Relations
-
-- `townhall` - Parent organization
-- `author` - User who created proposal
-- `reviewer` - Council member who reviewed
-- `votes` - All votes on proposal
-- `comments` - All comments on proposal
-
-## Indexes
-
-Optimized indexes for common queries:
-
-- `proposal_townhallId_idx` - Filter proposals by townhall
-- `proposal_status_idx` - Filter by status
-- `vote_proposalId_userId_idx` - Unique vote per user per proposal
-- `audit_log_timestamp_idx` - Time-based audit queries
-- `audit_log_townhallId_idx` - Filter audit by townhall
-
 ## Generate Migrations
 
+From the api app (so .env is loaded):
+
 ```bash
-# Generate migration
-pnpm drizzle-kit generate
-
-# Push to database
-pnpm drizzle-kit push
-
-# Open Drizzle Studio
-pnpm drizzle-kit studio
+pnpm --filter api db:gen
+pnpm --filter api db:push
+pnpm --filter api db:studio
 ```
 
 ## Usage Example
 
 ```typescript
-import { db } from "@backend/db/client";
-import { proposal, vote, comment } from "@backend/db/schema";
+import { createDb } from "@repo/db";
+import { proposal, vote, comment } from "@repo/db";
 import { eq } from "drizzle-orm";
 
-// Query proposal with votes and comments
+const db = createDb(process.env.DATABASE_URL!);
+
 const proposalWithDetails = await db.query.proposal.findFirst({
   where: eq(proposal.id, proposalId),
   with: {
@@ -206,15 +136,5 @@ const proposalWithDetails = await db.query.proposal.findFirst({
       with: { user: true },
     },
   },
-});
-
-// Create new proposal
-await db.insert(proposal).values({
-  id: generateId(),
-  townhallId: townhallId,
-  authorId: userId,
-  title: "Improve Park Lighting",
-  description: "Proposal to install solar-powered lights...",
-  status: "draft",
 });
 ```

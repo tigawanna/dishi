@@ -1,9 +1,10 @@
-import { db } from "@backend/db/client";
-import * as schema from "@backend/db/schema";
+import { createDb } from "@repo/db";
+import * as schema from "@repo/db/schema";
+import { envVariables } from "@backend/env";
 import { reset } from "drizzle-seed";
 
-//  ths will delete the db use with extreme caution
 async function main() {
+  const db = createDb(envVariables.DATABASE_URL);
   await reset(db, schema);
 }
 

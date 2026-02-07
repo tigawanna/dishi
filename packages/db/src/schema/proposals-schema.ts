@@ -2,10 +2,6 @@ import { relations } from "drizzle-orm";
 import { index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { organization, user } from "./auth-schema";
 
-/**
- * Proposal Status Flow:
- * draft -> under_review -> voting -> passed/rejected -> archived
- */
 export const proposalStatusEnum = [
   "draft",
   "under_review",
@@ -30,18 +26,12 @@ export const proposal = pgTable(
     title: text("title").notNull(),
     description: text("description").notNull(),
     status: text("status", { enum: proposalStatusEnum }).default("draft").notNull(),
-
-    // Review tracking
     reviewedBy: text("reviewed_by").references(() => user.id, { onDelete: "set null" }),
     reviewedAt: timestamp("reviewed_at"),
     reviewNote: text("review_note"),
-
-    // Voting tracking
     votingStartedAt: timestamp("voting_started_at"),
     votingClosedAt: timestamp("voting_closed_at"),
     closedBy: text("closed_by").references(() => user.id, { onDelete: "set null" }),
-
-    // Timestamps
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at")
       .defaultNow()
@@ -79,9 +69,6 @@ export const proposalRelations = relations(proposal, ({ one, many }) => ({
   comments: many(comment),
 }));
 
-/**
- * Vote choices for proposals
- */
 export const voteChoiceEnum = ["yes", "no", "abstain"] as const;
 
 export type VoteChoice = (typeof voteChoiceEnum)[number];
@@ -102,7 +89,6 @@ export const vote = pgTable(
   (table) => [
     index("vote_proposalId_idx").on(table.proposalId),
     index("vote_userId_idx").on(table.userId),
-    // Ensure one vote per user per proposal
     index("vote_proposalId_userId_idx").on(table.proposalId, table.userId),
   ],
 );
@@ -118,9 +104,6 @@ export const voteRelations = relations(vote, ({ one }) => ({
   }),
 }));
 
-/**
- * Comments on proposals
- */
 export const comment = pgTable(
   "comment",
   {
