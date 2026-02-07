@@ -1,5 +1,4 @@
-export { createDb, type Database } from "./client";
-export * from "./schema";
-export { relations } from "./relations";
-export * from "./helpers/QueryEngine";
-export * from "./helpers/columns";
+export { createDb, type Database } from "./client.js";
+export * from "./schema/index.js";
+export * from "./helpers/QueryEngine.js";
+export * from "./helpers/columns.js";

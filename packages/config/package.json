@@ -11,9 +11,14 @@
     "dev": "tsc --watch",
     "check-types": "tsc --noEmit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "dotenv-expand": "^12.0.1",
+    "zod": "^4.3.5"
+  },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "typescript": "*"
+    "typescript": "*",
+    "@types/node": "^25.0.3"
   }
 }

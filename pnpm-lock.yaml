@@ -566,10 +566,23 @@ importers:
         version: 5.9.3
 
   packages/config:
+    dependencies:
+      dotenv:
+        specifier: ^16.4.7
+        version: 16.6.1
+      dotenv-expand:
+        specifier: ^12.0.1
+        version: 12.0.3
+      zod:
+        specifier: ^4.3.5
+        version: 4.3.6
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      '@types/node':
+        specifier: ^25.0.3
+        version: 25.2.0
       typescript:
         specifier: '*'
         version: 5.9.3

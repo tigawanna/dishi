@@ -12,7 +12,7 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "check-types": "tsc --noEmit",
-    "gen:schema":"npx @better-auth/cli@latest generate"
+    "gen:schema":"pnpx @better-auth/cli@latest generate"
   },
   "dependencies": {
     "@repo/config": "workspace:*",
