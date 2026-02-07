@@ -10,6 +10,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "dev": "tsc --watch",
     "check-types": "tsc --noEmit",
     "db:gen": "drizzle-kit generate",
     "db:push": "drizzle-kit push",

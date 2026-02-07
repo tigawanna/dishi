@@ -22,6 +22,7 @@
     "@tanstack/react-router-ssr-query": "^1.158.1",
     "@tanstack/react-start": "^1.158.1",
     "@tanstack/router-plugin": "^1.158.1",
+    "@repo/auth": "workspace:*",
     "better-auth": "^1.4.18",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

@@ -1,33 +1,10 @@
 import { db } from "@backend/db/client";
 import { AUTHORIZED_ORIGINS } from "@backend/utils/constants";
-import { ac, roles } from "@repo/isomorphic/auth-roles";
-import { betterAuth } from "better-auth";
-import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { admin, apiKey, bearer, openAPI, organization } from "better-auth/plugins";
+import { createAuth, type Auth } from "@repo/auth/server";
 
-export const auth = betterAuth({
+export const auth = createAuth({
+  database: db,
   trustedOrigins: AUTHORIZED_ORIGINS,
-  emailAndPassword: {
-    enabled: true,
-  },
-  database: drizzleAdapter(db, {
-    provider: "pg", // or "mysql", "sqlite"
-  }),
-
-  plugins: [
-    apiKey(),
-    bearer(),
-    openAPI(),
-    admin({
-      ac,
-      roles,
-      defaultRole: "citizen",
-    }),
-    organization(),
-  ],
-  experimental: {
-    joins: true,
-  },
 });
 
 let _schema: ReturnType<typeof auth.api.generateOpenAPISchema>;
@@ -43,9 +20,7 @@ export const BetterAuthOpenAPI = {
         reference[key] = paths[path];
 
         for (const method of Object.keys(paths[path])) {
-          // ignore the as any type cast below it is very intentional
           const operation = (reference[key] as any)[method];
-
           operation.tags = ["Better Auth"];
         }
       }
