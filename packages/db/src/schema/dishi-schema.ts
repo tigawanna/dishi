@@ -1,4 +1,4 @@
-import { relations, sql } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 import {
   pgTable,
   text,
@@ -173,65 +173,3 @@ export const customerLocation = pgTable(
   ],
 );
 
-export const cuisineTypeRelations = relations(cuisineType, ({ many }) => ({
-  kitchens: many(kitchenCuisine),
-}));
-
-export const kitchenProfileRelations = relations(kitchenProfile, ({ one, many }) => ({
-  organization: one(organization, {
-    fields: [kitchenProfile.organizationId],
-    references: [organization.id],
-  }),
-  cuisines: many(kitchenCuisine),
-  menuCategories: many(menuCategory),
-  menuItems: many(menuItem),
-  favorites: many(customerFavorite),
-}));
-
-export const kitchenCuisineRelations = relations(kitchenCuisine, ({ one }) => ({
-  kitchen: one(kitchenProfile, {
-    fields: [kitchenCuisine.kitchenId],
-    references: [kitchenProfile.id],
-  }),
-  cuisine: one(cuisineType, {
-    fields: [kitchenCuisine.cuisineId],
-    references: [cuisineType.id],
-  }),
-}));
-
-export const menuCategoryRelations = relations(menuCategory, ({ one, many }) => ({
-  kitchen: one(kitchenProfile, {
-    fields: [menuCategory.kitchenId],
-    references: [kitchenProfile.id],
-  }),
-  items: many(menuItem),
-}));
-
-export const menuItemRelations = relations(menuItem, ({ one }) => ({
-  kitchen: one(kitchenProfile, {
-    fields: [menuItem.kitchenId],
-    references: [kitchenProfile.id],
-  }),
-  category: one(menuCategory, {
-    fields: [menuItem.categoryId],
-    references: [menuCategory.id],
-  }),
-}));
-
-export const customerFavoriteRelations = relations(customerFavorite, ({ one }) => ({
-  user: one(user, {
-    fields: [customerFavorite.userId],
-    references: [user.id],
-  }),
-  kitchen: one(kitchenProfile, {
-    fields: [customerFavorite.kitchenId],
-    references: [kitchenProfile.id],
-  }),
-}));
-
-export const customerLocationRelations = relations(customerLocation, ({ one }) => ({
-  user: one(user, {
-    fields: [customerLocation.userId],
-    references: [user.id],
-  }),
-}));

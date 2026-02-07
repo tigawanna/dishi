@@ -45,7 +45,7 @@ All commands below are run from the **repository root** using `pnpm --filter`.
 pnpm --filter @repo/auth gen:schema
 ```
 
-This regenerates `auth-schema.ts` based on the plugins configured in `createAuth()`. Review the diff before committing -- do not add Drizzle v1 `relations()` exports; those are handled separately in `packages/db/src/relations.ts` using Drizzle v2.
+This regenerates `packages/db/src/schema/auth-schema.ts` based on the plugins configured in `createAuth()`. Review the diff before committing. Relations are defined in `packages/db/src/schema/relations.ts` using Drizzle v1 `defineRelations` (relations v2).
 
 ### 2. Generate a Drizzle migration
 

@@ -1,6 +1,6 @@
 import "dotenv/config";
-import { createDb } from "../client";
-import * as schema from "../schema";
+import { createDb } from "../client.js";
+import * as schema from "../schema/index.js";
 import { reset } from "drizzle-seed";
 
 async function main() {

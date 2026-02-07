@@ -1,10 +1,11 @@
 import { ac, roles } from "./roles.js";
 import { betterAuth } from "better-auth";
-import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { drizzleAdapter } from "@better-auth/drizzle-adapter/relations-v2";
 import { admin, apiKey, bearer, openAPI, organization } from "better-auth/plugins";
 
 export interface CreateAuthConfig {
   database: Parameters<typeof drizzleAdapter>[0];
+  schema: Record<string, unknown>;
   trustedOrigins: string[];
   defaultRole?: string;
 }
@@ -17,6 +18,7 @@ export function createAuth(config: CreateAuthConfig) {
     },
     database: drizzleAdapter(config.database, {
       provider: "pg",
+      schema: config.schema,
     }),
     plugins: [
       apiKey(),

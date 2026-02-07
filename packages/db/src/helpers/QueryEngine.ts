@@ -50,9 +50,9 @@ export function buildOrderBy(params: {
   return sortOrder === "desc" ? desc(column) : asc(column);
 }
 
-export type InferSelectModel<T extends PgTable> = T["$inferSelect"];
-export type InferInsertModel<T extends PgTable> = T["$inferInsert"];
-export type TableColumns<T extends PgTable> = keyof T["$inferSelect"] & string;
+export type InferSelectModel<T> = T extends { $inferSelect: infer S } ? S : never;
+export type InferInsertModel<T> = T extends { $inferInsert: infer S } ? S : never;
+export type TableColumns<T> = T extends { $inferSelect: infer S } ? keyof S & string : never;
 
 export interface WhereClause {
   conditions: (SQL | undefined)[];
@@ -143,9 +143,10 @@ export class SimpleQueryEngine<
       .select({ count: count() })
       .from(this.table as never);
 
-    const [{ count: totalItems }] = whereCondition
+    const [countRow] = whereCondition
       ? await countQuery.where(whereCondition)
       : await countQuery;
+    const totalItems = countRow?.count ?? 0;
 
     let query = this.db
       .select()
@@ -290,7 +291,7 @@ export class SimpleQueryEngine<
 
     let nextCursor: string | undefined;
     if (hasNextPage && displayItems.length > 0) {
-      const lastItem = displayItems[displayItems.length - 1] as Record<string, unknown>;
+      const lastItem = displayItems[displayItems.length - 1] as unknown as Record<string, unknown>;
       nextCursor = JSON.stringify({
         createdAt: lastItem.createdAt,
         id: lastItem.id,
@@ -308,53 +309,55 @@ export class SimpleQueryEngine<
     const idColumn = this.columns["id"];
     if (!idColumn) return null;
 
-    const [result] = await this.db
+    const results = (await this.db
       .select()
       .from(this.table as never)
       .where(eq(idColumn, id))
-      .limit(1);
+      .limit(1)) as TSelect[];
 
-    return (result as TSelect) || null;
+    return results[0] ?? null;
   }
 
   async create(data: TInsert): Promise<TSelect> {
-    const [result] = await this.db
+    const results = (await this.db
       .insert(this.table)
       .values(data as never)
-      .returning();
-    return result as TSelect;
+      .returning()) as TSelect[];
+    const result = results[0];
+    if (!result) throw new Error("Insert did not return a row");
+    return result;
   }
 
   async update(id: string, data: Partial<TInsert>): Promise<TSelect | null> {
     const idColumn = this.columns["id"];
     if (!idColumn) return null;
 
-    const [result] = await this.db
+    const results = (await this.db
       .update(this.table)
       .set(data as never)
       .where(eq(idColumn, id))
-      .returning();
+      .returning()) as TSelect[];
 
-    return (result as TSelect) || null;
+    return results[0] ?? null;
   }
 
   async delete(id: string): Promise<TSelect | null> {
     const idColumn = this.columns["id"];
     if (!idColumn) return null;
 
-    const [result] = await this.db
+    const results = (await this.db
       .delete(this.table)
       .where(eq(idColumn, id))
-      .returning();
+      .returning()) as TSelect[];
 
-    return (result as TSelect) || null;
+    return results[0] ?? null;
   }
 
   async count(): Promise<number> {
-    const [{ count: total }] = await this.db
+    const [row] = await this.db
       .select({ count: count() })
       .from(this.table as never);
-    return total;
+    return row?.count ?? 0;
   }
 }
 
