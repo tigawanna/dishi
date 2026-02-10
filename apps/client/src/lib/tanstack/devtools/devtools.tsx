@@ -3,16 +3,6 @@ import { TanStackDevtools } from "@tanstack/react-devtools";
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import { pacerDevtoolsPlugin } from "@tanstack/react-pacer-devtools";
 
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-
-export function TanstackDevtools2() {
-  return (
-    <TanStackRouterDevtools
-      position="bottom-right"
-    />
-  );
-}
-
 export function TanstackDevtools() {
   return (
     <TanStackDevtools
@@ -23,7 +13,6 @@ export function TanstackDevtools() {
         {
           name: "Tanstack Router",
           render: <TanStackRouterDevtoolsPanel />,
-
         },
         {
           name: "Tanstack Query",

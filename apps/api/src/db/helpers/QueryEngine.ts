@@ -1,4 +1,4 @@
-import type { NodePgDatabase } from "drizzle-orm/node-postgres";
+import { db } from "@backend/db/client";
 import {
   and,
   asc,
@@ -15,14 +15,27 @@ import {
 import { type PgColumn, type PgTable } from "drizzle-orm/pg-core";
 import z from "zod";
 
+// ============================================================================
+// PAGINATION UTILITIES
+// ============================================================================
+
+/**
+ * Calculate the offset for database queries based on page and perPage
+ */
 export function calculateOffset(page: number, perPage: number): number {
   return (page - 1) * perPage;
 }
 
+/**
+ * Calculate the total number of pages based on total items and items per page
+ */
 export function calculateTotalPages(totalItems: number, perPage: number): number {
   return Math.ceil(totalItems / perPage);
 }
 
+/**
+ * Build a paginated response object with all metadata
+ */
 export function buildPaginatedResponse<T>(params: {
   items: T[];
   page: number;
@@ -39,6 +52,14 @@ export function buildPaginatedResponse<T>(params: {
   };
 }
 
+/**
+ * Build an order by clause for sorting with support for dynamic columns
+ * @param sortBy - The field name to sort by
+ * @param sortOrder - The sort direction ('asc' or 'desc')
+ * @param columnMap - Object mapping field names to PgColumn instances
+ * @param defaultColumn - Default column to sort by if sortBy doesn't match any key
+ * @returns SQL sorting clause
+ */
 export function buildOrderBy(params: {
   sortBy?: string;
   sortOrder: "asc" | "desc";
@@ -50,12 +71,21 @@ export function buildOrderBy(params: {
   return sortOrder === "desc" ? desc(column) : asc(column);
 }
 
-export type InferSelectModel<T> = T extends { $inferSelect: infer S } ? S : never;
-export type InferInsertModel<T> = T extends { $inferInsert: infer S } ? S : never;
-export type TableColumns<T> = T extends { $inferSelect: infer S } ? keyof S & string : never;
+// ============================================================================
+// TYPES
+// ============================================================================
 
+export type InferSelectModel<T extends PgTable> = T["$inferSelect"];
+export type InferInsertModel<T extends PgTable> = T["$inferInsert"];
+export type TableColumns<T extends PgTable> = keyof T["$inferSelect"] & string;
+
+/**
+ * Where clause configuration that can wrap conditions in either `or` or `and` expressions
+ */
 export interface WhereClause {
+  /** Array of SQL conditions to apply */
   conditions: (SQL | undefined)[];
+  /** How to combine the conditions - 'and' (all must match) or 'or' (any can match) */
   operator: "and" | "or";
 }
 
@@ -66,6 +96,7 @@ export interface ListPagedParams<TTable extends PgTable = PgTable> {
   sortOrder?: "asc" | "desc";
   searchTerm?: string;
   searchOn?: TableColumns<TTable>[];
+  /** Optional where clauses that can be combined with 'and' or 'or' */
   where?: WhereClause;
 }
 
@@ -79,11 +110,12 @@ export interface PaginatedResponse<T> {
 }
 
 export interface CursorPaginationParams<TTable extends PgTable = PgTable> {
-  cursor?: string;
+  cursor?: string; // JSON.stringify({ createdAt: Date, id: string })
   limit?: number;
   sortOrder?: "asc" | "desc";
   searchTerm?: string;
   searchOn?: TableColumns<TTable>[];
+  /** Optional where clauses that can be combined with 'and' or 'or' */
   where?: WhereClause;
 }
 
@@ -93,21 +125,26 @@ export interface InfinitePaginationResponse<T> {
   hasNextPage: boolean;
 }
 
+// ============================================================================
+// SIMPLE QUERY ENGINE
+// ============================================================================
+
 export class SimpleQueryEngine<
   TTable extends PgTable = PgTable,
   TSelect = InferSelectModel<TTable>,
   TInsert = InferInsertModel<TTable>,
 > {
-  private db: NodePgDatabase;
   private table: TTable;
   private columns: Record<string, PgColumn>;
 
-  constructor(db: NodePgDatabase, table: TTable) {
-    this.db = db;
+  constructor(table: TTable) {
     this.table = table;
     this.columns = getTableColumns(table);
   }
 
+  /**
+   * Combine where clause conditions based on the operator
+   */
   private combineWhereConditions(whereClause?: WhereClause): SQL | undefined {
     if (!whereClause || whereClause.conditions.length === 0) {
       return undefined;
@@ -124,6 +161,9 @@ export class SimpleQueryEngine<
     return whereClause.operator === "or" ? or(...validConditions) : and(...validConditions);
   }
 
+  /**
+   * Get paginated list with offset-based pagination
+   */
   async listPaged(params: ListPagedParams<TTable> = {}): Promise<PaginatedResponse<TSelect>> {
     const {
       page = 1,
@@ -137,20 +177,24 @@ export class SimpleQueryEngine<
 
     const offset = calculateOffset(page, perPage);
 
+    // Build where condition from optional where clause
     const whereCondition = this.combineWhereConditions(where);
 
-    const countQuery = this.db
+    // Get total count (with where condition if provided)
+    const countQuery = db
       .select({ count: count() })
-      .from(this.table as never);
+      // @ts-expect-error - Drizzle generic type inference issue with PgTable
+      .from(this.table);
 
-    const [countRow] = whereCondition
+    const [{ count: totalItems }] = whereCondition
       ? await countQuery.where(whereCondition)
       : await countQuery;
-    const totalItems = countRow?.count ?? 0;
 
-    let query = this.db
+    // Build query with optional sorting
+    let query = db
       .select()
-      .from(this.table as never)
+      // @ts-expect-error - Drizzle generic type inference issue with PgTable
+      .from(this.table)
       .limit(perPage)
       .offset(offset);
 
@@ -159,12 +203,15 @@ export class SimpleQueryEngine<
       query = query.orderBy(sortOrder === "desc" ? desc(column) : asc(column)) as typeof query;
     }
 
+    // Build combined conditions (search + where clause)
     const allConditions: (SQL | undefined)[] = [];
 
+    // Add where clause condition
     if (whereCondition) {
       allConditions.push(whereCondition);
     }
 
+    // Add search conditions
     if (searchTerm && searchOn && searchOn.length > 0) {
       const searchConditions = searchOn
         .map((col) => {
@@ -180,6 +227,7 @@ export class SimpleQueryEngine<
       }
     }
 
+    // Apply combined conditions
     if (allConditions.length > 0) {
       const validConditions = allConditions.filter((cond): cond is SQL => cond !== undefined);
       if (validConditions.length > 0) {
@@ -197,6 +245,10 @@ export class SimpleQueryEngine<
     });
   }
 
+  /**
+   * Get infinite scroll list using cursor-based pagination (createdAt + id)
+   * Best for infinite scroll / "load more" patterns
+   */
   async listInfinite(
     params: CursorPaginationParams<TTable> = {},
   ): Promise<InfinitePaginationResponse<TSelect>> {
@@ -209,20 +261,26 @@ export class SimpleQueryEngine<
       throw new Error("Table must have 'createdAt' and 'id' columns for cursor pagination");
     }
 
+    // Build where condition from optional where clause
     const whereCondition = this.combineWhereConditions(where);
 
-    let query = this.db
+    // Fetch limit + 1 to determine if there are more items
+    let query = db
       .select()
-      .from(this.table as never)
+      // @ts-expect-error - Drizzle generic type inference issue with PgTable
+      .from(this.table)
       .limit(limit + 1);
 
+    // Build all conditions to combine
     const buildAllConditions = (): SQL | undefined => {
       const allConditions: (SQL | undefined)[] = [];
 
+      // Add custom where clause condition
       if (whereCondition) {
         allConditions.push(whereCondition);
       }
 
+      // Add search conditions
       if (searchTerm && searchOn && searchOn.length > 0) {
         const searchConditions = searchOn
           .map((col) => {
@@ -243,6 +301,7 @@ export class SimpleQueryEngine<
       return validConditions.length > 0 ? and(...validConditions) : undefined;
     };
 
+    // Apply cursor filter if provided
     if (cursor) {
       try {
         const { createdAt, id } = JSON.parse(cursor);
@@ -251,6 +310,7 @@ export class SimpleQueryEngine<
         const baseConditions = buildAllConditions();
 
         if (sortOrder === "desc") {
+          // For descending: get items created before cursor, or same time but lower id
           const cursorCondition = or(
             lt(createdAtColumn, cursorDate),
             and(eq(createdAtColumn, cursorDate), lt(idColumn, id)),
@@ -260,6 +320,7 @@ export class SimpleQueryEngine<
             ? (query.where(and(baseConditions, cursorCondition)) as typeof query)
             : (query.where(cursorCondition) as typeof query);
         } else {
+          // For ascending: get items created after cursor, or same time but higher id
           const cursorCondition = or(
             gt(createdAtColumn, cursorDate),
             and(eq(createdAtColumn, cursorDate), gt(idColumn, id)),
@@ -269,16 +330,18 @@ export class SimpleQueryEngine<
             ? (query.where(and(baseConditions, cursorCondition)) as typeof query)
             : (query.where(cursorCondition) as typeof query);
         }
-      } catch {
+      } catch (e) {
         throw new Error("Invalid cursor format");
       }
     } else {
+      // No cursor - just apply base conditions
       const baseConditions = buildAllConditions();
       if (baseConditions) {
         query = query.where(baseConditions) as typeof query;
       }
     }
 
+    // Sort by createdAt (and id as tiebreaker)
     query = query.orderBy(
       sortOrder === "desc" ? desc(createdAtColumn) : asc(createdAtColumn),
       sortOrder === "desc" ? desc(idColumn) : asc(idColumn),
@@ -286,12 +349,14 @@ export class SimpleQueryEngine<
 
     const items = await query;
 
+    // Check if there are more items
     const hasNextPage = items.length > limit;
     const displayItems = items.slice(0, limit);
 
+    // Generate next cursor from last item
     let nextCursor: string | undefined;
     if (hasNextPage && displayItems.length > 0) {
-      const lastItem = displayItems[displayItems.length - 1] as unknown as Record<string, unknown>;
+      const lastItem = displayItems[displayItems.length - 1] as any;
       nextCursor = JSON.stringify({
         createdAt: lastItem.createdAt,
         id: lastItem.id,
@@ -305,67 +370,78 @@ export class SimpleQueryEngine<
     };
   }
 
+  /**
+   * Get single record by ID
+   */
   async getOne(id: string): Promise<TSelect | null> {
     const idColumn = this.columns["id"];
     if (!idColumn) return null;
 
-    const results = (await this.db
+    const [result] = await db
       .select()
-      .from(this.table as never)
+      // @ts-expect-error - Drizzle generic type inference issue with PgTable
+      .from(this.table)
       .where(eq(idColumn, id))
-      .limit(1)) as TSelect[];
+      .limit(1);
 
-    return results[0] ?? null;
+    return (result as TSelect) || null;
   }
 
+  /**
+   * Create a new record
+   */
   async create(data: TInsert): Promise<TSelect> {
-    const results = (await this.db
+    const [result] = await db
       .insert(this.table)
-      .values(data as never)
-      .returning()) as TSelect[];
-    const result = results[0];
-    if (!result) throw new Error("Insert did not return a row");
-    return result;
+      .values(data as any)
+      .returning();
+    return result as TSelect;
   }
 
+  /**
+   * Update a record by ID
+   */
   async update(id: string, data: Partial<TInsert>): Promise<TSelect | null> {
     const idColumn = this.columns["id"];
     if (!idColumn) return null;
-
-    const results = (await this.db
+    // @ts-expect-error - Drizzle generic type inference issue with PgTable
+    const [result] = await db
       .update(this.table)
-      .set(data as never)
+      .set(data as any)
       .where(eq(idColumn, id))
-      .returning()) as TSelect[];
+      .returning();
 
-    return results[0] ?? null;
+    return (result as TSelect) || null;
   }
 
+  /**
+   * Delete a record by ID
+   */
   async delete(id: string): Promise<TSelect | null> {
     const idColumn = this.columns["id"];
     if (!idColumn) return null;
 
-    const results = (await this.db
-      .delete(this.table)
-      .where(eq(idColumn, id))
-      .returning()) as TSelect[];
+    const [result] = await db.delete(this.table).where(eq(idColumn, id)).returning();
 
-    return results[0] ?? null;
+    return (result as TSelect) || null;
   }
 
+  /**
+   * Count all records
+   */
   async count(): Promise<number> {
-    const [row] = await this.db
-      .select({ count: count() })
-      .from(this.table as never);
-    return row?.count ?? 0;
+    // @ts-expect-error - Drizzle generic type inference issue with PgTable
+    const [{ count: total }] = await db.select({ count: count() }).from(this.table);
+    return total;
   }
 }
 
-export function createSimpleQueryEngine<TTable extends PgTable>(
-  db: NodePgDatabase,
-  table: TTable,
-) {
-  return new SimpleQueryEngine(db, table);
+// ============================================================================
+// FACTORY
+// ============================================================================
+
+export function createSimpleQueryEngine<TTable extends PgTable>(table: TTable) {
+  return new SimpleQueryEngine(table);
 }
 
 export const listQueryParamsSchema = z.object({

@@ -1,7 +1,9 @@
 import { z } from "zod";
 
-export const orgRoleSchema = z.union([
+//  role: "admin" | "member" | "owner" | ("admin" | "member" | "owner")[]
+export const adminRoleSchema = z.union([
+  z.literal("admin"),
+  z.literal("member"),
   z.literal("owner"),
-  z.literal("staff"),
-  z.array(z.enum(["owner", "staff"])),
+  z.array(z.enum(["admin", "member", "owner"])),
 ]);

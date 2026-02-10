@@ -1,6 +1,6 @@
 import { isProductionEnv } from "@backend/env";
 import { auth, BetterAuthOpenAPI } from "@backend/lib/auth";
-import { AUTHORIZED_ORIGINS } from "@repo/config/origins";
+import { AUTHORIZED_ORIGINS } from "@backend/utils/constants";
 import { logger } from "@bogeychan/elysia-logger";
 import { cors } from "@elysiajs/cors";
 import { fromTypes, openapi } from "@elysiajs/openapi";
