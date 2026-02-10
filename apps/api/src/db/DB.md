@@ -340,10 +340,18 @@ user ───┤
         │
         └── customer_location (PostGIS required)
 ```
-to drop all tabes run
 
+>[!NOTE]
+> to drop all tabes run
 ```sql
 DROP SCHEMA drizzle CASCADE;
 DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
+```
+
+>[!NOTE]
+> When working locally remeber to install postgis and pg_vector
+```sh
+sudo apt update
+sudo apt install postgresql-18-postgis-3 postgresql-18-postgis-3-scripts postgresql-18-pg-vector
 ```
