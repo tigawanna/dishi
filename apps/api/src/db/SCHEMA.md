@@ -340,3 +340,10 @@ user ───┤
         │
         └── customer_location (PostGIS required)
 ```
+to drop all tabes run
+
+```sql
+DROP SCHEMA drizzle CASCADE;
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+```
