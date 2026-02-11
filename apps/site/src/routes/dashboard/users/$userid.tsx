@@ -42,7 +42,7 @@ function RouteComponent() {
         id: user.id,
         name: user.name,
         email: user.email,
-        role: user.role,
+        role: user.role ?? undefined,
         banned: user.banned,
         banReason: user.banReason,
         emailVerified: user.emailVerified,

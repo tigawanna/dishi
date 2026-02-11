@@ -39,14 +39,14 @@ export function OrgDetails({ orgId }: OrgDetailsProps) {
             <EmptyMedia variant="icon">
               <Building2 />
             </EmptyMedia>
-            <EmptyTitle>Error Loading Townhall</EmptyTitle>
+            <EmptyTitle>Error Loading Organization</EmptyTitle>
             <EmptyDescription>
               {query.error instanceof Error ? query.error.message : "An error occurred"}
             </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
             <div className="flex gap-2">
-              <Button variant="outline" onClick={() => navigate({ to: "/dashboard/townhalls" })}>
+              <Button variant="outline" onClick={() => navigate({ to: "/dashboard/organizations" })}>
                 Back to List
               </Button>
               <Button onClick={() => query.refetch()}>Try Again</Button>
@@ -60,7 +60,7 @@ export function OrgDetails({ orgId }: OrgDetailsProps) {
   if (query.isPending) {
     return (
       <div className="mx-auto flex h-full w-full flex-col items-center justify-center p-6">
-        <div className="text-muted-foreground">Loading townhall details…</div>
+        <div className="text-muted-foreground">Loading organization details…</div>
       </div>
     );
   }
@@ -73,15 +73,15 @@ export function OrgDetails({ orgId }: OrgDetailsProps) {
             <EmptyMedia variant="icon">
               <Building2 />
             </EmptyMedia>
-            <EmptyTitle>Townhall Not Found</EmptyTitle>
+            <EmptyTitle>Organization Not Found</EmptyTitle>
             <EmptyDescription>
-              The townhall you&apos;re looking for doesn&apos;t exist or you don&apos;t have access
-              to it.
+              The organization you&apos;re looking for doesn&apos;t exist or you don&apos;t have
+              access to it.
             </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
-            <Button onClick={() => navigate({ to: "/dashboard/townhalls" })}>
-              Back to Townhalls
+            <Button onClick={() => navigate({ to: "/dashboard/organizations" })}>
+              Back to Organizations
             </Button>
           </EmptyContent>
         </Empty>
@@ -99,13 +99,13 @@ export function OrgDetails({ orgId }: OrgDetailsProps) {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => navigate({ to: "/dashboard/townhalls" })}
+            onClick={() => navigate({ to: "/dashboard/organizations" })}
           >
             <ArrowLeft className="h-4 w-4" />
           </Button>
           <div>
             <h1 className="text-2xl font-semibold">{org.name}</h1>
-            <p className="text-muted-foreground mt-1 text-sm">Townhall details and settings</p>
+            <p className="text-muted-foreground mt-1 text-sm">Organization details and settings</p>
           </div>
         </div>
 
@@ -125,12 +125,12 @@ export function OrgDetails({ orgId }: OrgDetailsProps) {
         </div>
       </div>
 
-      {/* Townhall Info Cards */}
+      {/* Organization Info Cards */}
       <div className="grid gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Basic Information</CardTitle>
-            <CardDescription>Core townhall details</CardDescription>
+            <CardDescription>Core organization details</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
@@ -142,7 +142,7 @@ export function OrgDetails({ orgId }: OrgDetailsProps) {
               <code className="bg-muted rounded px-2 py-1 text-sm">{org.slug}</code>
             </div>
             <div>
-              <p className="text-muted-foreground mb-1 text-sm font-medium">Townhall ID</p>
+              <p className="text-muted-foreground mb-1 text-sm font-medium">Organization ID</p>
               <code className="bg-muted rounded px-2 py-1 text-xs break-all">{org.id}</code>
             </div>
             {org.logo && (
@@ -157,7 +157,7 @@ export function OrgDetails({ orgId }: OrgDetailsProps) {
         <Card>
           <CardHeader>
             <CardTitle>Statistics</CardTitle>
-            <CardDescription>Townhall metrics</CardDescription>
+            <CardDescription>Organization metrics</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
@@ -182,7 +182,7 @@ export function OrgDetails({ orgId }: OrgDetailsProps) {
         <Card>
           <CardHeader>
             <CardTitle>Metadata</CardTitle>
-            <CardDescription>Additional townhall information</CardDescription>
+            <CardDescription>Additional organization information</CardDescription>
           </CardHeader>
           <CardContent>
             <pre className="bg-muted overflow-auto rounded p-4 text-xs">
@@ -199,14 +199,14 @@ export function OrgDetails({ orgId }: OrgDetailsProps) {
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle>Recent Members</CardTitle>
-                <CardDescription>Latest members in this townhall</CardDescription>
+                <CardDescription>Latest members in this organization</CardDescription>
               </div>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() =>
                   navigate({
-                    to: `/dashboard/townhalls/$orgId/members`,
+                    to: `/dashboard/organizations/$orgId/members`,
                     params: { orgId: org.id },
                   })
                 }

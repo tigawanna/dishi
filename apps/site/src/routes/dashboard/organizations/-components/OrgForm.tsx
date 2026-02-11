@@ -76,8 +76,16 @@ export function OrgForm({
       if (value.metadata && value.metadata.trim()) {
         try {
           metaObj = JSON.parse(value.metadata);
-        } catch (err) {
-          toast.error("Metadata must be valid JSON");
+        } catch (err: unknown) {
+          if (err instanceof Error) {
+            toast.error("Metadata must be valid JSON", {
+              description: err.message,
+            });
+          } else {
+            toast.error("Metadata must be valid JSON", {
+              description: String(err),
+            });
+          }
           return;
         }
       }
@@ -114,7 +122,7 @@ export function OrgForm({
           },
         }}
       >
-        {(f) => <f.TextField label="Townhall name" />}
+        {(f) => <f.TextField label="Organization name" />}
       </form.AppField>
 
       <form.AppField name="slug" validators={{ onChange: z.string().min(1, "Slug is required") }}>
@@ -143,7 +151,16 @@ export function OrgForm({
               try {
                 JSON.parse(val);
                 return true;
-              } catch (err) {
+              } catch (err: unknown) {
+                if (err instanceof Error) {
+                  toast.error("Metadata must be valid JSON", {
+                    description: err.message,
+                  });
+                } else {
+                  toast.error("Metadata must be valid JSON", {
+                    description: String(err),
+                  })
+                } 
                 return false;
               }
             },

@@ -131,18 +131,6 @@ export function ResponsiveGenericToolbar({ children }: ResponsiveGenericToolbarP
             </Link>
           </li>
           <li>
-            <Link to="/dashboard/voting" className="gap-3">
-              <Vote className="size-5" />
-              <span>Voting</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/dashboard/members" className="gap-3">
-              <Users className="size-5" />
-              <span>Members</span>
-            </Link>
-          </li>
-          <li>
             <Link to="/dashboard/audit" className="gap-3">
               <History className="size-5" />
               <span>Audit Log</span>

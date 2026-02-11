@@ -6,13 +6,7 @@ export const Route = createFileRoute("/dashboard/users/new")({
   component: RouteComponent,
 });
 
-type CreateUserForm = {
-  name: string;
-  email: string;
-  password?: string;
-  role?: string;
-  orgId?: string | undefined;
-};
+
 
 export function RouteComponent() {
   const navigate = useNavigate();

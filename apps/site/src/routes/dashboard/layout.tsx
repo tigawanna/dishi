@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { DashboardLayout } from "./-components/dashoboard-sidebar/DashboardLayout";
 
 export const Route = createFileRoute("/dashboard/layout")({

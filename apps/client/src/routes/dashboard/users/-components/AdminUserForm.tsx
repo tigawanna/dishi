@@ -12,7 +12,7 @@ import {
   setUserRoleMutationOptions,
   updateUserMutationOptions,
 } from "@/data-access-layer/users/admin-user-options";
-import { BetterAuthOrgRoles, BetterAuthUserRoles, userRoles } from "@/lib/better-auth/client";
+import { BetterAuthUserRoles, userRoles } from "@/lib/better-auth/client";
 import { useAppForm } from "@/lib/tanstack/form";
 import { formOptions } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
@@ -75,7 +75,7 @@ export function AdminUserForm({ mode = "create", user, onSuccess }: Props) {
       }
 
       if (mode === "create") {
-        const result = await createMutation.mutateAsync(value);
+        const result = await createMutation.mutateAsync(value as any);
         if (selectedOrgId && value?.email) {
           await addUserToOrgMutation.mutateAsync({
             email: value.email,
@@ -109,12 +109,10 @@ export function AdminUserForm({ mode = "create", user, onSuccess }: Props) {
             e.stopPropagation();
             form.handleSubmit();
           }}
-          className="space-y-4"
-        >
+          className="space-y-4">
           <form.AppField
             name="name"
-            validators={{ onChange: z.string().min(1, "Name is required") }}
-          >
+            validators={{ onChange: z.string().min(1, "Name is required") }}>
             {(f) => <f.TextField label="Name" />}
           </form.AppField>
 
@@ -127,8 +125,7 @@ export function AdminUserForm({ mode = "create", user, onSuccess }: Props) {
               name="password"
               validators={{
                 onChange: z.string().min(8, "Password at least 8 chars"),
-              }}
-            >
+              }}>
               {(f) => <f.PasswordField label="Password" />}
             </form.AppField>
           )}
@@ -156,10 +153,10 @@ export function AdminUserForm({ mode = "create", user, onSuccess }: Props) {
                       onValueChange={(v: BetterAuthUserRoles) =>
                         setRoleMutation.mutateAsync({
                           userId: user.id,
+                          // @ts-expect-error
                           role: v,
                         })
-                      }
-                    >
+                      }>
                       <SelectTrigger className="min-w-56">
                         <SelectValue placeholder="Select role" />
                       </SelectTrigger>
@@ -185,8 +182,7 @@ export function AdminUserForm({ mode = "create", user, onSuccess }: Props) {
               type="submit"
               disabled={
                 createMutation.isPending || updateMutation.isPending || setRoleMutation.isPending
-              }
-            >
+              }>
               {createMutation.isPending || updateMutation.isPending
                 ? "Saving..."
                 : mode === "create"

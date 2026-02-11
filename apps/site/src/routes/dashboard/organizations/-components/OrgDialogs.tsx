@@ -75,21 +75,15 @@ export function CreateOrg({ onCreated, trigger, triggerLabel }: CreateOrgProps) 
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create townhall</DialogTitle>
+          <DialogTitle>Create Organization</DialogTitle>
           <DialogDescription className="text-muted-foreground mt-2 text-sm">
-            Fill out the form below to create a new townhall.
+            Fill out the form below to create a new organization.
           </DialogDescription>
         </DialogHeader>
 
         <OrgForm
           onSubmit={async (payload) => {
-            return mutation.mutateAsync(payload, {
-              onSuccess(data, variables, onMutateResult, context) {
-                context.client.invalidateQueries({
-                  queryKey: [["organizations"]],
-                });
-              },
-            });
+            return mutation.mutateAsync(payload);
           }}
           submitLabel={mutation.isPending ? "Creating..." : "Create"}
           onCancel={() => setOpen(false)}
@@ -155,9 +149,9 @@ export function EditOrg({
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit townhall</DialogTitle>
+          <DialogTitle>Edit Organization</DialogTitle>
           <DialogDescription className="text-muted-foreground mt-2 text-sm">
-            Update the townhall details using the form below.
+            Update the organization details using the form below.
           </DialogDescription>
         </DialogHeader>
 

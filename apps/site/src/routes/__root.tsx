@@ -5,11 +5,17 @@ import appCss from "../styles.css?url";
 
 import type { QueryClient } from "@tanstack/react-query";
 import { TanstackDevtools } from "@/lib/tanstack/devtools/devtools";
+import { z } from "zod";
 
 interface MyRouterContext {
   queryClient: QueryClient;
   viewer?: TViewer;
 }
+
+const searchparams = z.object({
+  globalPage: z.number().optional(),
+  globalSearch: z.string().optional(),
+});
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   head: () => ({
@@ -50,7 +56,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       },
     ],
   }),
-
+  validateSearch: (search) => searchparams.parse(search),
   shellComponent: RootDocument,
 });
 

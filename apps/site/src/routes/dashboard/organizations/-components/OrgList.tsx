@@ -39,18 +39,16 @@ import { CreateOrg, EditOrg } from "./OrgDialogs";
 import { createSortableColumns } from "@/lib/tanstack/db/sortable-columns";
 import { TanstackDBColumnFilters } from "@/lib/tanstack/db/TanstackDBColumnfilters";
 
-interface OrgListProps {}
-
-export function OrgList({}: OrgListProps) {
-  const search = useSearch({ from: "/dashboard/townhalls/" });
-  const navigate = useNavigate({ from: "/dashboard/townhalls" });
-  const [limit, setLimit] = useState(10);
+export function OrgList() {
+  const search = useSearch({ from: "/dashboard/organizations/" });
+  const navigate = useNavigate({ from: "/dashboard/organizations/" });
+  const [limit] = useState(10);
   const [offset, setOffset] = useState(0);
 
   const { debouncedValue, isDebouncing, keyword, setKeyword } = useTSRSearchQuery({
     search,
     navigate,
-    query_param: "sq",
+    query_param: "sq",  
   });
 
   // Query for paginated data with limit/offset
@@ -107,13 +105,13 @@ export function OrgList({}: OrgListProps) {
             <EmptyMedia variant="icon">
               <Building2 />
             </EmptyMedia>
-            <EmptyTitle>No Townhalls Yet</EmptyTitle>
+            <EmptyTitle>No organizations Yet</EmptyTitle>
             <EmptyDescription>
-              You haven&apos;t created any townhalls yet. Get started by creating your first one.
+              You haven&apos;t created any organizations yet. Get started by creating your first one.
             </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
-            <CreateOrg triggerLabel="Create Townhall" />
+            <CreateOrg triggerLabel="Create Organization" />
           </EmptyContent>
         </Empty>
       </div>
@@ -124,9 +122,9 @@ export function OrgList({}: OrgListProps) {
     <div className="flex h-full w-full min-w-[90%] flex-col gap-4">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold">Townhalls</h1>
+          <h1 className="text-2xl font-semibold">organizations</h1>
           <p className="text-muted-foreground mt-1 text-sm">
-            Manage and view all townhalls in your community
+            Manage and view all organizations in your community
           </p>
         </div>
 
@@ -198,7 +196,7 @@ export function OrgList({}: OrgListProps) {
                   className="cursor-pointer transition-shadow hover:shadow-md"
                   onClick={() =>
                     navigate({
-                      to: `/dashboard/townhalls/$orgId`,
+                      to: `/dashboard/organizations/$orgId`,
                       params: { orgId: org.id },
                     })
                   }
@@ -290,7 +288,7 @@ export function OrgList({}: OrgListProps) {
                     className="hover:bg-muted/50 cursor-pointer"
                     onClick={() =>
                       navigate({
-                        to: `/dashboard/townhalls/$orgId`,
+                        to: `/dashboard/organizations/$orgId`,
                         params: { orgId: org.id },
                       })
                     }

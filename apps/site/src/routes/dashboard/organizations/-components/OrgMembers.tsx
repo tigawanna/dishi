@@ -37,7 +37,7 @@ import { getRelativeTimeString } from "@/utils/date-helpers";
 import { IdealListResponseMetadata } from "@/utils/types/response";
 import { and, count, eq, like, or } from "@tanstack/db";
 import { useLiveQuery } from "@tanstack/react-db";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { ArrowLeft, Settings, Users } from "lucide-react";
 import { useState } from "react";
@@ -56,10 +56,10 @@ export function OrgMembers({ orgId }: OrgMembersProps) {
   // Read current route search values - Types come from validateSearch in the route definition
   const qc = useQueryClient();
   const search = useSearch({
-    from: "/dashboard/townhalls/$orgId/members",
+    from: "/dashboard/organizations/$orgId/members",
   });
   const navigate = useNavigate({
-    from: "/dashboard/townhalls/$orgId/members",
+    from: "/dashboard/organizations/$orgId/members",
   });
   // const [filterDialogOpen, setFilterDialogOpen] = useState(false);
   const [actionsOpen, setActionsOpen] = useState(false);
@@ -162,12 +162,11 @@ export function OrgMembers({ orgId }: OrgMembersProps) {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => navigate({ to: `/dashboard/townhalls/${orgId}` })}
-          >
+            onClick={() => navigate({ to: `/dashboard/organizations/${orgId}` })}>
             <ArrowLeft className="h-4 w-4" />
           </Button>
           <div>
-            <h1 className="text-2xl font-semibold">Townhall Members</h1>
+            <h1 className="text-2xl font-semibold">Organization Members</h1>
             <p className="text-muted-foreground mt-1 text-sm">Manage members and their roles</p>
           </div>
         </div>
@@ -225,8 +224,7 @@ export function OrgMembers({ orgId }: OrgMembersProps) {
                       searchOperator: undefined,
                       searchValue: undefined,
                     } as any);
-                  }}
-                >
+                  }}>
                   Clear Search
                 </Button>
               </EmptyContent>
@@ -274,8 +272,7 @@ export function OrgMembers({ orgId }: OrgMembersProps) {
                         onClick={() => {
                           setSelectedMember(member);
                           setActionsOpen(true);
-                        }}
-                      >
+                        }}>
                         <Settings className="mr-1 h-4 w-4" />
                         Actions
                       </Button>
@@ -322,8 +319,7 @@ export function OrgMembers({ orgId }: OrgMembersProps) {
                     onClick={() => {
                       setSelectedMember(member);
                       setActionsOpen(true);
-                    }}
-                  >
+                    }}>
                     <Settings className="mr-1 h-4 w-4" />
                     Actions
                   </Button>
@@ -367,8 +363,7 @@ export function OrgMembers({ orgId }: OrgMembersProps) {
                     onClick={(e) => {
                       e.preventDefault();
                       setSearchParams({ page: p });
-                    }}
-                  >
+                    }}>
                     {p}
                   </PaginationLink>
                 </PaginationItem>
