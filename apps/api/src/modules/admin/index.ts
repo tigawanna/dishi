@@ -60,7 +60,7 @@ export const adminRoute = new Elysia()
       }
     },
     {
-      requireRole: ["admin", "platformAdmin"],
+      requireRole: ["owner"],
       query: listQueryParamsSchema,
     },
   )
@@ -149,7 +149,7 @@ export const adminRoute = new Elysia()
       }
     },
     {
-      requireRole: ["admin", "platformAdmin"],
+      requireRole: ["owner"],
       query: listQueryParamsSchema,
     },
   )
@@ -175,7 +175,7 @@ export const adminRoute = new Elysia()
       }
     },
     {
-      requireRole: ["admin", "platformAdmin"],
+      requireRole: ["owner"],
       query: listQueryParamsSchema,
     },
   )
@@ -192,7 +192,7 @@ export const adminRoute = new Elysia()
     },
     {
       body: addMemberRequestSchema,
-      // Require 'admin' or 'platformAdmin' role
-      requireRole: ["admin", "platformAdmin"],
+      // Require owner role (platform super admin)
+      requireRole: ["owner"],
     },
   );

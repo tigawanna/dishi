@@ -3,12 +3,10 @@ import { authClient, userRoles } from "@/lib/better-auth/client";
 
 export function excludeRoles(role?: string | null) {
   switch (role) {
-    case "platformAdmin":
+    case "owner":
       return userRoles;
-    case "admin":
-      return userRoles.filter((r) => r !== "platformAdmin");
     default:
-      return userRoles.filter((r) => r !== "platformAdmin" && r !== "admin");
+      return userRoles.filter((r) => r !== "owner");
   }
 }
 export function RolesSelectItems() {

@@ -43,7 +43,7 @@ import { useState } from "react";
 
 export function AdminUsersPage() {
   const search = useSearch({ from: "/dashboard/users/" });
-  const navigate = useNavigate({ from: "/dashboard/users" });
+  const navigate = useNavigate({ from: "/dashboard/" });
   const [limit] = useState(10);
   const [offset, setOffset] = useState(0);
   const [actionsOpen, setActionsOpen] = useState(false);
@@ -236,7 +236,7 @@ export function AdminUsersPage() {
                   <CardHeader className="pb-3">
                     <div className="flex min-w-0 items-start gap-3">
                       <div className="shrink-0">
-                        <RoleIcons role={(u.role as BetterAuthUserRoles) ?? "tenant"} />
+                        <RoleIcons role={(u.role as BetterAuthUserRoles) ?? "customer"} />
                       </div>
                       <CardTitle className="min-w-0 truncate text-base">{u.name ?? "—"}</CardTitle>
                     </div>
@@ -362,7 +362,7 @@ export function AdminUsersPage() {
                   >
                     <TableCell>
                       <div className="flex items-center justify-center">
-                        <RoleIcons role={(u.role as BetterAuthUserRoles) ?? "tenant"} />
+                        <RoleIcons role={(u.role as BetterAuthUserRoles) ?? "customer"} />
                       </div>
                     </TableCell>
                     <TableCell className="font-medium">{u.name ?? "—"}</TableCell>

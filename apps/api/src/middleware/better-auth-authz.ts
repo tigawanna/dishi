@@ -17,21 +17,8 @@
  *    })
  *
  * Available Roles:
- * - admin: Full system access
- * - landlord: Property owner, can manage their properties and tenants
- * - manager: Property management, can handle day-to-day operations
- * - staff: Limited access, can handle maintenance and view data
- * - tenant: Can view their own data and create maintenance requests
- *
- * Available Resources & Permissions:
- * - user: create, list, set-role, ban, delete
- * - session: list, revoke
- * - property: create, read, update, delete, list
- * - tenant: create, read, update, delete, list
- * - lease: create, read, update, delete, list
- * - maintenance: create, read, update, delete, list, assign
- * - payment: create, read, update, list
- * - document: create, read, delete, list
+ * - owner: Platform super admin, full user/session/org management
+ * - customer: Default role, browse kitchens, favorites, saved addresses
  */
 
 import { auth } from "@backend/lib/auth";
@@ -92,7 +79,7 @@ export const betterAuthZMiddleware = new Elysia({ name: "better-auth" }).mount(a
           message: "Authentication required to access this resource.",
         });
 
-      const userRole = (session.user.role || "citizen") as BetterAuthUserRoles;
+      const userRole = (session.user.role || "customer") as BetterAuthUserRoles;
       if (!requireRole.includes(userRole)) {
         return status(403, {
           code: "FORBIDDEN",
@@ -135,7 +122,7 @@ export const betterAuthZMiddleware = new Elysia({ name: "better-auth" }).mount(a
           message: "Authentication required to access this resource.",
         });
 
-      const userRole = (session.user.role || "citizen") as BetterAuthUserRoles;
+      const userRole = (session.user.role || "customer") as BetterAuthUserRoles;
       const hasPermission = await auth.api.userHasPermission({
         body: {
           role: userRole,

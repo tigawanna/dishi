@@ -78,7 +78,7 @@ export function DashboardSidebarUser() {
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="flex items-center gap-1 truncate font-medium">
                     {viewer.user?.name}
-                    {viewer.user?.role === "tenant" && (
+                    {viewer.user?.role === "customer" && (
                       <ShieldCheck className="text-accent size-3" />
                     )}
                   </span>

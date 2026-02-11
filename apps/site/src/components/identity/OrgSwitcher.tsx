@@ -35,7 +35,7 @@ export function OrgSwitcher() {
   const { isMobile, state, open } = useSidebar();
   const navigate = useNavigate();
   const { data: session } = authClient.useSession();
-  const userRole = session?.user?.role || "citizen";
+  const userRole = session?.user?.role || "customer";
   const isAdmin = userRole === "admin";
   const [createOrgOpen, setCreateOrgOpen] = useState(false);
 

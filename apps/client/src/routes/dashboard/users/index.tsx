@@ -1,4 +1,4 @@
-import { AdminUsersPage } from "@/routes/dashboard/users/-components/AdminUsersPage";
+
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 
@@ -14,7 +14,9 @@ export const Route = createFileRoute("/dashboard/users/")({
 function RouteComponent() {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
-      <AdminUsersPage />
+      <div>
+        users page
+      </div>
     </div>
   );
 }
