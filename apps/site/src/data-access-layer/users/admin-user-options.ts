@@ -11,7 +11,9 @@ type FormValues = {
   orgId?: string | undefined;
 };
 
-type TCreateUserPayload = Parameters<typeof authClient.admin.createUser>[0];
+export type TCreateUserPayload = Omit<Parameters<typeof authClient.admin.createUser>[0], "role"> & {
+  role?: BetterAuthUserRoles;
+};
 
 export const createUserMutationOptions = mutationOptions({
   mutationFn: async (payload: TCreateUserPayload) => {
@@ -19,7 +21,7 @@ export const createUserMutationOptions = mutationOptions({
       name: payload.name,
       email: payload.email,
       password: payload.password!,
-      role: payload.role,
+      role: payload.role as Parameters<typeof authClient.admin.createUser>[0]["role"],
     });
     if (error) throw error;
     return data;
@@ -82,11 +84,16 @@ export const addUserToOrgMutationOptions = mutationOptions({
   },
 });
 
-type TSetRolePayload = Parameters<typeof authClient.admin.setRole>[0];
+export type TSetRolePayload = {
+  userId: string;
+  role: BetterAuthUserRoles | BetterAuthUserRoles[];
+};
 
 export const setUserRoleMutationOptions = mutationOptions({
   mutationFn: async (payload: TSetRolePayload) => {
-    const { data, error } = await authClient.admin.setRole(payload);
+    const { data, error } = await authClient.admin.setRole(
+      payload as unknown as Parameters<typeof authClient.admin.setRole>[0],
+    );
     if (error) throw error;
     return data;
   },

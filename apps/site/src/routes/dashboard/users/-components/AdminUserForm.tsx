@@ -10,6 +10,7 @@ import {
   addUserToOrgMutationOptions,
   createUserMutationOptions,
   setUserRoleMutationOptions,
+  TCreateUserPayload,
   updateUserMutationOptions,
 } from "@/data-access-layer/users/admin-user-options";
 import { BetterAuthUserRoles, userRoles } from "@/lib/better-auth/client";
@@ -75,7 +76,7 @@ export function AdminUserForm({ mode = "create", user, onSuccess }: Props) {
       }
 
       if (mode === "create") {
-        const result = await createMutation.mutateAsync(value);
+        const result = await createMutation.mutateAsync(value as TCreateUserPayload);
         if (selectedOrgId && value?.email) {
           await addUserToOrgMutation.mutateAsync({
             email: value.email,
