@@ -48,7 +48,7 @@ export function OrgList() {
   const { debouncedValue, isDebouncing, keyword, setKeyword } = useTSRSearchQuery({
     search,
     navigate,
-    query_param: "sq",  
+    query_param: "sq",
   });
 
   // Query for paginated data with limit/offset
@@ -107,7 +107,8 @@ export function OrgList() {
             </EmptyMedia>
             <EmptyTitle>No organizations Yet</EmptyTitle>
             <EmptyDescription>
-              You haven&apos;t created any organizations yet. Get started by creating your first one.
+              You haven&apos;t created any organizations yet. Get started by creating your first
+              one.
             </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>

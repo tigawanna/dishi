@@ -69,8 +69,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <TooltipProvider>
-        {children}
-        <TanstackDevtools />
+          {children}
+          <TanstackDevtools />
         </TooltipProvider>
         <Scripts />
       </body>

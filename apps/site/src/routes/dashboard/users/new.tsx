@@ -6,8 +6,6 @@ export const Route = createFileRoute("/dashboard/users/new")({
   component: RouteComponent,
 });
 
-
-
 export function RouteComponent() {
   const navigate = useNavigate();
   const qc = useQueryClient();

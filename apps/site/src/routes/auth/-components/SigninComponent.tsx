@@ -49,7 +49,6 @@ export function SigninComponent({}: SigninComponentProps) {
       });
       qc.setQueryData(["viewer"], () => data);
       navigate({ to: returnTo || "/", search: { returnTo } });
-      
     },
     onError(error) {
       console.log(error.name);

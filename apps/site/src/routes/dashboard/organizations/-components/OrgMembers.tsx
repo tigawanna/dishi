@@ -162,7 +162,8 @@ export function OrgMembers({ orgId }: OrgMembersProps) {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => navigate({ to: `/dashboard/organizations/${orgId}` })}>
+            onClick={() => navigate({ to: `/dashboard/organizations/${orgId}` })}
+          >
             <ArrowLeft className="h-4 w-4" />
           </Button>
           <div>
@@ -224,7 +225,8 @@ export function OrgMembers({ orgId }: OrgMembersProps) {
                       searchOperator: undefined,
                       searchValue: undefined,
                     } as any);
-                  }}>
+                  }}
+                >
                   Clear Search
                 </Button>
               </EmptyContent>
@@ -272,7 +274,8 @@ export function OrgMembers({ orgId }: OrgMembersProps) {
                         onClick={() => {
                           setSelectedMember(member);
                           setActionsOpen(true);
-                        }}>
+                        }}
+                      >
                         <Settings className="mr-1 h-4 w-4" />
                         Actions
                       </Button>
@@ -319,7 +322,8 @@ export function OrgMembers({ orgId }: OrgMembersProps) {
                     onClick={() => {
                       setSelectedMember(member);
                       setActionsOpen(true);
-                    }}>
+                    }}
+                  >
                     <Settings className="mr-1 h-4 w-4" />
                     Actions
                   </Button>
@@ -363,7 +367,8 @@ export function OrgMembers({ orgId }: OrgMembersProps) {
                     onClick={(e) => {
                       e.preventDefault();
                       setSearchParams({ page: p });
-                    }}>
+                    }}
+                  >
                     {p}
                   </PaginationLink>
                 </PaginationItem>

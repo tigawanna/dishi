@@ -46,7 +46,10 @@ export function OrgDetails({ orgId }: OrgDetailsProps) {
           </EmptyHeader>
           <EmptyContent>
             <div className="flex gap-2">
-              <Button variant="outline" onClick={() => navigate({ to: "/dashboard/organizations" })}>
+              <Button
+                variant="outline"
+                onClick={() => navigate({ to: "/dashboard/organizations" })}
+              >
                 Back to List
               </Button>
               <Button onClick={() => query.refetch()}>Try Again</Button>

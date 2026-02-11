@@ -159,8 +159,8 @@ export function OrgForm({
                 } else {
                   toast.error("Metadata must be valid JSON", {
                     description: String(err),
-                  })
-                } 
+                  });
+                }
                 return false;
               }
             },

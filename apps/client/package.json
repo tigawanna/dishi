@@ -5,7 +5,8 @@
   "scripts": {
     "gen:routes": "tsr generate",
     "preview": "vite preview",
-    "test": "vitest run"  },
+    "test": "vitest run"
+  },
   "dependencies": {
     "@elysiajs/eden": "^1.4.6",
     "@hookform/resolvers": "^5.2.2",
