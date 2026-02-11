@@ -222,6 +222,22 @@ Saved delivery addresses for a customer, each with a PostGIS point for distance 
 
 Phase 2 will expand kitchen roles to: `owner`, `manager`, `frontDesk`, `cook`, `delivery`.
 
+## CRUD API
+
+All tables are exposed as CRUD endpoints under `/api/crud` with bearer authentication.
+
+- **Auth:** `Authorization: Bearer <token>` header required
+- **Token:** Set `CRUD_BEARER_TOKEN` in env, or falls back to hardcoded dev secret
+- **Endpoints:**
+  - `GET /api/crud` — List available tables
+  - `GET /api/crud/:table` — Paginated list (query: page, perPage, sortBy, sortOrder, searchTerm, searchOn)
+  - `GET /api/crud/:table/:id` — Get one by id
+  - `POST /api/crud/:table` — Create
+  - `PATCH /api/crud/:table/:id` — Update
+  - `DELETE /api/crud/:table/:id` — Delete
+
+Uses `SimpleQueryEngine` for pagination and search. Table names use DB names (e.g. `user`, `kitchen_profile`).
+
 ## PostgreSQL Extensions
 
 Run once on your database before migrations:

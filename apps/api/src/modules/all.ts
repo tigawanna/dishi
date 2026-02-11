@@ -6,6 +6,7 @@ import { cors } from "@elysiajs/cors";
 import { fromTypes, openapi } from "@elysiajs/openapi";
 import { Elysia } from "elysia";
 import { adminRoute } from "./admin";
+import { crudRouteGroup } from "./crud";
 import { indexRoute } from "./home";
 
 export const allRoutes = new Elysia()
@@ -68,4 +69,5 @@ export const allRoutes = new Elysia()
   )
   .mount(auth.handler)
   .use(indexRoute)
-  .use(adminRoute);
+  .use(adminRoute)
+  .use(crudRouteGroup);

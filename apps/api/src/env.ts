@@ -17,6 +17,7 @@ const EnvSchema = z.object({
   DATABASE_URL: z.string().url(),
   DATABASE_AUTH_TOKEN: z.string().optional(),
   REDIS_PORT: z.string().optional(),
+  CRUD_BEARER_TOKEN: z.string().optional(),
   API_URL: z.string(),
   FRONTEND_URL: z.string(),
   ACCESS_TOKEN_SECRET: z.string(),
