@@ -26,7 +26,7 @@ export function SigninComponent({}: SigninComponentProps) {
   const [showPassword, setShowPassword] = useState(false);
   const qc = useQueryClient();
   const { returnTo } = Route.useSearch();
-  const navigate = useNavigate({ from: "/auth" });
+  const navigate = useNavigate({ from: "/auth/" });
 
   const mutation = useMutation({
     mutationFn: (data: PropertyUserLogin) => {
@@ -48,10 +48,8 @@ export function SigninComponent({}: SigninComponentProps) {
         description: `Welcome back ${data.data?.user.name}`,
       });
       qc.setQueryData(["viewer"], () => data);
-      navigate({ to: returnTo || "/" });
-      if (typeof window !== "undefined") {
-        location.reload();
-      }
+      navigate({ to: returnTo || "/", search: { returnTo } });
+      
     },
     onError(error) {
       console.log(error.name);

@@ -7,7 +7,7 @@ export const authClient = createAuthClient({
   baseURL: envVariables.VITE_API_URL,
   plugins: [
     adminClient({
-      ac,
+      ac: ac as any,
       roles,
     }),
     organizationClient(),

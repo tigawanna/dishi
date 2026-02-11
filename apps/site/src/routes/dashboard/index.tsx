@@ -24,26 +24,6 @@ function RouteComponent() {
             <p className="text-base-content/70 text-sm">View and create proposals</p>
           </div>
         </Link>
-        <Link
-          to="/dashboard/voting"
-          className="card bg-base-200 hover:bg-base-300 shadow-lg transition-all hover:scale-105 cursor-pointer"
-        >
-          <div className="card-body items-center text-center">
-            <Vote className="text-primary mb-2 size-10" />
-            <h3 className="card-title text-lg">Active Votes</h3>
-            <p className="text-base-content/70 text-sm">Cast your vote</p>
-          </div>
-        </Link>
-        <Link
-          to="/dashboard/members"
-          className="card bg-base-200 hover:bg-base-300 shadow-lg transition-all hover:scale-105 cursor-pointer"
-        >
-          <div className="card-body items-center text-center">
-            <Users className="text-primary mb-2 size-10" />
-            <h3 className="card-title text-lg">Members</h3>
-            <p className="text-base-content/70 text-sm">Community members</p>
-          </div>
-        </Link>
       </div>
 
       <Link to="/" className="btn btn-ghost gap-2">

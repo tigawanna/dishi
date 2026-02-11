@@ -3,13 +3,12 @@ import { redirect } from "@tanstack/react-router";
 import { createMiddleware } from "@tanstack/react-start";
 import { getRequestHeaders } from "@tanstack/react-start/server";
 
-export const authMiddleware = createMiddleware().server(async ({ next, request }) => {
+export const authMiddleware = createMiddleware().server(async ({ next }) => {
   const headers = getRequestHeaders();
   const session = await auth.api.getSession({ headers });
-  const pathname = request.url.split("?")[0];
 
   if (!session) {
-    throw redirect({ to: "/", search: { returnTo: pathname } });
+    throw redirect({ to: "/" });
   }
 
   return await next();
