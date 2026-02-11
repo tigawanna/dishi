@@ -6,6 +6,7 @@ import appCss from "../styles.css?url";
 import type { QueryClient } from "@tanstack/react-query";
 import { TanstackDevtools } from "@/lib/tanstack/devtools/devtools";
 import { z } from "zod";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -67,8 +68,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <TooltipProvider>
         {children}
         <TanstackDevtools />
+        </TooltipProvider>
         <Scripts />
       </body>
     </html>
