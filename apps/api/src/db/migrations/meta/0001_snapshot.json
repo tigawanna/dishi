@@ -110,12 +110,8 @@
           "name": "account_user_id_user_id_fk",
           "tableFrom": "account",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -299,12 +295,8 @@
           "name": "apikey_user_id_user_id_fk",
           "tableFrom": "apikey",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -407,12 +399,8 @@
           "name": "invitation_organization_id_organization_id_fk",
           "tableFrom": "invitation",
           "tableTo": "organization",
-          "columnsFrom": [
-            "organization_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["organization_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -420,12 +408,8 @@
           "name": "invitation_inviter_id_user_id_fk",
           "tableFrom": "invitation",
           "tableTo": "user",
-          "columnsFrom": [
-            "inviter_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["inviter_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -509,12 +493,8 @@
           "name": "member_organization_id_organization_id_fk",
           "tableFrom": "member",
           "tableTo": "organization",
-          "columnsFrom": [
-            "organization_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["organization_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -522,12 +502,8 @@
           "name": "member_user_id_user_id_fk",
           "tableFrom": "member",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -602,9 +578,7 @@
         "organization_slug_unique": {
           "name": "organization_slug_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "slug"
-          ]
+          "columns": ["slug"]
         }
       },
       "policies": {},
@@ -699,12 +673,8 @@
           "name": "session_user_id_user_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -714,9 +684,7 @@
         "session_token_unique": {
           "name": "session_token_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "token"
-          ]
+          "columns": ["token"]
         }
       },
       "policies": {},
@@ -805,9 +773,7 @@
         "user_email_unique": {
           "name": "user_email_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
+          "columns": ["email"]
         }
       },
       "policies": {},
@@ -954,12 +920,8 @@
           "name": "customer_favorite_user_id_user_id_fk",
           "tableFrom": "customer_favorite",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -967,12 +929,8 @@
           "name": "customer_favorite_kitchen_id_kitchen_profile_id_fk",
           "tableFrom": "customer_favorite",
           "tableTo": "kitchen_profile",
-          "columnsFrom": [
-            "kitchen_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["kitchen_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1075,12 +1033,8 @@
           "name": "customer_location_user_id_user_id_fk",
           "tableFrom": "customer_location",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1127,16 +1081,12 @@
         "cuisine_type_name_unique": {
           "name": "cuisine_type_name_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "name"
-          ]
+          "columns": ["name"]
         },
         "cuisine_type_slug_unique": {
           "name": "cuisine_type_slug_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "slug"
-          ]
+          "columns": ["slug"]
         }
       },
       "policies": {},
@@ -1182,12 +1132,8 @@
           "name": "kitchen_cuisine_kitchen_id_kitchen_profile_id_fk",
           "tableFrom": "kitchen_cuisine",
           "tableTo": "kitchen_profile",
-          "columnsFrom": [
-            "kitchen_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["kitchen_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1195,12 +1141,8 @@
           "name": "kitchen_cuisine_cuisine_id_cuisine_type_id_fk",
           "tableFrom": "kitchen_cuisine",
           "tableTo": "cuisine_type",
-          "columnsFrom": [
-            "cuisine_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["cuisine_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1208,10 +1150,7 @@
       "compositePrimaryKeys": {
         "kitchen_cuisine_kitchen_id_cuisine_id_pk": {
           "name": "kitchen_cuisine_kitchen_id_cuisine_id_pk",
-          "columns": [
-            "kitchen_id",
-            "cuisine_id"
-          ]
+          "columns": ["kitchen_id", "cuisine_id"]
         }
       },
       "uniqueConstraints": {},
@@ -1355,12 +1294,8 @@
           "name": "kitchen_profile_organization_id_organization_id_fk",
           "tableFrom": "kitchen_profile",
           "tableTo": "organization",
-          "columnsFrom": [
-            "organization_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["organization_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1370,9 +1305,7 @@
         "kitchen_profile_organization_id_unique": {
           "name": "kitchen_profile_organization_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "organization_id"
-          ]
+          "columns": ["organization_id"]
         }
       },
       "policies": {},
@@ -1438,12 +1371,8 @@
           "name": "menu_category_kitchen_id_kitchen_profile_id_fk",
           "tableFrom": "menu_category",
           "tableTo": "kitchen_profile",
-          "columnsFrom": [
-            "kitchen_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["kitchen_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1618,12 +1547,8 @@
           "name": "menu_item_kitchen_id_kitchen_profile_id_fk",
           "tableFrom": "menu_item",
           "tableTo": "kitchen_profile",
-          "columnsFrom": [
-            "kitchen_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["kitchen_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1631,12 +1556,8 @@
           "name": "menu_item_category_id_menu_category_id_fk",
           "tableFrom": "menu_item",
           "tableTo": "menu_category",
-          "columnsFrom": [
-            "category_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["category_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }

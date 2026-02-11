@@ -4,7 +4,6 @@
 
 **Dishi** is a hyperlocal food discovery platform connecting neighborhood kitchens with nearby customers. Think "Jiji Kenya, but for food" — a searchable directory of local home cooks, small restaurants, and mom-and-pop food businesses that currently rely on WhatsApp and word-of-mouth.
 
-
 ---
 
 ## The Problem
@@ -91,41 +90,44 @@ We're not replacing WhatsApp or disrupting how these businesses operate. We're c
 
 ## Success Metrics (Phase 1)
 
-| Metric | Description |
-|--------|-------------|
-| Kitchens onboarded | Number of active kitchen profiles |
-| Customer signups | Users browsing the platform |
-| WhatsApp taps | Connections made between customers and kitchens |
-| Repeat visits | Customers returning to browse |
-| Geographic coverage | Neighborhoods with 5+ active kitchens |
+| Metric              | Description                                     |
+| ------------------- | ----------------------------------------------- |
+| Kitchens onboarded  | Number of active kitchen profiles               |
+| Customer signups    | Users browsing the platform                     |
+| WhatsApp taps       | Connections made between customers and kitchens |
+| Repeat visits       | Customers returning to browse                   |
+| Geographic coverage | Neighborhoods with 5+ active kitchens           |
 
 ---
 
 ## Competitive Positioning
 
-| Platform | Focus | Dishi Difference |
-|----------|-------|------------------|
+| Platform          | Focus                               | Dishi Difference                          |
+| ----------------- | ----------------------------------- | ----------------------------------------- |
 | Uber Eats / Glovo | Big restaurants, city-wide delivery | We're hyperlocal, informal, no commission |
-| Jiji Kenya | General classifieds | We're food-specific with better UX |
-| WhatsApp | Communication | We're discoverable, searchable |
-| Google Maps | Business listings | We're community-focused, real-time menus |
+| Jiji Kenya        | General classifieds                 | We're food-specific with better UX        |
+| WhatsApp          | Communication                       | We're discoverable, searchable            |
+| Google Maps       | Business listings                   | We're community-focused, real-time menus  |
 
 ---
 
 ## Future Phases (Post-MVP)
 
 ### Phase 2: Engagement & Trust
+
 - Ratings and reviews
 - Kitchen verification badges
 - Customer profiles and order history
 - Push notifications for favorite kitchens
 
 ### Phase 3: Transactions
+
 - M-Pesa integration for in-app payments
 - Order management for kitchens
 - Digital receipts
 
 ### Phase 4: Logistics
+
 - Delivery coordination
 - Shared neighborhood rider network
 - Pickup scheduling
@@ -149,4 +151,4 @@ We're not replacing WhatsApp or disrupting how these businesses operate. We're c
 
 ---
 
-*Dishi — Your neighborhood, one dish at a time.*
+_Dishi — Your neighborhood, one dish at a time._

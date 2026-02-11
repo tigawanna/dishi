@@ -9,6 +9,7 @@ This document outlines the high-level technical architecture for Dishi, adapting
 ## Tech Stack
 
 ### Frontend (apps/client → apps/web)
+
 - **TanStack Start** - Full-stack React framework with SSR/SSG
 - **TanStack Router** - Type-safe routing with file-based routes
 - **TailwindCSS + shadcn/ui** - Styling and components
@@ -16,6 +17,7 @@ This document outlines the high-level technical architecture for Dishi, adapting
 - **SSG for static content** (landing, about, terms)
 
 ### Backend (apps/api)
+
 - **Elysia.js** - Fast Bun-native API framework (existing)
 - **Better Auth** - Authentication with plugins
 - **Drizzle ORM** - Type-safe database queries
@@ -24,6 +26,7 @@ This document outlines the high-level technical architecture for Dishi, adapting
   - **pg_vector** - Vector embeddings for semantic search (future: dish recommendations)
 
 ### Shared (packages/)
+
 - **@repo/isomorphic** - Shared types, roles, utilities
 - **@repo/ui** - Shared UI components
 - **@repo/typescript-config** - Shared TS configs
@@ -34,17 +37,18 @@ This document outlines the high-level technical architecture for Dishi, adapting
 
 ### Better Auth Plugins (Retained)
 
-| Plugin | Purpose in Dishi |
-|--------|------------------|
-| `admin` | Platform admin management, user bans, impersonation |
-| `organization` | Kitchen as an organization (multi-member support) |
-| `apiKey` | Future: kitchen integrations, third-party access |
-| `bearer` | API authentication |
-| `openAPI` | Auto-generated API docs |
+| Plugin         | Purpose in Dishi                                    |
+| -------------- | --------------------------------------------------- |
+| `admin`        | Platform admin management, user bans, impersonation |
+| `organization` | Kitchen as an organization (multi-member support)   |
+| `apiKey`       | Future: kitchen integrations, third-party access    |
+| `bearer`       | API authentication                                  |
+| `openAPI`      | Auto-generated API docs                             |
 
 ### Role System
 
 Better Auth manages two role contexts:
+
 1. **Platform Roles** (global, on `user.role`) - Who you are on the platform
 2. **Kitchen Roles** (scoped, on `member.role`) - Your role within a specific kitchen
 
@@ -52,10 +56,10 @@ Better Auth manages two role contexts:
 
 ## Platform Roles (Global)
 
-| Role | Description | Permissions |
-|------|-------------|-------------|
+| Role            | Description                        | Permissions                                                         |
+| --------------- | ---------------------------------- | ------------------------------------------------------------------- |
 | `platformAdmin` | Super admin, manages entire system | Full access: ban users, delete kitchens, impersonate, view all data |
-| `customer` | Default role for app users | Browse kitchens, view menus, save favorites, contact kitchens |
+| `customer`      | Default role for app users         | Browse kitchens, view menus, save favorites, contact kitchens       |
 
 ```
 user.role: "platformAdmin" | "customer"
@@ -69,20 +73,20 @@ Kitchens use Better Auth's organization plugin. Each kitchen is an "organization
 
 ### Phase 1: Simple Roles
 
-| Role | Description | Permissions |
-|------|-------------|-------------|
+| Role    | Description                               | Permissions                                                    |
+| ------- | ----------------------------------------- | -------------------------------------------------------------- |
 | `owner` | Kitchen owner (auto-assigned on creation) | Full kitchen management: edit profile, menu, members, settings |
-| `staff` | General staff member | Edit menu, update availability, view orders (future) |
+| `staff` | General staff member                      | Edit menu, update availability, view orders (future)           |
 
 ### Phase 2: Expanded Roles (When Demand Requires)
 
-| Role | Description | Permissions |
-|------|-------------|-------------|
-| `owner` | Kitchen owner | Full access + delete kitchen, manage billing |
-| `manager` | Day-to-day operations manager | Edit profile, menu, manage staff, view analytics |
-| `frontDesk` | Receives and approves orders | View incoming orders, accept/reject, update status |
-| `cook` | Kitchen staff preparing food | View accepted orders, mark as preparing/ready |
-| `delivery` | Handles deliveries (if self-delivery) | View ready orders, mark as out/delivered |
+| Role        | Description                           | Permissions                                        |
+| ----------- | ------------------------------------- | -------------------------------------------------- |
+| `owner`     | Kitchen owner                         | Full access + delete kitchen, manage billing       |
+| `manager`   | Day-to-day operations manager         | Edit profile, menu, manage staff, view analytics   |
+| `frontDesk` | Receives and approves orders          | View incoming orders, accept/reject, update status |
+| `cook`      | Kitchen staff preparing food          | View accepted orders, mark as preparing/ready      |
+| `delivery`  | Handles deliveries (if self-delivery) | View ready orders, mark as out/delivered           |
 
 ```
 member.role: "owner" | "staff"  // Phase 1
@@ -258,12 +262,12 @@ These tables are auto-generated and managed by Better Auth:
 ### Find Kitchens Near a Location
 
 ```sql
-SELECT k.*, 
+SELECT k.*,
        ST_Distance(k.location, ST_SetSRID(ST_MakePoint(:lng, :lat), 4326)) as distance_m
 FROM kitchen_profile k
 WHERE k.is_open = true
   AND ST_DWithin(
-    k.location, 
+    k.location,
     ST_SetSRID(ST_MakePoint(:lng, :lat), 4326),
     :radius_meters
   )
@@ -289,12 +293,14 @@ SELECT EXISTS(
 ## API Structure
 
 ### Public Routes (No Auth Required)
+
 - `GET /kitchens` - List kitchens (with location filter)
 - `GET /kitchens/:slug` - Kitchen profile + menu (SSR-friendly)
 - `GET /kitchens/:slug/menu` - Full menu
 - `GET /cuisines` - List cuisine types
 
 ### Customer Routes (Auth Required)
+
 - `GET /me/favorites` - Customer's saved kitchens
 - `POST /me/favorites/:kitchenId` - Save a kitchen
 - `DELETE /me/favorites/:kitchenId` - Remove from favorites
@@ -304,6 +310,7 @@ SELECT EXISTS(
 - `DELETE /me/locations/:id` - Delete address
 
 ### Kitchen Owner Routes (Auth + Kitchen Role Required)
+
 - `POST /kitchens` - Create kitchen
 - `PUT /kitchens/:id` - Update kitchen profile
 - `PUT /kitchens/:id/availability` - Toggle open/closed
@@ -315,6 +322,7 @@ SELECT EXISTS(
 - `PUT /kitchens/:id/menu/items/:itemId/availability` - Toggle item availability
 
 ### Admin Routes (Platform Admin Only)
+
 - `GET /admin/kitchens` - List all kitchens
 - `PUT /admin/kitchens/:id/verify` - Verify a kitchen
 - `PUT /admin/kitchens/:id/suspend` - Suspend a kitchen
@@ -326,23 +334,27 @@ SELECT EXISTS(
 ## Frontend Routes (TanStack Start)
 
 ### Public (SSR/SSG)
+
 - `/` - Landing page (SSG)
 - `/explore` - Kitchen discovery feed (SSR)
 - `/kitchen/:slug` - Kitchen profile + menu (SSR, SEO critical)
 - `/about`, `/terms`, `/privacy` - Static pages (SSG)
 
 ### Customer (Protected)
+
 - `/favorites` - Saved kitchens
 - `/settings` - Account settings
 - `/settings/addresses` - Manage delivery addresses
 
 ### Kitchen Dashboard (Protected + Kitchen Role)
+
 - `/dashboard` - Kitchen overview
 - `/dashboard/menu` - Menu management
 - `/dashboard/settings` - Kitchen settings
 - `/dashboard/team` - Team/staff management
 
 ### Admin (Protected + Platform Admin)
+
 - `/admin` - Admin dashboard
 - `/admin/kitchens` - Manage kitchens
 - `/admin/users` - Manage users
@@ -404,12 +416,12 @@ src/
 
 ### Layer Responsibilities
 
-| Layer | Responsibility | Example |
-|-------|----------------|---------|
-| **Controller** (`index.ts`) | HTTP concerns: routes, validation, auth guards | Parse request, call service, format response |
-| **Service** (`*.service.ts`) | Business logic, orchestration | "Create kitchen" = validate owner, create org, create profile |
-| **Repository** (`*.repository.ts`) | Data access, queries | Drizzle queries, PostGIS operations |
-| **DTO** (`*.dto.ts`) | Input/output validation | Zod schemas for request bodies |
+| Layer                              | Responsibility                                 | Example                                                       |
+| ---------------------------------- | ---------------------------------------------- | ------------------------------------------------------------- |
+| **Controller** (`index.ts`)        | HTTP concerns: routes, validation, auth guards | Parse request, call service, format response                  |
+| **Service** (`*.service.ts`)       | Business logic, orchestration                  | "Create kitchen" = validate owner, create org, create profile |
+| **Repository** (`*.repository.ts`) | Data access, queries                           | Drizzle queries, PostGIS operations                           |
+| **DTO** (`*.dto.ts`)               | Input/output validation                        | Zod schemas for request bodies                                |
 
 ### Dependency Injection Pattern
 
@@ -417,10 +429,10 @@ Elysia doesn't have built-in DI, but we can use a simple factory pattern with `d
 
 ```typescript
 // src/infrastructure/container.ts
-import { createLogger } from './logger';
-import { createCacheStore } from './cache';
-import { createStorage } from './storage';
-import { createMailer } from './mail';
+import { createLogger } from "./logger";
+import { createCacheStore } from "./cache";
+import { createStorage } from "./storage";
+import { createMailer } from "./mail";
 
 export function createContainer() {
   return {
@@ -436,22 +448,22 @@ export type Container = ReturnType<typeof createContainer>;
 
 ```typescript
 // src/main.ts
-import { Elysia } from 'elysia';
-import { createContainer } from './infrastructure/container';
+import { Elysia } from "elysia";
+import { createContainer } from "./infrastructure/container";
 
-export const app = new Elysia()
-  .decorate('container', createContainer())
-  .use(allRoutes);
+export const app = new Elysia().decorate("container", createContainer()).use(allRoutes);
 ```
 
 ```typescript
 // src/modules/kitchens/index.ts
-export const kitchenRoutes = new Elysia({ prefix: '/kitchens' })
-  .post('/', async ({ body, container }) => {
+export const kitchenRoutes = new Elysia({ prefix: "/kitchens" }).post(
+  "/",
+  async ({ body, container }) => {
     const { logger, storage } = container;
-    logger.info('Creating kitchen', { name: body.name });
+    logger.info("Creating kitchen", { name: body.name });
     // ... use storage for image upload
-  });
+  },
+);
 ```
 
 ---
@@ -475,19 +487,19 @@ export interface Logger {
 
 **Implementations:**
 
-| Implementation | When to Use | Dependencies |
-|----------------|-------------|--------------|
-| `PinoLogger` | Production, structured JSON logs | `pino` |
-| `ConsoleLogger` | Development, simple output | None |
-| `NoopLogger` | Testing, disable logs | None |
+| Implementation  | When to Use                      | Dependencies |
+| --------------- | -------------------------------- | ------------ |
+| `PinoLogger`    | Production, structured JSON logs | `pino`       |
+| `ConsoleLogger` | Development, simple output       | None         |
+| `NoopLogger`    | Testing, disable logs            | None         |
 
 **Factory:**
 
 ```typescript
 // src/infrastructure/logger/index.ts
 export function createLogger(): Logger {
-  if (env.LOG_LEVEL === 'silent') return new NoopLogger();
-  if (env.NODE_ENV === 'production') return new PinoLogger();
+  if (env.LOG_LEVEL === "silent") return new NoopLogger();
+  if (env.NODE_ENV === "production") return new PinoLogger();
   return new ConsoleLogger();
 }
 ```
@@ -511,10 +523,10 @@ export interface CacheStore {
   get<T>(key: string[]): Promise<T | null>;
   set<T>(key: string[], value: T, ttlSeconds: number): Promise<void>;
   del(key: string[]): Promise<void>;
-  
+
   // Optional: pattern-based invalidation
   delByPattern?(pattern: string): Promise<void>;
-  
+
   // Optional: check existence without fetching
   has?(key: string[]): Promise<boolean>;
 }
@@ -522,36 +534,36 @@ export interface CacheStore {
 
 **Implementations:**
 
-| Implementation | When to Use | Dependencies |
-|----------------|-------------|--------------|
-| `RedisCache` | Production, distributed | `ioredis`, Redis server |
-| `InMemoryCache` | Development, single instance | None |
+| Implementation  | When to Use                  | Dependencies            |
+| --------------- | ---------------------------- | ----------------------- |
+| `RedisCache`    | Production, distributed      | `ioredis`, Redis server |
+| `InMemoryCache` | Development, single instance | None                    |
 
 **Use Cases in Dishi:**
 
-| What to Cache | TTL | Key Pattern |
-|---------------|-----|-------------|
-| Kitchen profile (public) | 5 min | `['kitchen', slug]` |
-| Menu items | 2 min | `['menu', kitchenId]` |
-| Cuisine list | 1 hour | `['cuisines']` |
-| Nearby kitchens query | 1 min | `['nearby', lat, lng, radius]` |
+| What to Cache            | TTL    | Key Pattern                    |
+| ------------------------ | ------ | ------------------------------ |
+| Kitchen profile (public) | 5 min  | `['kitchen', slug]`            |
+| Menu items               | 2 min  | `['menu', kitchenId]`          |
+| Cuisine list             | 1 hour | `['cuisines']`                 |
+| Nearby kitchens query    | 1 min  | `['nearby', lat, lng, radius]` |
 
 **Cache-Aside Pattern:**
 
 ```typescript
 async function getKitchenBySlug(slug: string): Promise<Kitchen | null> {
-  const cacheKey = ['kitchen', slug];
-  
+  const cacheKey = ["kitchen", slug];
+
   // Try cache first
   const cached = await cache.get<Kitchen>(cacheKey);
   if (cached) return cached;
-  
+
   // Miss: fetch from DB
   const kitchen = await kitchenRepository.findBySlug(slug);
   if (kitchen) {
     await cache.set(cacheKey, kitchen, 300); // 5 min TTL
   }
-  
+
   return kitchen;
 }
 ```
@@ -579,35 +591,35 @@ export interface StorageService {
 }
 
 export interface UploadParams {
-  key: string;                    // e.g., 'kitchens/abc123/cover.jpg'
+  key: string; // e.g., 'kitchens/abc123/cover.jpg'
   body: Buffer | Readable;
   contentType: string;
-  acl?: 'public-read' | 'private';
+  acl?: "public-read" | "private";
 }
 
 export interface UploadResult {
   key: string;
-  url: string;                    // Public URL or signed URL
+  url: string; // Public URL or signed URL
   size: number;
 }
 ```
 
 **Implementations:**
 
-| Implementation | When to Use | Dependencies |
-|----------------|-------------|--------------|
-| `S3Storage` | Production (AWS S3, Cloudflare R2, MinIO, DigitalOcean Spaces) | `@aws-sdk/client-s3` |
-| `LocalStorage` | Development, testing | `fs` (built-in) |
+| Implementation | When to Use                                                    | Dependencies         |
+| -------------- | -------------------------------------------------------------- | -------------------- |
+| `S3Storage`    | Production (AWS S3, Cloudflare R2, MinIO, DigitalOcean Spaces) | `@aws-sdk/client-s3` |
+| `LocalStorage` | Development, testing                                           | `fs` (built-in)      |
 
 **S3-Compatible Services:**
 
-| Provider | S3 Endpoint | Notes |
-|----------|-------------|-------|
-| AWS S3 | `s3.{region}.amazonaws.com` | Standard |
-| Cloudflare R2 | `{account_id}.r2.cloudflarestorage.com` | No egress fees |
-| DigitalOcean Spaces | `{region}.digitaloceanspaces.com` | Simple pricing |
-| MinIO | Self-hosted | For local/on-prem |
-| Supabase Storage | Via Supabase SDK | If using Supabase |
+| Provider            | S3 Endpoint                             | Notes             |
+| ------------------- | --------------------------------------- | ----------------- |
+| AWS S3              | `s3.{region}.amazonaws.com`             | Standard          |
+| Cloudflare R2       | `{account_id}.r2.cloudflarestorage.com` | No egress fees    |
+| DigitalOcean Spaces | `{region}.digitaloceanspaces.com`       | Simple pricing    |
+| MinIO               | Self-hosted                             | For local/on-prem |
+| Supabase Storage    | Via Supabase SDK                        | If using Supabase |
 
 **Folder Structure in Bucket:**
 
@@ -670,23 +682,23 @@ export interface SendTemplateParams {
   variables: Record<string, string>;
 }
 
-export type EmailTemplate = 
-  | 'welcome'
-  | 'verify-email'
-  | 'reset-password'
-  | 'kitchen-approved'
-  | 'new-follower'          // Future
-  | 'order-received'        // Phase 2
-  | 'order-ready';          // Phase 2
+export type EmailTemplate =
+  | "welcome"
+  | "verify-email"
+  | "reset-password"
+  | "kitchen-approved"
+  | "new-follower" // Future
+  | "order-received" // Phase 2
+  | "order-ready"; // Phase 2
 ```
 
 **Implementations:**
 
-| Implementation | When to Use | Dependencies |
-|----------------|-------------|--------------|
-| `BrevoMail` | Production (current) | `nodemailer` |
-| `ResendMail` | Alternative provider | `resend` |
-| `ConsoleMail` | Development (logs to console) | None |
+| Implementation | When to Use                   | Dependencies |
+| -------------- | ----------------------------- | ------------ |
+| `BrevoMail`    | Production (current)          | `nodemailer` |
+| `ResendMail`   | Alternative provider          | `resend`     |
+| `ConsoleMail`  | Development (logs to console) | None         |
 
 **Environment Variables:**
 
@@ -712,6 +724,7 @@ EMAIL_FROM=Dishi <hello@dishi.app>
 For Phase 2+ when you need async processing:
 
 **Use Cases:**
+
 - Send order notifications
 - Generate daily reports
 - Process image thumbnails
@@ -719,12 +732,12 @@ For Phase 2+ when you need async processing:
 
 **Options:**
 
-| Solution | Complexity | Best For |
-|----------|------------|----------|
-| BullMQ + Redis | Medium | Most cases, good dashboard |
-| pg-boss | Low | Already using Postgres |
-| Trigger.dev | Low | Serverless, managed |
-| Inngest | Low | Event-driven workflows |
+| Solution       | Complexity | Best For                   |
+| -------------- | ---------- | -------------------------- |
+| BullMQ + Redis | Medium     | Most cases, good dashboard |
+| pg-boss        | Low        | Already using Postgres     |
+| Trigger.dev    | Low        | Serverless, managed        |
+| Inngest        | Low        | Event-driven workflows     |
 
 ---
 
@@ -739,45 +752,44 @@ export class AppError extends Error {
     public code: ErrorCode,
     message: string,
     public statusCode: number = 400,
-    public meta?: Record<string, unknown>
+    public meta?: Record<string, unknown>,
   ) {
     super(message);
   }
 }
 
 export type ErrorCode =
-  | 'KITCHEN_NOT_FOUND'
-  | 'MENU_ITEM_NOT_FOUND'
-  | 'UNAUTHORIZED'
-  | 'FORBIDDEN'
-  | 'VALIDATION_ERROR'
-  | 'ALREADY_EXISTS'
-  | 'DELIVERY_OUT_OF_RANGE';
+  | "KITCHEN_NOT_FOUND"
+  | "MENU_ITEM_NOT_FOUND"
+  | "UNAUTHORIZED"
+  | "FORBIDDEN"
+  | "VALIDATION_ERROR"
+  | "ALREADY_EXISTS"
+  | "DELIVERY_OUT_OF_RANGE";
 
 // Usage
-throw new AppError('KITCHEN_NOT_FOUND', 'Kitchen not found', 404);
-throw new AppError('DELIVERY_OUT_OF_RANGE', 'Address is outside delivery radius', 400);
+throw new AppError("KITCHEN_NOT_FOUND", "Kitchen not found", 404);
+throw new AppError("DELIVERY_OUT_OF_RANGE", "Address is outside delivery radius", 400);
 ```
 
 ### Global Error Handler
 
 ```typescript
 // src/middleware/error-handler.ts
-export const errorHandler = new Elysia()
-  .onError(({ error, code, set, container }) => {
-    const { logger } = container;
-    
-    if (error instanceof AppError) {
-      logger.warn('Application error', { code: error.code, message: error.message });
-      set.status = error.statusCode;
-      return { error: error.code, message: error.message };
-    }
-    
-    // Unexpected error
-    logger.error('Unexpected error', error);
-    set.status = 500;
-    return { error: 'INTERNAL_ERROR', message: 'Something went wrong' };
-  });
+export const errorHandler = new Elysia().onError(({ error, code, set, container }) => {
+  const { logger } = container;
+
+  if (error instanceof AppError) {
+    logger.warn("Application error", { code: error.code, message: error.message });
+    set.status = error.statusCode;
+    return { error: error.code, message: error.message };
+  }
+
+  // Unexpected error
+  logger.error("Unexpected error", error);
+  set.status = 500;
+  return { error: "INTERNAL_ERROR", message: "Something went wrong" };
+});
 ```
 
 ---
@@ -790,37 +802,37 @@ export const errorHandler = new Elysia()
 // src/config/features.ts
 export const features = {
   cache: {
-    enabled: env.CACHE_ENABLED !== 'false',
+    enabled: env.CACHE_ENABLED !== "false",
     ttl: {
-      kitchen: 300,      // 5 min
-      menu: 120,         // 2 min
-      cuisines: 3600,    // 1 hour
+      kitchen: 300, // 5 min
+      menu: 120, // 2 min
+      cuisines: 3600, // 1 hour
     },
   },
   storage: {
-    provider: env.STORAGE_PROVIDER || 'local',
+    provider: env.STORAGE_PROVIDER || "local",
     maxFileSizeMb: 5,
-    allowedMimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+    allowedMimeTypes: ["image/jpeg", "image/png", "image/webp"],
   },
   mail: {
-    provider: env.MAIL_PROVIDER || 'console',
-    enabled: env.MAIL_ENABLED !== 'false',
+    provider: env.MAIL_PROVIDER || "console",
+    enabled: env.MAIL_ENABLED !== "false",
   },
   logging: {
-    level: env.LOG_LEVEL || 'info',
-    format: env.LOG_FORMAT || 'json',
+    level: env.LOG_LEVEL || "info",
+    format: env.LOG_FORMAT || "json",
   },
 };
 ```
 
 ### Per-Environment Defaults
 
-| Feature | Development | Production |
-|---------|-------------|------------|
-| Cache | In-memory | Redis |
-| Storage | Local filesystem | S3/R2 |
-| Mail | Console (logs) | Brevo/Resend |
-| Logging | Pretty console | JSON (structured) |
+| Feature | Development      | Production        |
+| ------- | ---------------- | ----------------- |
+| Cache   | In-memory        | Redis             |
+| Storage | Local filesystem | S3/R2             |
+| Mail    | Console (logs)   | Brevo/Resend      |
+| Logging | Pretty console   | JSON (structured) |
 
 ---
 
@@ -830,8 +842,8 @@ export const features = {
 
 ```typescript
 // Use real DB with test transactions
-describe('KitchenRepository', () => {
-  it('finds kitchens within radius', async () => {
+describe("KitchenRepository", () => {
+  it("finds kitchens within radius", async () => {
     // Seed test data with known coordinates
     // Query with PostGIS
     // Assert results
@@ -843,14 +855,14 @@ describe('KitchenRepository', () => {
 
 ```typescript
 // Mock repositories
-describe('KitchenService', () => {
+describe("KitchenService", () => {
   const mockRepo = { findBySlug: vi.fn() };
   const mockCache = { get: vi.fn(), set: vi.fn() };
   const service = new KitchenService(mockRepo, mockCache);
-  
-  it('returns cached kitchen if available', async () => {
+
+  it("returns cached kitchen if available", async () => {
     mockCache.get.mockResolvedValue(mockKitchen);
-    const result = await service.getBySlug('test');
+    const result = await service.getBySlug("test");
     expect(mockRepo.findBySlug).not.toHaveBeenCalled();
   });
 });
@@ -860,11 +872,9 @@ describe('KitchenService', () => {
 
 ```typescript
 // Test full request cycle
-describe('GET /kitchens/:slug', () => {
-  it('returns kitchen with menu', async () => {
-    const response = await app.handle(
-      new Request('http://localhost/kitchens/mama-njeri')
-    );
+describe("GET /kitchens/:slug", () => {
+  it("returns kitchen with menu", async () => {
+    const response = await app.handle(new Request("http://localhost/kitchens/mama-njeri"));
     expect(response.status).toBe(200);
     const data = await response.json();
     expect(data.name).toBe("Mama Njeri's Kitchen");
@@ -877,16 +887,19 @@ describe('GET /kitchens/:slug', () => {
 ## Migration Path from Boilerplate
 
 ### Remove
+
 - `proposals-schema.ts` - Remove governance tables (proposal, vote, comment)
 - Townhall-specific role definitions
 - Governance API modules
 
 ### Rename/Adapt
+
 - Organization → Kitchen (conceptually, keep the table)
 - `auth-roles.ts` → Update with Dishi roles
 - Admin plugin statements → Update for kitchen/menu/order resources
 
 ### Add
+
 - Enable PostGIS extension
 - Enable pg_vector extension
 - Kitchen profile table
@@ -899,6 +912,7 @@ describe('GET /kitchens/:slug', () => {
 ## Phase 1 Scope (MVP)
 
 ### Tables to Implement
+
 - [x] `user` (Better Auth)
 - [x] `organization` (Better Auth → Kitchen)
 - [x] `member` (Better Auth → Kitchen Staff)
@@ -911,6 +925,7 @@ describe('GET /kitchens/:slug', () => {
 - [ ] `customer_location`
 
 ### Features
+
 - Kitchen onboarding (create profile, add menu)
 - Customer discovery (browse nearby kitchens)
 - Menu viewing
@@ -918,6 +933,7 @@ describe('GET /kitchens/:slug', () => {
 - Save favorites
 
 ### Deferred to Phase 2+
+
 - Order tables
 - Order flow (accept, prepare, deliver)
 - Expanded kitchen roles
@@ -998,15 +1014,15 @@ EMAIL_FROM=Dishi <hello@dishi.app>
 
 ### Environment Presets
 
-| Variable | Development | Production |
-|----------|-------------|------------|
-| `NODE_ENV` | development | production |
-| `LOG_LEVEL` | debug | info |
-| `LOG_FORMAT` | pretty | json |
-| `CACHE_ENABLED` | true | true |
-| `REDIS_URL` | (not set → in-memory) | redis://... |
-| `STORAGE_PROVIDER` | local | s3 |
-| `MAIL_PROVIDER` | console | brevo |
+| Variable           | Development           | Production  |
+| ------------------ | --------------------- | ----------- |
+| `NODE_ENV`         | development           | production  |
+| `LOG_LEVEL`        | debug                 | info        |
+| `LOG_FORMAT`       | pretty                | json        |
+| `CACHE_ENABLED`    | true                  | true        |
+| `REDIS_URL`        | (not set → in-memory) | redis://... |
+| `STORAGE_PROVIDER` | local                 | s3          |
+| `MAIL_PROVIDER`    | console               | brevo       |
 
 ---
 
@@ -1023,11 +1039,13 @@ CREATE EXTENSION IF NOT EXISTS vector;
 ### Local Development Setup
 
 1. **Copy environment file:**
+
    ```bash
    cp apps/api/.env.example apps/api/.env
    ```
 
 2. **Minimal .env for local dev:**
+
    ```env
    NODE_ENV=development
    PORT=4000
@@ -1039,9 +1057,11 @@ CREATE EXTENSION IF NOT EXISTS vector;
    ```
 
 3. **Optional: Start Redis for caching:**
+
    ```bash
    docker run -d --name dishi-redis -p 6379:6379 redis:alpine
    ```
+
    Then add `REDIS_URL=redis://localhost:6379` to `.env`
 
 4. **Optional: Start MinIO for local S3:**
@@ -1064,20 +1084,21 @@ CREATE EXTENSION IF NOT EXISTS vector;
 
 ### Production Recommendations
 
-| Service | Recommended Provider | Notes |
-|---------|---------------------|-------|
-| Database | Supabase, Neon, or Railway | All support PostGIS |
-| Cache | Upstash Redis | Serverless, pay-per-request |
-| Storage | Cloudflare R2 | No egress fees, S3-compatible |
-| Email | Resend or Brevo | Good deliverability |
-| Hosting (API) | Railway, Render, or Fly.io | Supports Bun |
-| Hosting (Web) | Vercel or Cloudflare Pages | Edge SSR support |
+| Service       | Recommended Provider       | Notes                         |
+| ------------- | -------------------------- | ----------------------------- |
+| Database      | Supabase, Neon, or Railway | All support PostGIS           |
+| Cache         | Upstash Redis              | Serverless, pay-per-request   |
+| Storage       | Cloudflare R2              | No egress fees, S3-compatible |
+| Email         | Resend or Brevo            | Good deliverability           |
+| Hosting (API) | Railway, Render, or Fly.io | Supports Bun                  |
+| Hosting (Web) | Vercel or Cloudflare Pages | Edge SSR support              |
 
 ---
 
 ## Next Steps
 
 ### Phase 0: Infrastructure Setup
+
 1. [ ] Set up PostgreSQL with PostGIS extension
 2. [ ] Create `src/infrastructure/` folder structure
 3. [ ] Implement logger abstraction (Pino + Console)
@@ -1086,6 +1107,7 @@ CREATE EXTENSION IF NOT EXISTS vector;
 6. [ ] Enhance existing email service with interface
 
 ### Phase 1: Core Development
+
 1. [ ] Update `auth-roles.ts` with Dishi role definitions
 2. [ ] Remove proposal/governance schema files
 3. [ ] Create kitchen and menu schema files
@@ -1098,6 +1120,7 @@ CREATE EXTENSION IF NOT EXISTS vector;
 10. [ ] Build kitchen dashboard pages
 
 ### Phase 2: Growth Features (Future)
+
 - [ ] Order management tables and flow
 - [ ] Expanded kitchen roles
 - [ ] Ratings and reviews

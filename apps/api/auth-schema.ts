@@ -114,10 +114,7 @@ export const apikey = pgTable(
     permissions: text("permissions"),
     metadata: text("metadata"),
   },
-  (table) => [
-    index("apikey_key_idx").on(table.key),
-    index("apikey_userId_idx").on(table.userId),
-  ],
+  (table) => [index("apikey_key_idx").on(table.key), index("apikey_userId_idx").on(table.userId)],
 );
 
 export const organization = pgTable(

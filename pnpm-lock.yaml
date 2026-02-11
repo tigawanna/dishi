@@ -391,6 +391,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^5.2.2
         version: 5.2.2(react-hook-form@7.70.0(react@19.2.4))
+      '@repo/isomorphic':
+        specifier: workspace:*
+        version: link:../../packages/isomorphic
       '@tailwindcss/vite':
         specifier: ^4.1.18
         version: 4.1.18(vite@7.3.1(@types/node@25.2.0)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2))
@@ -400,6 +403,9 @@ importers:
       '@tanstack/query-db-collection':
         specifier: ^1.0.13
         version: 1.0.13(@tanstack/query-core@5.90.20)(typescript@5.9.3)
+      '@tanstack/react-db':
+        specifier: ^0.1.61
+        version: 0.1.61(react@19.2.4)(typescript@5.9.3)
       '@tanstack/react-devtools':
         specifier: ^0.9.4
         version: 0.9.4(@types/react-dom@19.2.3(@types/react@19.2.13))(@types/react@19.2.13)(csstype@3.2.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(solid-js@1.9.10)
@@ -481,6 +487,9 @@ importers:
       react-resizable-panels:
         specifier: ^4.6.0
         version: 4.6.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react-responsive-pagination:
+        specifier: ^2.12.0
+        version: 2.12.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       recharts:
         specifier: 2.15.4
         version: 2.15.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -9812,6 +9821,14 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
+  '@tanstack/react-db@0.1.61(react@19.2.4)(typescript@5.9.3)':
+    dependencies:
+      '@tanstack/db': 0.5.17(typescript@5.9.3)
+      react: 19.2.4
+      use-sync-external-store: 1.6.0(react@19.2.4)
+    transitivePeerDependencies:
+      - typescript
+
   '@tanstack/react-devtools@0.9.1(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(csstype@3.2.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(solid-js@1.9.10)':
     dependencies:
       '@tanstack/devtools': 0.10.2(csstype@3.2.3)(solid-js@1.9.10)
@@ -13117,6 +13134,12 @@ snapshots:
       prop-types: 15.8.1
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
+
+  react-responsive-pagination@2.12.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+    dependencies:
+      prop-types: 15.8.1
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
 
   react-smooth@4.0.4(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:

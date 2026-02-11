@@ -10,18 +10,56 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as AuthIndexRouteImport } from './routes/auth/index'
+import { Route as DashboardTenantsRouteImport } from './routes/dashboard/tenants'
+import { Route as DashboardStaffRouteImport } from './routes/dashboard/staff'
+import { Route as DashboardLayoutRouteImport } from './routes/dashboard/layout'
+import { Route as DashboardAuditRouteImport } from './routes/dashboard/audit'
 import { Route as AuthSignupRouteImport } from './routes/auth/signup'
 import { Route as AuthLayoutRouteImport } from './routes/auth/layout'
+import { Route as DashboardUsersIndexRouteImport } from './routes/dashboard/users/index'
+import { Route as DashboardTownhallsIndexRouteImport } from './routes/dashboard/townhalls/index'
+import { Route as DashboardProposalsIndexRouteImport } from './routes/dashboard/proposals/index'
+import { Route as DashboardUsersNewRouteImport } from './routes/dashboard/users/new'
+import { Route as DashboardUsersUseridRouteImport } from './routes/dashboard/users/$userid'
+import { Route as DashboardProposalsNewRouteImport } from './routes/dashboard/proposals/new'
+import { Route as DashboardTownhallsOrgIdIndexRouteImport } from './routes/dashboard/townhalls/$orgId/index'
+import { Route as DashboardTownhallsOrgIdMembersRouteImport } from './routes/dashboard/townhalls/$orgId/members'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthIndexRoute = AuthIndexRouteImport.update({
   id: '/auth/',
   path: '/auth/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardTenantsRoute = DashboardTenantsRouteImport.update({
+  id: '/dashboard/tenants',
+  path: '/dashboard/tenants',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardStaffRoute = DashboardStaffRouteImport.update({
+  id: '/dashboard/staff',
+  path: '/dashboard/staff',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardLayoutRoute = DashboardLayoutRouteImport.update({
+  id: '/dashboard/layout',
+  path: '/dashboard/layout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardAuditRoute = DashboardAuditRouteImport.update({
+  id: '/dashboard/audit',
+  path: '/dashboard/audit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthSignupRoute = AuthSignupRouteImport.update({
@@ -34,39 +72,185 @@ const AuthLayoutRoute = AuthLayoutRouteImport.update({
   path: '/auth/layout',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardUsersIndexRoute = DashboardUsersIndexRouteImport.update({
+  id: '/dashboard/users/',
+  path: '/dashboard/users/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardTownhallsIndexRoute = DashboardTownhallsIndexRouteImport.update({
+  id: '/dashboard/townhalls/',
+  path: '/dashboard/townhalls/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardProposalsIndexRoute = DashboardProposalsIndexRouteImport.update({
+  id: '/dashboard/proposals/',
+  path: '/dashboard/proposals/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardUsersNewRoute = DashboardUsersNewRouteImport.update({
+  id: '/dashboard/users/new',
+  path: '/dashboard/users/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardUsersUseridRoute = DashboardUsersUseridRouteImport.update({
+  id: '/dashboard/users/$userid',
+  path: '/dashboard/users/$userid',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardProposalsNewRoute = DashboardProposalsNewRouteImport.update({
+  id: '/dashboard/proposals/new',
+  path: '/dashboard/proposals/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardTownhallsOrgIdIndexRoute =
+  DashboardTownhallsOrgIdIndexRouteImport.update({
+    id: '/dashboard/townhalls/$orgId/',
+    path: '/dashboard/townhalls/$orgId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DashboardTownhallsOrgIdMembersRoute =
+  DashboardTownhallsOrgIdMembersRouteImport.update({
+    id: '/dashboard/townhalls/$orgId/members',
+    path: '/dashboard/townhalls/$orgId/members',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth/layout': typeof AuthLayoutRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/dashboard/audit': typeof DashboardAuditRoute
+  '/dashboard/layout': typeof DashboardLayoutRoute
+  '/dashboard/staff': typeof DashboardStaffRoute
+  '/dashboard/tenants': typeof DashboardTenantsRoute
   '/auth/': typeof AuthIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/proposals/new': typeof DashboardProposalsNewRoute
+  '/dashboard/users/$userid': typeof DashboardUsersUseridRoute
+  '/dashboard/users/new': typeof DashboardUsersNewRoute
+  '/dashboard/proposals/': typeof DashboardProposalsIndexRoute
+  '/dashboard/townhalls/': typeof DashboardTownhallsIndexRoute
+  '/dashboard/users/': typeof DashboardUsersIndexRoute
+  '/dashboard/townhalls/$orgId/members': typeof DashboardTownhallsOrgIdMembersRoute
+  '/dashboard/townhalls/$orgId/': typeof DashboardTownhallsOrgIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth/layout': typeof AuthLayoutRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/dashboard/audit': typeof DashboardAuditRoute
+  '/dashboard/layout': typeof DashboardLayoutRoute
+  '/dashboard/staff': typeof DashboardStaffRoute
+  '/dashboard/tenants': typeof DashboardTenantsRoute
   '/auth': typeof AuthIndexRoute
+  '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/proposals/new': typeof DashboardProposalsNewRoute
+  '/dashboard/users/$userid': typeof DashboardUsersUseridRoute
+  '/dashboard/users/new': typeof DashboardUsersNewRoute
+  '/dashboard/proposals': typeof DashboardProposalsIndexRoute
+  '/dashboard/townhalls': typeof DashboardTownhallsIndexRoute
+  '/dashboard/users': typeof DashboardUsersIndexRoute
+  '/dashboard/townhalls/$orgId/members': typeof DashboardTownhallsOrgIdMembersRoute
+  '/dashboard/townhalls/$orgId': typeof DashboardTownhallsOrgIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth/layout': typeof AuthLayoutRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/dashboard/audit': typeof DashboardAuditRoute
+  '/dashboard/layout': typeof DashboardLayoutRoute
+  '/dashboard/staff': typeof DashboardStaffRoute
+  '/dashboard/tenants': typeof DashboardTenantsRoute
   '/auth/': typeof AuthIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/proposals/new': typeof DashboardProposalsNewRoute
+  '/dashboard/users/$userid': typeof DashboardUsersUseridRoute
+  '/dashboard/users/new': typeof DashboardUsersNewRoute
+  '/dashboard/proposals/': typeof DashboardProposalsIndexRoute
+  '/dashboard/townhalls/': typeof DashboardTownhallsIndexRoute
+  '/dashboard/users/': typeof DashboardUsersIndexRoute
+  '/dashboard/townhalls/$orgId/members': typeof DashboardTownhallsOrgIdMembersRoute
+  '/dashboard/townhalls/$orgId/': typeof DashboardTownhallsOrgIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth/layout' | '/auth/signup' | '/auth/'
+  fullPaths:
+    | '/'
+    | '/auth/layout'
+    | '/auth/signup'
+    | '/dashboard/audit'
+    | '/dashboard/layout'
+    | '/dashboard/staff'
+    | '/dashboard/tenants'
+    | '/auth/'
+    | '/dashboard/'
+    | '/dashboard/proposals/new'
+    | '/dashboard/users/$userid'
+    | '/dashboard/users/new'
+    | '/dashboard/proposals/'
+    | '/dashboard/townhalls/'
+    | '/dashboard/users/'
+    | '/dashboard/townhalls/$orgId/members'
+    | '/dashboard/townhalls/$orgId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth/layout' | '/auth/signup' | '/auth'
-  id: '__root__' | '/' | '/auth/layout' | '/auth/signup' | '/auth/'
+  to:
+    | '/'
+    | '/auth/layout'
+    | '/auth/signup'
+    | '/dashboard/audit'
+    | '/dashboard/layout'
+    | '/dashboard/staff'
+    | '/dashboard/tenants'
+    | '/auth'
+    | '/dashboard'
+    | '/dashboard/proposals/new'
+    | '/dashboard/users/$userid'
+    | '/dashboard/users/new'
+    | '/dashboard/proposals'
+    | '/dashboard/townhalls'
+    | '/dashboard/users'
+    | '/dashboard/townhalls/$orgId/members'
+    | '/dashboard/townhalls/$orgId'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth/layout'
+    | '/auth/signup'
+    | '/dashboard/audit'
+    | '/dashboard/layout'
+    | '/dashboard/staff'
+    | '/dashboard/tenants'
+    | '/auth/'
+    | '/dashboard/'
+    | '/dashboard/proposals/new'
+    | '/dashboard/users/$userid'
+    | '/dashboard/users/new'
+    | '/dashboard/proposals/'
+    | '/dashboard/townhalls/'
+    | '/dashboard/users/'
+    | '/dashboard/townhalls/$orgId/members'
+    | '/dashboard/townhalls/$orgId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthLayoutRoute: typeof AuthLayoutRoute
   AuthSignupRoute: typeof AuthSignupRoute
+  DashboardAuditRoute: typeof DashboardAuditRoute
+  DashboardLayoutRoute: typeof DashboardLayoutRoute
+  DashboardStaffRoute: typeof DashboardStaffRoute
+  DashboardTenantsRoute: typeof DashboardTenantsRoute
   AuthIndexRoute: typeof AuthIndexRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardProposalsNewRoute: typeof DashboardProposalsNewRoute
+  DashboardUsersUseridRoute: typeof DashboardUsersUseridRoute
+  DashboardUsersNewRoute: typeof DashboardUsersNewRoute
+  DashboardProposalsIndexRoute: typeof DashboardProposalsIndexRoute
+  DashboardTownhallsIndexRoute: typeof DashboardTownhallsIndexRoute
+  DashboardUsersIndexRoute: typeof DashboardUsersIndexRoute
+  DashboardTownhallsOrgIdMembersRoute: typeof DashboardTownhallsOrgIdMembersRoute
+  DashboardTownhallsOrgIdIndexRoute: typeof DashboardTownhallsOrgIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -78,11 +262,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth/': {
       id: '/auth/'
       path: '/auth'
       fullPath: '/auth/'
       preLoaderRoute: typeof AuthIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/tenants': {
+      id: '/dashboard/tenants'
+      path: '/dashboard/tenants'
+      fullPath: '/dashboard/tenants'
+      preLoaderRoute: typeof DashboardTenantsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/staff': {
+      id: '/dashboard/staff'
+      path: '/dashboard/staff'
+      fullPath: '/dashboard/staff'
+      preLoaderRoute: typeof DashboardStaffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/layout': {
+      id: '/dashboard/layout'
+      path: '/dashboard/layout'
+      fullPath: '/dashboard/layout'
+      preLoaderRoute: typeof DashboardLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/audit': {
+      id: '/dashboard/audit'
+      path: '/dashboard/audit'
+      fullPath: '/dashboard/audit'
+      preLoaderRoute: typeof DashboardAuditRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/signup': {
@@ -99,6 +318,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/users/': {
+      id: '/dashboard/users/'
+      path: '/dashboard/users'
+      fullPath: '/dashboard/users/'
+      preLoaderRoute: typeof DashboardUsersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/townhalls/': {
+      id: '/dashboard/townhalls/'
+      path: '/dashboard/townhalls'
+      fullPath: '/dashboard/townhalls/'
+      preLoaderRoute: typeof DashboardTownhallsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/proposals/': {
+      id: '/dashboard/proposals/'
+      path: '/dashboard/proposals'
+      fullPath: '/dashboard/proposals/'
+      preLoaderRoute: typeof DashboardProposalsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/users/new': {
+      id: '/dashboard/users/new'
+      path: '/dashboard/users/new'
+      fullPath: '/dashboard/users/new'
+      preLoaderRoute: typeof DashboardUsersNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/users/$userid': {
+      id: '/dashboard/users/$userid'
+      path: '/dashboard/users/$userid'
+      fullPath: '/dashboard/users/$userid'
+      preLoaderRoute: typeof DashboardUsersUseridRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/proposals/new': {
+      id: '/dashboard/proposals/new'
+      path: '/dashboard/proposals/new'
+      fullPath: '/dashboard/proposals/new'
+      preLoaderRoute: typeof DashboardProposalsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/townhalls/$orgId/': {
+      id: '/dashboard/townhalls/$orgId/'
+      path: '/dashboard/townhalls/$orgId'
+      fullPath: '/dashboard/townhalls/$orgId/'
+      preLoaderRoute: typeof DashboardTownhallsOrgIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/townhalls/$orgId/members': {
+      id: '/dashboard/townhalls/$orgId/members'
+      path: '/dashboard/townhalls/$orgId/members'
+      fullPath: '/dashboard/townhalls/$orgId/members'
+      preLoaderRoute: typeof DashboardTownhallsOrgIdMembersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -106,7 +381,20 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthLayoutRoute: AuthLayoutRoute,
   AuthSignupRoute: AuthSignupRoute,
+  DashboardAuditRoute: DashboardAuditRoute,
+  DashboardLayoutRoute: DashboardLayoutRoute,
+  DashboardStaffRoute: DashboardStaffRoute,
+  DashboardTenantsRoute: DashboardTenantsRoute,
   AuthIndexRoute: AuthIndexRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+  DashboardProposalsNewRoute: DashboardProposalsNewRoute,
+  DashboardUsersUseridRoute: DashboardUsersUseridRoute,
+  DashboardUsersNewRoute: DashboardUsersNewRoute,
+  DashboardProposalsIndexRoute: DashboardProposalsIndexRoute,
+  DashboardTownhallsIndexRoute: DashboardTownhallsIndexRoute,
+  DashboardUsersIndexRoute: DashboardUsersIndexRoute,
+  DashboardTownhallsOrgIdMembersRoute: DashboardTownhallsOrgIdMembersRoute,
+  DashboardTownhallsOrgIdIndexRoute: DashboardTownhallsOrgIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

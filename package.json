@@ -12,6 +12,7 @@
     "quality": "turbo run //#lint //#format",
     "quality:fix": "turbo run //#lint:fix //#format:fix"
   },
+  "dependencies": {},
   "devDependencies": {
     "oxfmt": "^0.27.0",
     "oxlint": "^1.42.0",
@@ -22,6 +23,5 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "pnpm@10.27.0",
-  "dependencies": {}
+  "packageManager": "pnpm@10.27.0"
 }

@@ -1,7 +1,6 @@
 import { Elysia } from "elysia";
 
-const CRUD_BEARER_TOKEN =
-  process.env.CRUD_BEARER_TOKEN ?? "dishi-crud-dev-fallback-secret";
+const CRUD_BEARER_TOKEN = process.env.CRUD_BEARER_TOKEN ?? "dishi-crud-dev-fallback-secret";
 
 export const crudBearerAuth = new Elysia({ name: "crud-bearer-auth" }).onBeforeHandle(
   ({ request, set }) => {

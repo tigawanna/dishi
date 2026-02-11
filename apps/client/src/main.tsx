@@ -1,15 +1,15 @@
-import { MutationCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { createRouter } from "@tanstack/react-router";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./App";
 // import { queryKeyPrefixes } from "./data-access-layer/query-keys";
+import { queryClient } from "./lib/tanstack/query/queryclient";
 import { RouterErrorComponent } from "./lib/tanstack/router/routerErrorComponent";
 import { RouterNotFoundComponent } from "./lib/tanstack/router/RouterNotFoundComponent";
 import { RouterPendingComponent } from "./lib/tanstack/router/RouterPendingComponent";
 import { routeTree } from "./routeTree.gen";
 import "./styles.css";
-import { queryClient } from "./lib/tanstack/query/queryclient";
 
 // Set up a Router instance
 export const router = createRouter({

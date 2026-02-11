@@ -26,10 +26,7 @@ export const customerFavorite = pgTable(
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (table) => [
-    uniqueIndex("customer_favorite_user_kitchen_uidx").on(
-      table.userId,
-      table.kitchenId,
-    ),
+    uniqueIndex("customer_favorite_user_kitchen_uidx").on(table.userId, table.kitchenId),
     index("customer_favorite_kitchen_id_idx").on(table.kitchenId),
   ],
 );

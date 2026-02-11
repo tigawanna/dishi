@@ -9,10 +9,5 @@
   "addOnOptions": {},
   "version": 1,
   "framework": "react-cra",
-  "chosenAddOns": [
-    "start",
-    "better-auth",
-    "tanstack-query",
-    "compiler"
-  ]
+  "chosenAddOns": ["start", "better-auth", "tanstack-query", "compiler"]
 }

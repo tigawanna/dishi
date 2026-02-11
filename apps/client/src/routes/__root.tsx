@@ -1,7 +1,7 @@
 import { Outlet, createRootRouteWithContext } from "@tanstack/react-router";
 
 import type { QueryClient } from "@tanstack/react-query";
-import { TViewer } from "@/data-access-layer/users/viewer";
+import type { TViewer } from "@/data-access-layer/users/viewer";
 import { Toaster } from "@/components/ui/sonner";
 import { z } from "zod";
 

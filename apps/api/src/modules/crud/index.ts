@@ -1,7 +1,4 @@
-import {
-  createSimpleQueryEngine,
-  listQueryParamsSchema,
-} from "@backend/db/helpers/QueryEngine";
+import { createSimpleQueryEngine, listQueryParamsSchema } from "@backend/db/helpers/QueryEngine";
 import { Elysia } from "elysia";
 import { z } from "zod";
 import { getCrudTable, listCrudTables } from "./registry";
@@ -49,26 +46,23 @@ const crudRoute = new Elysia({ name: "crud", prefix: "/api/crud" })
     },
     { query: listQueryParamsSchema },
   )
-  .get(
-    "/:table/:id",
-    async ({ params, set }) => {
-      const config = getCrudTable(params.table);
-      if (!config) {
-        set.status = 404;
-        return { error: "Table not found", table: params.table };
-      }
+  .get("/:table/:id", async ({ params, set }) => {
+    const config = getCrudTable(params.table);
+    if (!config) {
+      set.status = 404;
+      return { error: "Table not found", table: params.table };
+    }
 
-      const engine = createSimpleQueryEngine(config.table);
-      const item = await engine.getOne(params.id);
+    const engine = createSimpleQueryEngine(config.table);
+    const item = await engine.getOne(params.id);
 
-      if (!item) {
-        set.status = 404;
-        return { error: "Not found", id: params.id };
-      }
+    if (!item) {
+      set.status = 404;
+      return { error: "Not found", id: params.id };
+    }
 
-      return { item };
-    },
-  )
+    return { item };
+  })
   .post(
     "/:table",
     async ({ params, body, set }) => {
@@ -114,25 +108,22 @@ const crudRoute = new Elysia({ name: "crud", prefix: "/api/crud" })
     },
     { body: updateBodySchema },
   )
-  .delete(
-    "/:table/:id",
-    async ({ params, set }) => {
-      const config = getCrudTable(params.table);
-      if (!config) {
-        set.status = 404;
-        return { error: "Table not found", table: params.table };
-      }
+  .delete("/:table/:id", async ({ params, set }) => {
+    const config = getCrudTable(params.table);
+    if (!config) {
+      set.status = 404;
+      return { error: "Table not found", table: params.table };
+    }
 
-      const engine = createSimpleQueryEngine(config.table);
-      const item = await engine.delete(params.id);
+    const engine = createSimpleQueryEngine(config.table);
+    const item = await engine.delete(params.id);
 
-      if (!item) {
-        set.status = 404;
-        return { error: "Not found", id: params.id };
-      }
+    if (!item) {
+      set.status = 404;
+      return { error: "Not found", id: params.id };
+    }
 
-      return { item };
-    },
-  );
+    return { item };
+  });
 
 export const crudRouteGroup = crudRoute;
