@@ -5,21 +5,18 @@ interface ThemeToggleProps {}
 
 export function ThemeToggle({}: ThemeToggleProps) {
   const { theme, updateTheme } = useTheme();
-  function transitionColors() {
-    if (typeof window !== "undefined") {
+
+  function toggleTheme() {
+    const newTheme = theme === "light" ? "dark" : "light";
+    if (typeof document !== "undefined" && "startViewTransition" in document) {
       try {
-        document.startViewTransition(() => {
-          const newTheme = theme === "light" ? "dark" : "light";
-          document.documentElement.dataset.theme = newTheme;
-          updateTheme(newTheme);
-        });
-      } catch (error) {
-        const newTheme = theme === "light" ? "dark" : "light";
-        document.documentElement.dataset.theme = newTheme;
-        updateTheme(newTheme);
-      }
+        (document as any).startViewTransition(() => updateTheme(newTheme));
+        return;
+      } catch {}
     }
+    updateTheme(newTheme);
   }
+
   return (
     <div data-test="theme-toggle" className="flex items-center justify-between gap-2">
       <div className="hidden md:flex">
@@ -37,7 +34,7 @@ export function ThemeToggle({}: ThemeToggleProps) {
           </select>
         )}
       </div>
-      <button onClick={() => transitionColors()} data-test="theme-toggle-button" className="btn">
+      <button onClick={toggleTheme} data-test="theme-toggle-button" className="btn">
         {theme === "light" ? <Moon /> : <Sun />}
       </button>
     </div>

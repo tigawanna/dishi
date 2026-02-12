@@ -6,21 +6,18 @@ interface DashboardThemeProps {}
 export function DashboardTheme({}: DashboardThemeProps) {
   const { theme, updateTheme } = useTheme();
   const { state } = useSidebar();
-  function transitionColors() {
-    if (typeof window !== "undefined") {
+
+  function toggleTheme() {
+    const newTheme = theme === "light" ? "dark" : "light";
+    if (typeof document !== "undefined" && "startViewTransition" in document) {
       try {
-        document.startViewTransition(() => {
-          const newTheme = theme === "light" ? "dark" : "light";
-          document.documentElement.dataset.theme = newTheme;
-          updateTheme(newTheme);
-        });
-      } catch (error) {
-        const newTheme = theme === "light" ? "dark" : "light";
-        document.documentElement.dataset.theme = newTheme;
-        updateTheme(newTheme);
-      }
+        (document as any).startViewTransition(() => updateTheme(newTheme));
+        return;
+      } catch {}
     }
+    updateTheme(newTheme);
   }
+
   return (
     <div
       data-expanded={state === "expanded"}
@@ -41,7 +38,7 @@ export function DashboardTheme({}: DashboardThemeProps) {
           </select>
         </div>
       )}
-      <button onClick={() => transitionColors()} className="">
+      <button onClick={toggleTheme}>
         {theme === "light" ? <Moon className="size-6" /> : <Sun className="size-6" />}
       </button>
     </div>

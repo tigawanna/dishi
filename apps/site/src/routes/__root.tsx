@@ -7,6 +7,7 @@ import type { QueryClient } from "@tanstack/react-query";
 import { TanstackDevtools } from "@/lib/tanstack/devtools/devtools";
 import { z } from "zod";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ThemeProvider } from "@/lib/tanstack/router/theme-provider";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -63,15 +64,17 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
       <body>
-        <TooltipProvider>
-          {children}
-          <TanstackDevtools />
-        </TooltipProvider>
+        <ThemeProvider defaultTheme="system" storageKey="dishi.theme">
+          <TooltipProvider>
+            {children}
+            <TanstackDevtools />
+          </TooltipProvider>
+        </ThemeProvider>
         <Scripts />
       </body>
     </html>
