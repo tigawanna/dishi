@@ -13,9 +13,7 @@ export const Route = createFileRoute("/auth/signup")({
   validateSearch: (search) => searchparams.parse(search),
 });
 
-interface SignupProps {}
-
-export function SignupPage({}: SignupProps) {
+export function SignupPage() {
   return (
     <div className="to-primary/50items-center flex h-full min-h-screen w-full flex-col justify-center">
       <ResponsiveGenericToolbar>

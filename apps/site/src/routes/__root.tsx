@@ -1,5 +1,5 @@
 import { HeadContent, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
-import type { TViewer } from "@/data-access-layer/users/viewer";
+import { viewerqueryOptions, type TViewer } from "@/data-access-layer/users/viewer";
 
 import appCss from "../styles.css?url";
 
@@ -60,6 +60,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   }),
   validateSearch: (search) => searchparams.parse(search),
   shellComponent: RootDocument,
+  beforeLoad: async ({context}) => {
+  const viewer = await context.queryClient.ensureQueryData(viewerqueryOptions);
+  return { viewer: viewer.data };
+  },
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {

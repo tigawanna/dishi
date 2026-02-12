@@ -20,9 +20,7 @@ export const Route = createFileRoute("/auth/")({
   },
 });
 
-interface SigninPageProps {}
-
-export function SigninPage({}: SigninPageProps) {
+export function SigninPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <ResponsiveGenericToolbar>

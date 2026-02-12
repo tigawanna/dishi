@@ -8,8 +8,6 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { Route } from "../index";
 
-interface SigninComponentProps {}
-
 interface PropertyUserLogin {
   email: string;
   password: string;
@@ -22,7 +20,7 @@ const formOpts = formOptions({
   } satisfies PropertyUserLogin,
 });
 
-export function SigninComponent({}: SigninComponentProps) {
+export function SigninComponent() {
   const [showPassword, setShowPassword] = useState(false);
   const qc = useQueryClient();
   const { returnTo } = Route.useSearch();
