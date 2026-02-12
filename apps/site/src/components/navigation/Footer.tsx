@@ -73,7 +73,7 @@ export function Footer() {
                 <Twitter className="size-5" />
               </a>
               <a
-                href="mailto:support@townhall.app"
+                href="mailto:support@dishi.app"
                 className="btn btn-ghost btn-square btn-sm md:btn-md"
                 aria-label="Email"
               >

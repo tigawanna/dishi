@@ -1,17 +1,17 @@
-import { GoLaw } from "react-icons/go";
+import { UtensilsCrossed } from "lucide-react";
 export const AppConfig = {
-  name: "Townhall",
-  brief: "Townhall : Internal governance made simple",
+  name: "Dishi",
+  brief: "Dishi: Hyperlocal food discovery made simple",
   description:
-    "A platform to manage internal governance processes such as proposals, voting, and audits within organizations.",
+    "A hyperlocal food discovery platform connecting neighborhood kitchens with nearby customers.",
   logo: {
     src: "/logo.png",
-    alt: "Townhall Logo",
+    alt: "Dishi Logo",
     href: "/",
   },
-  icon: GoLaw,
+  icon: UtensilsCrossed,
   links: {
-    github: "https://github.com/tigawanna/townhall",
-    mail: "mailto:support@townhall.app",
+    github: "https://github.com/tigawanna/dishi",
+    mail: "mailto:support@dishi.app",
   },
 };
