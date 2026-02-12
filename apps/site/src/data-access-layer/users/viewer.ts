@@ -1,7 +1,7 @@
 import { authClient, BetterAuthSession } from "@/lib/better-auth/client";
+import { treatyClient } from "@/lib/elysia/eden-treaty";
 import { queryOptions, useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { redirect } from "@tanstack/react-router";
-import { getSessionServerFn } from "../auth/server-functions";
 
 type ViewerUser = BetterAuthSession["user"];
 type ViewerSession = BetterAuthSession["session"];
@@ -14,16 +14,8 @@ export type TViewer = {
 export const viewerqueryOptions = queryOptions({
   queryKey: ["viewer"],
   queryFn: async () => {
-    // const { data, error } = await authClient.getSession();
-    // if (error) {
-    //   return {
-    //     data: null,
-    //     error,
-    //   };
-    // }
-    // return { data, error: null };
-    const data = await getSessionServerFn();
-    return { data, error: null };
+    const data = await treatyClient.viewer.get();
+    return { data: data.data, error: null };
   },
 });
 

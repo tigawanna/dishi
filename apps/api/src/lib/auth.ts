@@ -4,7 +4,6 @@ import { ac, roles } from "@repo/isomorphic/auth-roles";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { admin, apiKey, bearer, openAPI, organization } from "better-auth/plugins";
-import { tanstackStartCookies } from "better-auth/tanstack-start";
 
 export const auth = betterAuth({
   trustedOrigins: AUTHORIZED_ORIGINS,
@@ -16,7 +15,7 @@ export const auth = betterAuth({
   }),
 
   plugins: [
-    tanstackStartCookies(),
+    // tanstackStartCookies(),
     apiKey(),
     bearer(),
     openAPI(),

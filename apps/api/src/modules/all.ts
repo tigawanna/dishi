@@ -8,6 +8,7 @@ import { Elysia } from "elysia";
 import { adminRoute } from "./admin";
 import { crudRouteGroup } from "./crud";
 import { indexRoute } from "./home";
+import { viewerRoute } from "./viewer";
 
 export const allRoutes = new Elysia()
   // .use(onErrorMiddleware)
@@ -69,5 +70,6 @@ export const allRoutes = new Elysia()
   )
   .mount(auth.handler)
   .use(indexRoute)
+  .use(viewerRoute)
   .use(adminRoute)
   .use(crudRouteGroup);

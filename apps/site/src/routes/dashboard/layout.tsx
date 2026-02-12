@@ -13,4 +13,12 @@ export const Route = createFileRoute("/dashboard")({
       });
     }
   },
+  head: () => ({
+    meta: [
+      {
+        title: "Dishi | Dashboard",
+        description: "Your dashboard",
+      },
+    ],
+  }),
 });
