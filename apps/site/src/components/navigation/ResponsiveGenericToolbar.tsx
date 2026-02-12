@@ -9,7 +9,7 @@ interface ResponsiveGenericToolbarProps {
 
 export function ResponsiveGenericToolbar({ children }: ResponsiveGenericToolbarProps) {
   return (
-    <div className="drawer" data-test="sidebar-drawer">
+    <div className="drawer w-full" data-test="sidebar-drawer">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content bg-base-100 flex h-full min-h-screen flex-col">
         {/* Mobile Navbar */}
@@ -56,9 +56,9 @@ export function ResponsiveGenericToolbar({ children }: ResponsiveGenericToolbarP
         {/* Desktop Navbar */}
         <div
           data-test="homepage-toolbar"
-          className="navbar bg-base-100/80 border-base-300 sticky top-0 z-10 hidden border-b backdrop-blur-md md:flex px-6"
+          className="navbar bg-base-100/80 border-base-300 sticky top-0 z-10 hidden w-full border-b backdrop-blur-md md:flex px-8"
         >
-          <div className="flex-1">
+          <div className="flex-1 justify-start">
             <Link
               to="/"
               data-test="homepage-home-link"

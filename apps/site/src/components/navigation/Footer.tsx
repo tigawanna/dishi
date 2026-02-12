@@ -10,9 +10,7 @@ export function Footer() {
     <footer className="bg-base-200 text-base-content">
       <div className="px-4 py-8 sm:px-6 md:px-10 md:py-12">
         <div className="max-w-7xl mx-auto">
-          {/* Grid layout: stack on mobile, 3 columns on md+ */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 mb-8">
-            {/* Branding Section */}
             <div className="flex flex-col items-center md:items-start gap-3 text-center md:text-left">
               {(() => {
                 const Icon = AppConfig.icon as any;
@@ -26,34 +24,7 @@ export function Footer() {
               </div>
             </div>
 
-            {/* Links Section */}
-            <nav aria-label="footer-navigation" className="flex justify-center md:justify-start">
-              <ul className="flex flex-col gap-2 text-sm md:text-base">
-                <li>
-                  <Link to="/" className="link link-hover">
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/dashboard" className="link link-hover">
-                    Dashboard
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/profile" className="link link-hover">
-                    Profile
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/auth" search={{ returnTo: pathname }} className="link link-hover">
-                    Sign In
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-
-            {/* Social Section */}
-            <div className="flex items-center justify-center md:justify-end gap-2 md:gap-3">
+            <div className="flex items-center justify-center gap-3">
               <a
                 href="https://github.com"
                 target="_blank"
@@ -80,6 +51,31 @@ export function Footer() {
                 <Mail className="size-5" />
               </a>
             </div>
+
+            <nav aria-label="footer-navigation" className="flex justify-center md:justify-end">
+              <ul className="flex flex-col items-center md:items-end gap-2 text-sm md:text-base">
+                <li>
+                  <Link to="/" className="link link-hover">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashboard" className="link link-hover">
+                    Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/profile" className="link link-hover">
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/auth" search={{ returnTo: pathname }} className="link link-hover">
+                    Sign In
+                  </Link>
+                </li>
+              </ul>
+            </nav>
           </div>
 
           {/* Divider */}
