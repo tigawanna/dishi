@@ -24,7 +24,7 @@ interface DashboardLayoutProps {
 export function DashboardLayout({ sidebar_props }: DashboardLayoutProps) {
   return (
     <SidebarProvider defaultOpen={false}>
-      <Helmet title="Townhall | Dashboard" description="Dashboard for your townhall governance" />
+      <Helmet title="Dishi | Dashboard" description="Manage your kitchens, orders, and more" />
       <Sidebar className="" collapsible="icon" {...sidebar_props}>
         <SidebarHeader>
           <DashboardSidebarHeader />

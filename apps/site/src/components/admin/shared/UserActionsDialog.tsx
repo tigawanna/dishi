@@ -248,7 +248,7 @@ export function UserActionsDialog({
 
   const handleSubmit = () => {
     switch (selectedAction) {
-      // Townhall actions
+      // Kitchen actions
       case "remove-from-org":
         removeMemberMutation.mutate();
         break;
@@ -294,7 +294,7 @@ export function UserActionsDialog({
         return (
           <div className="space-y-4">
             <p className="text-muted-foreground text-sm">
-              Remove <span className="font-semibold">{user.email}</span> from this townhall?
+              Remove <span className="font-semibold">{user.email}</span> from this kitchen?
             </p>
           </div>
         );
@@ -303,7 +303,7 @@ export function UserActionsDialog({
         return (
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="memberRole">Townhall Role</Label>
+              <Label htmlFor="memberRole">Kitchen Role</Label>
               <Select
                 value={formData.memberRole}
                 onValueChange={(v) => setFormData({ ...formData, memberRole: v })}

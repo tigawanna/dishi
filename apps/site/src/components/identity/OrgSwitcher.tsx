@@ -112,10 +112,10 @@ export function OrgSwitcher() {
               trigger={
                 <div className="flex flex-col cursor-pointer items-center gap-2 group-data-[collapsible=icon]:hidden group-data-[collapsible=icon]:gap-0">
                   <p className="text-muted-foreground text-center text-xs font-medium group-data-[collapsible=icon]:hidden">
-                    No townhalls yet
+                    No kitchens yet
                   </p>
                   <div className="flex w-full justify-center gap-2">
-                    <div className="text-center text-xs font-medium">Create townhall</div>
+                    <div className="text-center text-xs font-medium">Create kitchen</div>
                     <Plus className="size-4" />
                   </div>
                 </div>
@@ -167,7 +167,7 @@ export function OrgSwitcher() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuLabel className="text-muted-foreground text-xs">
-              Townhalls
+              Kitchens
             </DropdownMenuLabel>
             {organizations.map((org, index) => (
               <DropdownMenuItem
@@ -190,7 +190,7 @@ export function OrgSwitcher() {
                     trigger={
                       <div className="flex cursor-pointer flex-col items-center gap-2 group-data-[collapsible=icon]:hidden group-data-[collapsible=icon]:gap-0">
                         <div className="flex w-full justify-center gap-2">
-                          <div className="text-center text-xs font-medium">Create townhall</div>
+                          <div className="text-center text-xs font-medium">Create kitchen</div>
                           <Plus className="size-4" />
                         </div>
                       </div>

@@ -31,7 +31,7 @@ export function AddUserToOrg({ orgIds }: AddUserToOrgProps) {
     defaultValues: {},
     onSubmit: async ({ value }) => {},
   });
-  // add the user to the selected organizations (townhalls  )
+  // add the user to the selected organizations (kitchens)
   const addToOrgMutation = useMutation({
     mutationFn: async () => {
       // mutation logic here
@@ -56,7 +56,7 @@ export function AddUserToOrg({ orgIds }: AddUserToOrgProps) {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add this user to Townhall</DialogTitle>
+          <DialogTitle>Add this user to Kitchen</DialogTitle>
           <DialogDescription>
             This action will add the user to the selected organization(s).
           </DialogDescription>

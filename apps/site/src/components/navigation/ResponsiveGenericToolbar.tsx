@@ -1,7 +1,7 @@
 import { ThemeToggle } from "@/components/navigation/ThemeToggle";
 import { AppConfig } from "@/utils/system";
 import { Link } from "@tanstack/react-router";
-import { FileText, History, Home, LayoutDashboard, User, Users, Vote } from "lucide-react";
+import { ChefHat, Home, LayoutDashboard, MapPin, ShoppingBag, User } from "lucide-react";
 
 interface ResponsiveGenericToolbarProps {
   children: React.ReactNode;
@@ -56,24 +56,20 @@ export function ResponsiveGenericToolbar({ children }: ResponsiveGenericToolbarP
         {/* Desktop Navbar */}
         <div
           data-test="homepage-toolbar"
-          className="navbar bg-base-100/80 border-base-300 sticky top-0 z-10 hidden w-full border-b backdrop-blur-md md:flex px-8"
+          className="bg-base-100/80 border-base-300 sticky top-0 z-10 hidden w-full items-center justify-between border-b backdrop-blur-md md:flex px-8 py-2"
         >
-          <div className="flex-1 justify-start">
-            <Link
-              to="/"
-              data-test="homepage-home-link"
-              className="btn btn-ghost text-base-content hover:text-primary flex items-center gap-2 text-xl font-bold normal-case px-0"
-            >
-              {(() => {
-                const Icon = AppConfig.icon as any;
-                return <Icon className="size-6" />;
-              })()}
-              {AppConfig.name}
-            </Link>
-          </div>
-          <div className="flex-none">
-            <ThemeToggle />
-          </div>
+          <Link
+            to="/"
+            data-test="homepage-home-link"
+            className="text-base-content hover:text-primary flex items-center gap-2 text-xl font-bold"
+          >
+            {(() => {
+              const Icon = AppConfig.icon as any;
+              return <Icon className="size-6" />;
+            })()}
+            {AppConfig.name}
+          </Link>
+          <ThemeToggle />
         </div>
         {/* Page content */}
         {children}
@@ -121,19 +117,18 @@ export function ResponsiveGenericToolbar({ children }: ResponsiveGenericToolbarP
             </Link>
           </li>
 
-          <div className="divider my-2">Governance</div>
+          <div className="divider my-2">Explore</div>
 
-          {/* Governance Links */}
           <li>
-            <Link to="/dashboard/proposals" className="gap-3">
-              <FileText className="size-5" />
-              <span>Proposals</span>
+            <Link to="/dashboard/organizations" className="gap-3">
+              <MapPin className="size-5" />
+              <span>Kitchens</span>
             </Link>
           </li>
           <li>
-            <Link to="/dashboard/audit" className="gap-3">
-              <History className="size-5" />
-              <span>Audit Log</span>
+            <Link to="/dashboard/orders" className="gap-3">
+              <ShoppingBag className="size-5" />
+              <span>Orders</span>
             </Link>
           </li>
 

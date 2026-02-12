@@ -15,7 +15,7 @@ export function RouteComponent() {
       <div className="max-w-2xl">
         <h1 className="mb-2 text-2xl font-semibold">Create User</h1>
         <p className="text-muted-foreground mb-6 text-sm">
-          Create a new user and optionally add them to one of your Townhall
+          Create a new user and optionally add them to one of your kitchens
         </p>
 
         <AdminUserForm
