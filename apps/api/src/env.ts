@@ -13,18 +13,18 @@ expand(
 const EnvSchema = z.object({
   NODE_ENV: z.string().default("development"),
   PORT: z.coerce.number().default(5000),
-  LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"]),
-  DATABASE_URL: z.string().url(),
+  LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"]).default("info"),
+  DATABASE_URL: z.string().url().optional(),
   DATABASE_AUTH_TOKEN: z.string().optional(),
   REDIS_PORT: z.string().optional(),
   CRUD_BEARER_TOKEN: z.string().optional(),
-  API_URL: z.string(),
-  FRONTEND_URL: z.string(),
-  ACCESS_TOKEN_SECRET: z.string(),
-  REFRESH_TOKEN_SECRET: z.string(),
-  BREVO_API_KEY: z.string(),
-  BREVO_USER: z.string(),
-  EMAIL_FROM: z.string(),
+  API_URL: z.string().optional(),
+  FRONTEND_URL: z.string().optional(),
+  ACCESS_TOKEN_SECRET: z.string().optional(),
+  REFRESH_TOKEN_SECRET: z.string().optional(),
+  BREVO_API_KEY: z.string().optional(),
+  BREVO_USER: z.string().optional(),
+  EMAIL_FROM: z.string().optional(),
 });
 // .superRefine((input, ctx) => {
 //   if (input.NODE_ENV === "production" && !input.DATABASE_AUTH_TOKEN) {

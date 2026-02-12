@@ -11,6 +11,7 @@ const config = defineConfig({
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
+      "@backend": fileURLToPath(new URL("../api/src", import.meta.url)),
     },
   },
   plugins: [
@@ -20,7 +21,11 @@ const config = defineConfig({
       projects: ["./tsconfig.json"],
     }),
     tailwindcss(),
-    tanstackStart(),
+    tanstackStart({
+      router: {
+        routeToken: "layout", // <-- Add this line
+      },
+    }),
     viteReact({
       babel: {
         plugins: ["babel-plugin-react-compiler"],
