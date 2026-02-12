@@ -11,13 +11,20 @@ const searchparams = z.object({
 export const Route = createFileRoute("/auth/signup")({
   component: SignupPage,
   validateSearch: (search) => searchparams.parse(search),
+  head: () => ({
+    meta: [
+      {
+        title: "Dishi | Signup",
+        description: "Create a new account",
+      },
+    ],
+  }),
 });
 
 export function SignupPage() {
   return (
     <div className="to-primary/50items-center flex h-full min-h-screen w-full flex-col justify-center">
       <ResponsiveGenericToolbar>
-        <Helmet title="Property | Signup" description="Create a new account" />
         <SignupComponent />
         <Footer />
       </ResponsiveGenericToolbar>

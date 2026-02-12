@@ -18,6 +18,14 @@ export const Route = createFileRoute("/auth/")({
       throw redirect({ to: returnTo });
     }
   },
+  head: () => ({
+    meta: [
+      {
+        title: "Dishi | Signin",
+        description: "Login to your account",
+      },
+    ],
+  }),
 });
 
 export function SigninPage() {
@@ -25,7 +33,6 @@ export function SigninPage() {
     <div className="flex min-h-screen flex-col items-center justify-center">
       <ResponsiveGenericToolbar>
         <div className="flex min-h-screen flex-col">
-          <Helmet title="Property | Signin" description="Login to your account" />
           <SigninComponent />
         </div>
         <Footer />
