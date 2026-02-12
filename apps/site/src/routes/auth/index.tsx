@@ -1,6 +1,5 @@
 import { Footer } from "@/components/navigation/Footer";
 import { ResponsiveGenericToolbar } from "@/components/navigation/ResponsiveGenericToolbar";
-import { Helmet } from "@/components/wrappers/custom-helmet";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { z } from "zod";
 import { SigninComponent } from "./-components/SigninComponent";
