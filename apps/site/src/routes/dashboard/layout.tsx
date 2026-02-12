@@ -1,6 +1,6 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
-import { DashboardLayout } from "./-components/dashoboard-sidebar/DashboardLayout";
 import { authMiddleware } from "@/middleware/auth-guard";
+import { createFileRoute } from "@tanstack/react-router";
+import { DashboardLayout } from "./-components/dashoboard-sidebar/DashboardLayout";
 
 export const Route = createFileRoute("/dashboard")({
   component: DashboardLayout,
