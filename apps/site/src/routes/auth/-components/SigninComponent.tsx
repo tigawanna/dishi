@@ -2,7 +2,7 @@ import { authClient } from "@/lib/better-auth/client";
 import { useAppForm } from "@/lib/tanstack/form";
 import { formOptions } from "@tanstack/react-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -21,6 +21,7 @@ const formOpts = formOptions({
 });
 
 export function SigninComponent() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const qc = useQueryClient();
   const { returnTo } = Route.useSearch();
@@ -46,6 +47,7 @@ export function SigninComponent() {
         description: `Welcome back ${data.data?.user.name}`,
       });
       qc.setQueryData(["viewer"], () => data);
+      router.invalidate();
       navigate({ to: returnTo || "/", search: { returnTo } });
     },
     onError(error) {

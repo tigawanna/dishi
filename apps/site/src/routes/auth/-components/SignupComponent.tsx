@@ -3,12 +3,10 @@ import { authClient } from "@/lib/better-auth/client";
 import { useAppForm } from "@/lib/tanstack/form";
 import { formOptions } from "@tanstack/react-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Link, useNavigate, useSearch } from "@tanstack/react-router";
+import { Link, useNavigate, useRouter, useSearch } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
-
-interface SignupComponentProps {}
 
 type PropertyUserCreate = {
   name: string;
@@ -28,14 +26,14 @@ const formOpts = formOptions({
   } satisfies PropertyUserCreate,
 });
 
-export function SignupComponent({}: SignupComponentProps) {
+export function SignupComponent() {
   const { returnTo } = useSearch({
     from: "/auth/signup",
   });
   const [showPassword, setShowPassword] = useState(false);
   const qc = useQueryClient();
   const navigate = useNavigate({ from: "/auth/signup" });
-
+  const router = useRouter();
   const mutation = useMutation({
     mutationFn: (data: PropertyUserCreate) => {
       return authClient.signUp.email({
@@ -56,6 +54,7 @@ export function SignupComponent({}: SignupComponentProps) {
         description: `Welcome ${data.data?.user.name}`,
       });
       qc.invalidateQueries(viewerqueryOptions);
+      router.invalidate();
       navigate({ to: "/auth", search: { returnTo: "/profile" } });
     },
     onError(error) {
