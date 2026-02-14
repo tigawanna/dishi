@@ -1,13 +1,13 @@
-import { HeadContent, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
 import { viewerqueryOptions, type TViewer } from "@/data-access-layer/users/viewer";
+import { HeadContent, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
 
-import type { QueryClient } from "@tanstack/react-query";
-import { TanstackDevtools } from "@/lib/tanstack/devtools/devtools";
-import { z } from "zod";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { TanstackDevtools } from "@/lib/tanstack/devtools/devtools";
 import { ThemeProvider } from "@/lib/tanstack/router/theme-provider";
+import type { QueryClient } from "@tanstack/react-query";
+import { z } from "zod";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -60,9 +60,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   }),
   validateSearch: (search) => searchparams.parse(search),
   shellComponent: RootDocument,
-  beforeLoad: async ({context}) => {
-  const viewer = await context.queryClient.ensureQueryData(viewerqueryOptions);
-  return { viewer: viewer.data };
+  beforeLoad: async ({ context }) => {
+    const viewer = await context.queryClient.ensureQueryData(viewerqueryOptions);
+    console.log("========= __root - beforeLoad - viewer", viewer);
+    return { viewer: viewer.data };
   },
 });
 

@@ -1,5 +1,4 @@
 import { auth } from "@backend/lib/auth";
-import { requestPasswordReset } from "better-auth/api";
 import { Elysia } from "elysia";
 
 export const viewerRoute = new Elysia().get(

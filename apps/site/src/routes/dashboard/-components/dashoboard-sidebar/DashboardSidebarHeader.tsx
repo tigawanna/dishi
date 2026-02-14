@@ -1,13 +1,41 @@
 import { OrgSwitcher } from "@/components/identity/OrgSwitcher";
-import { useSidebar } from "@/components/ui/sidebar";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
+} from "@/components/ui/sidebar";
 import { Link, useLocation } from "@tanstack/react-router";
 import { LayoutDashboard } from "lucide-react";
+import { useEffect, useState } from "react";
+
+function OrgSwitcherFallback() {
+  return (
+    <SidebarMenu>
+      <SidebarMenuItem>
+        <SidebarMenuButton size="lg" disabled>
+          <Skeleton className="h-8 w-8 rounded-lg" />
+          <div className="grid flex-1 gap-1.5">
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-3 w-20" />
+          </div>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+    </SidebarMenu>
+  );
+}
 
 interface DashboardSidebarHeaderProps {}
 
 export function DashboardSidebarHeader({}: DashboardSidebarHeaderProps) {
   const { state, setOpenMobile, isMobile } = useSidebar();
   const { pathname } = useLocation();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div
@@ -16,7 +44,7 @@ export function DashboardSidebarHeader({}: DashboardSidebarHeaderProps) {
         setOpenMobile(false);
       }}
     >
-      <OrgSwitcher />
+      {mounted ? <OrgSwitcher /> : <OrgSwitcherFallback />}
       <Link
         to="/dashboard"
         className={
