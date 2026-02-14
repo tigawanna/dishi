@@ -12,6 +12,7 @@ import { z } from "zod";
 interface MyRouterContext {
   queryClient: QueryClient;
   viewer?: TViewer;
+  testValue?: string;
 }
 
 const searchparams = z.object({
@@ -20,10 +21,12 @@ const searchparams = z.object({
 });
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
+
   beforeLoad: async ({ context }) => {
+    console.log("== __root - beforeLoad - context", context);
     const viewer = await context.queryClient.ensureQueryData(viewerqueryOptions);
     console.log("== __root - beforeLoad - viewer", viewer.data?.user?.email);
-    return { viewer: viewer.data };
+    return { viewer: viewer.data, testValue:"__root" };
   },
   head: () => ({
     meta: [
@@ -64,11 +67,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     ],
   }),
   validateSearch: (search) => searchparams.parse(search),
-
-  shellComponent: RootDocument,
-  loader: async ({ context }) => {
-    context.queryClient.prefetchQuery(viewerqueryOptions);
-  },
+  shellComponent: RootDocument
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {

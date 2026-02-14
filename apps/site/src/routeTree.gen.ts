@@ -15,7 +15,6 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProfileIndexRouteImport } from './routes/profile/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as AuthIndexRouteImport } from './routes/auth/index'
-import { Route as ProfileYesRouteImport } from './routes/profile/yes'
 import { Route as DashboardTenantsRouteImport } from './routes/dashboard/tenants'
 import { Route as DashboardStaffRouteImport } from './routes/dashboard/staff'
 import { Route as DashboardAuditRouteImport } from './routes/dashboard/audit'
@@ -58,11 +57,6 @@ const AuthIndexRoute = AuthIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthLayoutRoute,
-} as any)
-const ProfileYesRoute = ProfileYesRouteImport.update({
-  id: '/profile/yes',
-  path: '/profile/yes',
-  getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardTenantsRoute = DashboardTenantsRouteImport.update({
   id: '/tenants',
@@ -136,7 +130,6 @@ export interface FileRoutesByFullPath {
   '/dashboard/audit': typeof DashboardAuditRoute
   '/dashboard/staff': typeof DashboardStaffRoute
   '/dashboard/tenants': typeof DashboardTenantsRoute
-  '/profile/yes': typeof ProfileYesRoute
   '/auth/': typeof AuthIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/profile/': typeof ProfileIndexRoute
@@ -155,7 +148,6 @@ export interface FileRoutesByTo {
   '/dashboard/audit': typeof DashboardAuditRoute
   '/dashboard/staff': typeof DashboardStaffRoute
   '/dashboard/tenants': typeof DashboardTenantsRoute
-  '/profile/yes': typeof ProfileYesRoute
   '/auth': typeof AuthIndexRoute
   '/dashboard': typeof DashboardIndexRoute
   '/profile': typeof ProfileIndexRoute
@@ -177,7 +169,6 @@ export interface FileRoutesById {
   '/dashboard/audit': typeof DashboardAuditRoute
   '/dashboard/staff': typeof DashboardStaffRoute
   '/dashboard/tenants': typeof DashboardTenantsRoute
-  '/profile/yes': typeof ProfileYesRoute
   '/auth/': typeof AuthIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/profile/': typeof ProfileIndexRoute
@@ -200,7 +191,6 @@ export interface FileRouteTypes {
     | '/dashboard/audit'
     | '/dashboard/staff'
     | '/dashboard/tenants'
-    | '/profile/yes'
     | '/auth/'
     | '/dashboard/'
     | '/profile/'
@@ -219,7 +209,6 @@ export interface FileRouteTypes {
     | '/dashboard/audit'
     | '/dashboard/staff'
     | '/dashboard/tenants'
-    | '/profile/yes'
     | '/auth'
     | '/dashboard'
     | '/profile'
@@ -240,7 +229,6 @@ export interface FileRouteTypes {
     | '/dashboard/audit'
     | '/dashboard/staff'
     | '/dashboard/tenants'
-    | '/profile/yes'
     | '/auth/'
     | '/dashboard/'
     | '/profile/'
@@ -258,7 +246,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthLayoutRoute: typeof AuthLayoutRouteWithChildren
   DashboardLayoutRoute: typeof DashboardLayoutRouteWithChildren
-  ProfileYesRoute: typeof ProfileYesRoute
   ProfileIndexRoute: typeof ProfileIndexRoute
 }
 
@@ -305,13 +292,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/'
       preLoaderRoute: typeof AuthIndexRouteImport
       parentRoute: typeof AuthLayoutRoute
-    }
-    '/profile/yes': {
-      id: '/profile/yes'
-      path: '/profile/yes'
-      fullPath: '/profile/yes'
-      preLoaderRoute: typeof ProfileYesRouteImport
-      parentRoute: typeof rootRouteImport
     }
     '/dashboard/tenants': {
       id: '/dashboard/tenants'
@@ -453,7 +433,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthLayoutRoute: AuthLayoutRouteWithChildren,
   DashboardLayoutRoute: DashboardLayoutRouteWithChildren,
-  ProfileYesRoute: ProfileYesRoute,
   ProfileIndexRoute: ProfileIndexRoute,
 }
 export const routeTree = rootRouteImport

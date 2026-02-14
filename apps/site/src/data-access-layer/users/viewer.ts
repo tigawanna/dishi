@@ -1,7 +1,10 @@
 import { authClient, BetterAuthSession } from "@/lib/better-auth/client";
 import { treatyClient } from "@/lib/elysia/eden-treaty";
+import { safeStringToUrl } from "@/utils/url";
 import { queryOptions, useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { redirect } from "@tanstack/react-router";
+import { createMiddleware } from "@tanstack/react-start";
+import { getRequestHeaders } from "@tanstack/react-start/server";
 
 type ViewerUser = BetterAuthSession["user"];
 type ViewerSession = BetterAuthSession["session"];
@@ -15,7 +18,6 @@ export const viewerqueryOptions = queryOptions({
   queryKey: ["viewer"],
   queryFn: async () => {
     const data = await treatyClient.viewer.get();
-    // console.log("== viewerqueryOptions - queryFn - data", data.data?.user?.email);
     return { data: data.data, error: null };
   },
   // staleTime: 1000 * 60 * 5, // 5 minutes
@@ -42,3 +44,22 @@ export function useViewer() {
     logoutMutation,
   } as const;
 }
+
+export const viewerMiddleware = createMiddleware().server(async ({ next, request }) => {
+  const headers = getRequestHeaders();
+  const { data } = await treatyClient.viewer.get({
+    headers,
+  });
+  console.log("== viewerMiddleware - server - data", data);
+  // const session = await auth.api.getSession({ headers });
+  if (!data?.user) {
+    const returnTo = safeStringToUrl(request.url)?.pathname ?? "/";
+    throw redirect({ to: "/auth", search: { returnTo } });
+  }
+  return await next({
+    context: {
+      viewer: data,
+      testValue:"viewerMiddleware",
+    },
+  });
+});
