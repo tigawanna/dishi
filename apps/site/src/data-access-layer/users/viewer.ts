@@ -15,7 +15,7 @@ export const viewerqueryOptions = queryOptions({
   queryKey: ["viewer"],
   queryFn: async () => {
     const data = await treatyClient.viewer.get();
-    console.log("========= viewerqueryOptions - queryFn - data", data);
+    // console.log("== viewerqueryOptions - queryFn - data", data.data?.user?.email);
     return { data: data.data, error: null };
   },
   // staleTime: 1000 * 60 * 5, // 5 minutes

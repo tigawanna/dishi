@@ -9,12 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as DashboardLayoutRouteImport } from './routes/dashboard/layout'
 import { Route as AuthLayoutRouteImport } from './routes/auth/layout'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProfileIndexRouteImport } from './routes/profile/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as AuthIndexRouteImport } from './routes/auth/index'
+import { Route as ProfileYesRouteImport } from './routes/profile/yes'
 import { Route as DashboardTenantsRouteImport } from './routes/dashboard/tenants'
 import { Route as DashboardStaffRouteImport } from './routes/dashboard/staff'
 import { Route as DashboardAuditRouteImport } from './routes/dashboard/audit'
@@ -28,11 +29,6 @@ import { Route as DashboardProposalsNewRouteImport } from './routes/dashboard/pr
 import { Route as DashboardOrganizationsOrgIdIndexRouteImport } from './routes/dashboard/organizations/$orgId/index'
 import { Route as DashboardOrganizationsOrgIdMembersRouteImport } from './routes/dashboard/organizations/$orgId/members'
 
-const ProfileRoute = ProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DashboardLayoutRoute = DashboardLayoutRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -48,6 +44,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfileIndexRoute = ProfileIndexRouteImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -57,6 +58,11 @@ const AuthIndexRoute = AuthIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthLayoutRoute,
+} as any)
+const ProfileYesRoute = ProfileYesRouteImport.update({
+  id: '/profile/yes',
+  path: '/profile/yes',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardTenantsRoute = DashboardTenantsRouteImport.update({
   id: '/tenants',
@@ -126,13 +132,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthLayoutRouteWithChildren
   '/dashboard': typeof DashboardLayoutRouteWithChildren
-  '/profile': typeof ProfileRoute
   '/auth/signup': typeof AuthSignupRoute
   '/dashboard/audit': typeof DashboardAuditRoute
   '/dashboard/staff': typeof DashboardStaffRoute
   '/dashboard/tenants': typeof DashboardTenantsRoute
+  '/profile/yes': typeof ProfileYesRoute
   '/auth/': typeof AuthIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/profile/': typeof ProfileIndexRoute
   '/dashboard/proposals/new': typeof DashboardProposalsNewRoute
   '/dashboard/users/$userid': typeof DashboardUsersUseridRoute
   '/dashboard/users/new': typeof DashboardUsersNewRoute
@@ -144,13 +151,14 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/profile': typeof ProfileRoute
   '/auth/signup': typeof AuthSignupRoute
   '/dashboard/audit': typeof DashboardAuditRoute
   '/dashboard/staff': typeof DashboardStaffRoute
   '/dashboard/tenants': typeof DashboardTenantsRoute
+  '/profile/yes': typeof ProfileYesRoute
   '/auth': typeof AuthIndexRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/profile': typeof ProfileIndexRoute
   '/dashboard/proposals/new': typeof DashboardProposalsNewRoute
   '/dashboard/users/$userid': typeof DashboardUsersUseridRoute
   '/dashboard/users/new': typeof DashboardUsersNewRoute
@@ -165,13 +173,14 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthLayoutRouteWithChildren
   '/dashboard': typeof DashboardLayoutRouteWithChildren
-  '/profile': typeof ProfileRoute
   '/auth/signup': typeof AuthSignupRoute
   '/dashboard/audit': typeof DashboardAuditRoute
   '/dashboard/staff': typeof DashboardStaffRoute
   '/dashboard/tenants': typeof DashboardTenantsRoute
+  '/profile/yes': typeof ProfileYesRoute
   '/auth/': typeof AuthIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/profile/': typeof ProfileIndexRoute
   '/dashboard/proposals/new': typeof DashboardProposalsNewRoute
   '/dashboard/users/$userid': typeof DashboardUsersUseridRoute
   '/dashboard/users/new': typeof DashboardUsersNewRoute
@@ -187,13 +196,14 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
-    | '/profile'
     | '/auth/signup'
     | '/dashboard/audit'
     | '/dashboard/staff'
     | '/dashboard/tenants'
+    | '/profile/yes'
     | '/auth/'
     | '/dashboard/'
+    | '/profile/'
     | '/dashboard/proposals/new'
     | '/dashboard/users/$userid'
     | '/dashboard/users/new'
@@ -205,13 +215,14 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/profile'
     | '/auth/signup'
     | '/dashboard/audit'
     | '/dashboard/staff'
     | '/dashboard/tenants'
+    | '/profile/yes'
     | '/auth'
     | '/dashboard'
+    | '/profile'
     | '/dashboard/proposals/new'
     | '/dashboard/users/$userid'
     | '/dashboard/users/new'
@@ -225,13 +236,14 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
-    | '/profile'
     | '/auth/signup'
     | '/dashboard/audit'
     | '/dashboard/staff'
     | '/dashboard/tenants'
+    | '/profile/yes'
     | '/auth/'
     | '/dashboard/'
+    | '/profile/'
     | '/dashboard/proposals/new'
     | '/dashboard/users/$userid'
     | '/dashboard/users/new'
@@ -246,18 +258,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthLayoutRoute: typeof AuthLayoutRouteWithChildren
   DashboardLayoutRoute: typeof DashboardLayoutRouteWithChildren
-  ProfileRoute: typeof ProfileRoute
+  ProfileYesRoute: typeof ProfileYesRoute
+  ProfileIndexRoute: typeof ProfileIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -279,6 +285,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profile/': {
+      id: '/profile/'
+      path: '/profile'
+      fullPath: '/profile/'
+      preLoaderRoute: typeof ProfileIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard/': {
       id: '/dashboard/'
       path: '/'
@@ -292,6 +305,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/'
       preLoaderRoute: typeof AuthIndexRouteImport
       parentRoute: typeof AuthLayoutRoute
+    }
+    '/profile/yes': {
+      id: '/profile/yes'
+      path: '/profile/yes'
+      fullPath: '/profile/yes'
+      preLoaderRoute: typeof ProfileYesRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/dashboard/tenants': {
       id: '/dashboard/tenants'
@@ -433,7 +453,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthLayoutRoute: AuthLayoutRouteWithChildren,
   DashboardLayoutRoute: DashboardLayoutRouteWithChildren,
-  ProfileRoute: ProfileRoute,
+  ProfileYesRoute: ProfileYesRoute,
+  ProfileIndexRoute: ProfileIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -3,7 +3,7 @@ import { ChefHat, ChevronLeft, ShoppingBag, UtensilsCrossed } from "lucide-react
 
 export const Route = createFileRoute("/dashboard/")({
   beforeLoad: async ({ context }) => {
-    console.log("========= DashboardIndex - beforeLoad - context", context);
+    // console.log("== DashboardIndex - beforeLoad - context", context.viewer?.user?.email);
   },
   component: RouteComponent,
 });

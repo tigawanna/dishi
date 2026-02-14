@@ -8,9 +8,11 @@ import { RouterPendingComponent } from "./lib/tanstack/router/RouterPendingCompo
 import { RouterNotFoundComponent } from "./lib/tanstack/router/RouterNotFoundComponent";
 import { RouterErrorComponent } from "./lib/tanstack/router/routerErrorComponent";
 
+
 // Create a new router instance
 export const getRouter = () => {
   const tanstackQueryContext = getTanstackQueryContext();
+
 
   const router = createRouter({
     routeTree,
@@ -20,11 +22,20 @@ export const getRouter = () => {
     context: {
       ...tanstackQueryContext,
     },
-
     defaultPreload: "intent",
   });
 
   setupRouterSsrQueryIntegration({ router, queryClient: tanstackQueryContext.queryClient });
+
+    // if (process.env.LOG_DEBUG) {
+    //   router.subscribe("onBeforeLoad", console.log);
+    //   router.subscribe("onBeforeNavigate", console.log);
+    //   router.subscribe("onBeforeRouteMount", console.log);
+    //   router.subscribe("onLoad", console.log);
+    //   router.subscribe("onRendered", console.log);
+    //   router.subscribe("onResolved", console.log);
+    // }
+
 
   return router;
 };

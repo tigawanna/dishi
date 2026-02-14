@@ -20,6 +20,11 @@ const searchparams = z.object({
 });
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
+  beforeLoad: async ({ context }) => {
+    const viewer = await context.queryClient.ensureQueryData(viewerqueryOptions);
+    console.log("== __root - beforeLoad - viewer", viewer.data?.user?.email);
+    return { viewer: viewer.data };
+  },
   head: () => ({
     meta: [
       {
@@ -59,11 +64,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     ],
   }),
   validateSearch: (search) => searchparams.parse(search),
+
   shellComponent: RootDocument,
-  beforeLoad: async ({ context }) => {
-    const viewer = await context.queryClient.ensureQueryData(viewerqueryOptions);
-    console.log("========= __root - beforeLoad - viewer", viewer);
-    return { viewer: viewer.data };
+  loader: async ({ context }) => {
+    context.queryClient.prefetchQuery(viewerqueryOptions);
   },
 });
 
