@@ -23,15 +23,5 @@ export const getRouter = async () => {
   });
 
   setupRouterSsrQueryIntegration({ router, queryClient: tanstackQueryContext.queryClient });
-
-  // if (process.env.LOG_DEBUG) {
-  // router.subscribe("onBeforeLoad", console.log);
-  // router.subscribe("onBeforeNavigate", console.log);
-  // router.subscribe("onBeforeRouteMount", console.log);
-  // router.subscribe("onLoad", console.log);
-  // router.subscribe("onRendered", console.log);
-  // router.subscribe("onResolved", console.log);
-  // }
-
   return router;
 };
