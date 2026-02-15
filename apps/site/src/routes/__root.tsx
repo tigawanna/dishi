@@ -21,7 +21,6 @@ const searchparams = z.object({
 });
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
-
   beforeLoad: async ({ context }) => {
     const viewer = await context.queryClient.ensureQueryData(viewerqueryOptions);
     return { viewer: viewer.data};
