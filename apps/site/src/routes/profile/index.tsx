@@ -1,5 +1,5 @@
 import { ResponsiveGenericToolbar } from "@/components/navigation/ResponsiveGenericToolbar";
-import { viewerMiddleware } from "@/data-access-layer/users/viewer";
+import { viewerMiddleware, viewerqueryOptions } from "@/data-access-layer/users/viewer";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { Suspense } from "react";
 import { ViewerProfile, ViewerProfileFallback } from "./-components/ViewerProfile";
@@ -10,10 +10,12 @@ export const Route = createFileRoute("/profile/")({
     middleware: [viewerMiddleware],
   },
   beforeLoad: async ({ context }) => {
-    console.log("== ProfileRoute - beforeLoad - context", context);
+    const viewer = await context.queryClient.ensureQueryData(viewerqueryOptions);
+    console.log("== ProfileRoute - beforeLoad - ensureQueryData", viewer.data?.user);
     if (!context.viewer?.user) {
       throw redirect({ to: "/auth", search: { returnTo: "/profile" } });
     }
+    return { viewer: viewer.data };
   },
 });
 

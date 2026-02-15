@@ -45,6 +45,16 @@ export function useViewer() {
   } as const;
 }
 
+// export const viewerServerFunction = createServerFn({
+//   method: "GET",
+// }).handler(async () => {
+//   const headers = getRequestHeaders();
+//   const data = await treatyClient.viewer.get({
+//     headers,
+//   });
+//   return data.data;
+// })
+
 export const viewerMiddleware = createMiddleware().server(async ({ next, request }) => {
   const headers = getRequestHeaders();
   const { data } = await treatyClient.viewer.get({
@@ -52,14 +62,17 @@ export const viewerMiddleware = createMiddleware().server(async ({ next, request
   });
   console.log("== viewerMiddleware - server - data", data);
   // const session = await auth.api.getSession({ headers });
+
   if (!data?.user) {
     const returnTo = safeStringToUrl(request.url)?.pathname ?? "/";
     throw redirect({ to: "/auth", search: { returnTo } });
+  }else{
+     throw redirect({ to: "/sweet" });
   }
   return await next({
-    context: {
-      viewer: data,
-      testValue:"viewerMiddleware",
-    },
+    // sendContext: {
+    //   viewer: data,
+    //   testValue:"viewerMiddleware",
+    // },
   });
 });

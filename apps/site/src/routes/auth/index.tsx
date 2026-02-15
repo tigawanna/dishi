@@ -5,7 +5,7 @@ import { z } from "zod";
 import { SigninComponent } from "./-components/SigninComponent";
 
 const searchparams = z.object({
-  returnTo: z.string(),
+  returnTo: z.string().default("/"),
 });
 export const Route = createFileRoute("/auth/")({
   component: SigninPage,

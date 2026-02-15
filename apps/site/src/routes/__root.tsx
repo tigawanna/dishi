@@ -23,10 +23,8 @@ const searchparams = z.object({
 export const Route = createRootRouteWithContext<MyRouterContext>()({
 
   beforeLoad: async ({ context }) => {
-    console.log("== __root - beforeLoad - context", context);
     const viewer = await context.queryClient.ensureQueryData(viewerqueryOptions);
-    console.log("== __root - beforeLoad - viewer", viewer.data?.user?.email);
-    return { viewer: viewer.data, testValue:"__root" };
+    return { viewer: viewer.data};
   },
   head: () => ({
     meta: [
