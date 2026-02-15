@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
 
-interface RouterNotFoundComponentProps {}
 
-export function RouterNotFoundComponent({}: RouterNotFoundComponentProps) {
+
+export function RouterNotFoundComponent() {
   return (
     <div className="flex h-full min-h-screen w-full flex-col items-center justify-center">
       <div className="bg-bg-emphasized flex flex-col items-center justify-center rounded-lg p-[5%]">
