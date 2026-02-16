@@ -8,6 +8,9 @@ import { fileURLToPath, URL } from "url";
 import tailwindcss from "@tailwindcss/vite";
 
 const config = defineConfig({
+  server: {
+    host: "::",
+  },
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),

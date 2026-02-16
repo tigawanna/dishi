@@ -6,12 +6,25 @@ export function LandingHero() {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden">
       <div className="absolute inset-0">
-        <img
-          src="/hero-food.jpg"
-          alt="Homemade food spread"
-          className="h-full w-full object-cover"
-          loading="eager"
-        />
+        <picture>
+          <source
+            type="image/webp"
+            srcSet="/hero-food-sm.webp 640w, /hero-food-md.webp 1024w, /hero-food-lg.webp 1920w"
+            sizes="100vw"
+          />
+          <source
+            type="image/jpeg"
+            srcSet="/hero-food-sm.jpg 640w, /hero-food-md.jpg 1024w, /hero-food-lg.jpg 1920w"
+            sizes="100vw"
+          />
+          <img
+            src="/hero-food-lg.jpg"
+            alt="Homemade food spread"
+            className="h-full w-full object-cover"
+            loading="eager"
+            fetchPriority="high"
+          />
+        </picture>
         <div className="absolute inset-0 bg-linear-to-r from-base-content/95 via-base-content/80 to-base-content/50 dark:from-base-100/95 dark:via-base-100/80 dark:to-base-100/50" />
       </div>
 

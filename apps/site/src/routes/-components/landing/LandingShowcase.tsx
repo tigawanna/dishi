@@ -16,19 +16,43 @@ export function LandingShowcase() {
         <div className="grid items-center gap-16 md:grid-cols-2">
           <div className="relative">
             <div className="relative">
-              <img
-                src="/cook-portrait.jpg"
-                alt="Home cook serving food"
-                className="w-full max-w-sm rounded-2xl shadow-2xl shadow-base-content/10"
-                loading="lazy"
-              />
-              <div className="absolute -right-4 -bottom-8 md:-right-12">
+              <picture>
+                <source
+                  type="image/webp"
+                  srcSet="/cook-portrait-320w.webp 320w, /cook-portrait-480w.webp 480w"
+                  sizes="(max-width: 768px) 100vw, 384px"
+                />
+                <source
+                  type="image/jpeg"
+                  srcSet="/cook-portrait-320w.jpg 320w, /cook-portrait-480w.jpg 480w"
+                  sizes="(max-width: 768px) 100vw, 384px"
+                />
                 <img
-                  src="/food-bowl.jpg"
-                  alt="Delicious food bowl"
-                  className="w-48 rounded-2xl border-4 border-base-100 shadow-2xl shadow-base-content/10 md:w-56"
+                  src="/cook-portrait-480w.jpg"
+                  alt="Home cook serving food"
+                  className="w-full max-w-sm rounded-2xl shadow-2xl shadow-base-content/10"
                   loading="lazy"
                 />
+              </picture>
+              <div className="absolute -right-4 -bottom-8 md:-right-12">
+                <picture>
+                  <source
+                    type="image/webp"
+                    srcSet="/food-bowl-224w.webp 224w, /food-bowl-320w.webp 320w"
+                    sizes="(max-width: 768px) 192px, 224px"
+                  />
+                  <source
+                    type="image/jpeg"
+                    srcSet="/food-bowl-224w.jpg 224w, /food-bowl-320w.jpg 320w"
+                    sizes="(max-width: 768px) 192px, 224px"
+                  />
+                  <img
+                    src="/food-bowl-320w.jpg"
+                    alt="Delicious food bowl"
+                    className="w-48 rounded-2xl border-4 border-base-100 shadow-2xl shadow-base-content/10 md:w-56"
+                    loading="lazy"
+                  />
+                </picture>
               </div>
             </div>
           </div>
