@@ -1,6 +1,18 @@
-import { Button } from "@/components/ui/button";
-import { Link } from "@tanstack/react-router";
-import { MapPin, Search } from "lucide-react";
+import { lazy, Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const LandingSearchBar = lazy(() =>
+  import("./LandingSearchBar").then((m) => ({ default: m.LandingSearchBar })),
+);
+
+function SearchBarFallback() {
+  return (
+    <div className="flex flex-col gap-3 sm:flex-row">
+      <Skeleton className="h-12 max-w-md flex-1 rounded-lg bg-base-100/10 dark:bg-base-content/10" />
+      <Skeleton className="h-12 w-36 rounded-lg bg-primary/30" />
+    </div>
+  );
+}
 
 export function LandingHero() {
   return (
@@ -53,26 +65,12 @@ export function LandingHero() {
           </p>
 
           <div
-            className="animate-fade-in flex flex-col gap-3 sm:flex-row"
+            className="animate-fade-in"
             style={{ animationDelay: "300ms" }}
           >
-            <div className="flex max-w-md flex-1 items-center gap-2 rounded-lg border border-base-100/20 bg-base-100/10 px-4 py-3 backdrop-blur-md dark:border-base-content/20 dark:bg-base-content/10">
-              <MapPin className="size-5 shrink-0 text-primary" />
-              <input
-                type="text"
-                placeholder="Enter your neighborhood..."
-                className="w-full bg-transparent text-sm text-base-100 outline-none placeholder:text-base-100/50 dark:text-base-content dark:placeholder:text-base-content/50"
-              />
-            </div>
-            <Link to="/dashboard">
-              <Button
-                size="lg"
-                className="gap-2 rounded-lg px-8 text-base shadow-lg shadow-primary/30"
-              >
-                <Search className="size-4" />
-                Find Food
-              </Button>
-            </Link>
+            <Suspense fallback={<SearchBarFallback />}>
+              <LandingSearchBar />
+            </Suspense>
           </div>
 
           <div

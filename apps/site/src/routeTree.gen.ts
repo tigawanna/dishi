@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as DashboardLayoutRouteImport } from './routes/dashboard/layout'
 import { Route as AuthLayoutRouteImport } from './routes/auth/layout'
 import { Route as IndexRouteImport } from './routes/index'
@@ -28,6 +29,11 @@ import { Route as DashboardProposalsNewRouteImport } from './routes/dashboard/pr
 import { Route as DashboardOrganizationsOrgIdIndexRouteImport } from './routes/dashboard/organizations/$orgId/index'
 import { Route as DashboardOrganizationsOrgIdMembersRouteImport } from './routes/dashboard/organizations/$orgId/members'
 
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardLayoutRoute = DashboardLayoutRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -126,6 +132,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthLayoutRouteWithChildren
   '/dashboard': typeof DashboardLayoutRouteWithChildren
+  '/search': typeof SearchRoute
   '/auth/signup': typeof AuthSignupRoute
   '/dashboard/audit': typeof DashboardAuditRoute
   '/dashboard/staff': typeof DashboardStaffRoute
@@ -144,6 +151,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/search': typeof SearchRoute
   '/auth/signup': typeof AuthSignupRoute
   '/dashboard/audit': typeof DashboardAuditRoute
   '/dashboard/staff': typeof DashboardStaffRoute
@@ -165,6 +173,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthLayoutRouteWithChildren
   '/dashboard': typeof DashboardLayoutRouteWithChildren
+  '/search': typeof SearchRoute
   '/auth/signup': typeof AuthSignupRoute
   '/dashboard/audit': typeof DashboardAuditRoute
   '/dashboard/staff': typeof DashboardStaffRoute
@@ -187,6 +196,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/search'
     | '/auth/signup'
     | '/dashboard/audit'
     | '/dashboard/staff'
@@ -205,6 +215,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/search'
     | '/auth/signup'
     | '/dashboard/audit'
     | '/dashboard/staff'
@@ -225,6 +236,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/search'
     | '/auth/signup'
     | '/dashboard/audit'
     | '/dashboard/staff'
@@ -246,11 +258,19 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthLayoutRoute: typeof AuthLayoutRouteWithChildren
   DashboardLayoutRoute: typeof DashboardLayoutRouteWithChildren
+  SearchRoute: typeof SearchRoute
   ProfileIndexRoute: typeof ProfileIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -433,6 +453,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthLayoutRoute: AuthLayoutRouteWithChildren,
   DashboardLayoutRoute: DashboardLayoutRouteWithChildren,
+  SearchRoute: SearchRoute,
   ProfileIndexRoute: ProfileIndexRoute,
 }
 export const routeTree = rootRouteImport
