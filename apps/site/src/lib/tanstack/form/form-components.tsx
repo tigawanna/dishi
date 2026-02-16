@@ -15,10 +15,11 @@ export function SubmitButton({ label = "Submit", className, children }: SubmitBu
       selector={(state) => ({
         isSubmitting: state.isSubmitting,
         canSubmit: state.canSubmit,
+        isPristine: state.isPristine,
       })}
     >
-      {({ isSubmitting, canSubmit }) => (
-        <Button type="submit" disabled={isSubmitting || !canSubmit} className={className}>
+      {({ isSubmitting, canSubmit, isPristine }) => (
+        <Button type="submit" disabled={isSubmitting || !canSubmit || isPristine} className={className}>
           {children || (isSubmitting ? "Submitting..." : label)}
         </Button>
       )}

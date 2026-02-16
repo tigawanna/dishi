@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap");
 
 /* DaisyUI */
 /* @plugin "daisyui" {
@@ -106,6 +107,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-serif: "DM Serif Display", Georgia, serif;
+
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
   --animate-fade-in: fade-in 0.6s ease-out;
@@ -324,6 +328,10 @@
   --color-earth-orange-700: oklch(from #c2410c l c h);
   --color-earth-orange-800: oklch(from #9a3412 l c h);
   --color-earth-orange-900: oklch(from #7c2d12 l c h);
+
+  --color-warm-cream: oklch(from #faf5ee l c h);
+  --color-terracotta: oklch(from #c45b3c l c h);
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -390,6 +398,10 @@
   html {
     scroll-behavior: smooth;
   }
+}
+
+@utility animate-fade-in {
+  animation: fade-in 0.6s ease-out both;
 }
 
 @utility btn {

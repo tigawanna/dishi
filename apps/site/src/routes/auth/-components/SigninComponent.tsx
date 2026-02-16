@@ -125,7 +125,7 @@ export function SigninComponent() {
               Sign up
             </Link>
           </div>
-          <div className="flex w-full flex-wrap items-center justify-center gap-2">
+          {/* <div className="flex w-full flex-wrap items-center justify-center gap-2">
             <button
               type="button"
               disabled={mutation.isPending}
@@ -148,7 +148,7 @@ export function SigninComponent() {
             >
               Login as stranger 2
             </button>
-          </div>
+          </div> */}
         </div>
       </form>
     </div>

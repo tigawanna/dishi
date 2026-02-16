@@ -1,8 +1,9 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { useViewer } from "@/data-access-layer/users/viewer";
+import { MutationButton } from "@/lib/tanstack/query/MutationButton";
 
 export function ViewerProfile() {
-    const { viewer } = useViewer();
+    const { viewer, logoutMutation } = useViewer();
     return (
         <div className="min-h-screen flex flex-col items-center justify-center mx-auto gap-3 p-5">
           <div className="h-20 w-20 rounded-full bg-primary/10 flex items-center justify-center text-3xl font-bold text-primary">
@@ -15,6 +16,12 @@ export function ViewerProfile() {
           <p className="text-base-content/70" data-test="profile-role">
             {viewer.user?.role}
           </p>
+          <MutationButton
+            className="btn btn-primary"
+            onClick={() => logoutMutation.mutate()}
+            label="Logout"
+            mutation={logoutMutation}
+          />
         </div>
     );
 }
