@@ -19,7 +19,8 @@ function RouteComponent() {
       <div className="grid w-full max-w-4xl grid-cols-1 gap-6 md:grid-cols-3">
         <Link
           to="/dashboard/organizations"
-          className="card bg-base-200 hover:bg-base-300 shadow-lg transition-all hover:scale-105 cursor-pointer">
+          className="card bg-base-200 hover:bg-base-300 shadow-lg transition-all hover:scale-105 cursor-pointer"
+        >
           <div className="card-body items-center text-center">
             <ChefHat className="text-primary mb-2 size-10" />
             <h3 className="card-title text-lg">Kitchens</h3>

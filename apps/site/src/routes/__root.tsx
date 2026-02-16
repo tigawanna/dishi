@@ -23,7 +23,7 @@ const searchparams = z.object({
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   beforeLoad: async ({ context }) => {
     const viewer = await context.queryClient.ensureQueryData(viewerqueryOptions);
-    return { viewer: viewer.data};
+    return { viewer: viewer.data };
   },
   head: () => ({
     meta: [
@@ -64,7 +64,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     ],
   }),
   validateSearch: (search) => searchparams.parse(search),
-  shellComponent: RootDocument
+  shellComponent: RootDocument,
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {

@@ -18,8 +18,8 @@ export function LandingCTA() {
               <span className="italic text-primary-content/80">amazing</span>?
             </h2>
             <p className="mx-auto mb-10 max-w-md text-lg text-primary-content/70">
-              Join thousands of food lovers discovering incredible homemade meals
-              in their neighborhood.
+              Join thousands of food lovers discovering incredible homemade meals in their
+              neighborhood.
             </p>
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <Link to="/auth" search={{ returnTo: pathname }}>

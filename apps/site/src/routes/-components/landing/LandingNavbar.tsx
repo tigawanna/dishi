@@ -19,9 +19,9 @@ export function LandingNavbar() {
     const newTheme = theme === "light" ? "dark" : "light";
     if (typeof document !== "undefined" && "startViewTransition" in document) {
       try {
-        (document as unknown as { startViewTransition: (cb: () => void) => void }).startViewTransition(
-          () => updateTheme(newTheme),
-        );
+        (
+          document as unknown as { startViewTransition: (cb: () => void) => void }
+        ).startViewTransition(() => updateTheme(newTheme));
         return;
       } catch {
         /* fallback below */
@@ -33,7 +33,10 @@ export function LandingNavbar() {
   return (
     <nav className="fixed top-0 right-0 left-0 z-50 border-b border-base-100/10 dark:border-base-content/10">
       <div className="container flex h-16 items-center justify-between">
-        <Link to="/" className="font-serif text-2xl tracking-tight text-base-100 dark:text-base-content">
+        <Link
+          to="/"
+          className="font-serif text-2xl tracking-tight text-base-100 dark:text-base-content"
+        >
           dishi<span className="text-primary">.</span>
         </Link>
 
@@ -74,11 +77,7 @@ export function LandingNavbar() {
             className="text-base-100 dark:text-base-content"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
-            {mobileOpen ? (
-              <X className="size-5" />
-            ) : (
-              <Menu className="size-5" />
-            )}
+            {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
         </div>
       </div>

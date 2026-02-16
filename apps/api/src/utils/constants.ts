@@ -1,3 +1,1 @@
-export const AUTHORIZED_ORIGINS = [
-  process.env.FRONTEND_URL??"",
-];
+export const AUTHORIZED_ORIGINS = [process.env.FRONTEND_URL ?? ""];

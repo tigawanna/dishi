@@ -9,20 +9,13 @@ export function LandingFooter() {
     <footer className="bg-base-200 py-12">
       <div className="container">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-          <Link
-            to="/"
-            className="font-serif text-2xl tracking-tight text-base-content"
-          >
+          <Link to="/" className="font-serif text-2xl tracking-tight text-base-content">
             dishi<span className="text-primary">.</span>
           </Link>
 
           <div className="flex gap-8 text-sm text-base-content/50">
             {FOOTER_LINKS.map((link) => (
-              <a
-                key={link}
-                href="#"
-                className="transition-colors hover:text-base-content"
-              >
+              <a key={link} href="#" className="transition-colors hover:text-base-content">
                 {link}
               </a>
             ))}

@@ -19,7 +19,11 @@ export function SubmitButton({ label = "Submit", className, children }: SubmitBu
       })}
     >
       {({ isSubmitting, canSubmit, isPristine }) => (
-        <Button type="submit" disabled={isSubmitting || !canSubmit || isPristine} className={className}>
+        <Button
+          type="submit"
+          disabled={isSubmitting || !canSubmit || isPristine}
+          className={className}
+        >
           {children || (isSubmitting ? "Submitting..." : label)}
         </Button>
       )}

@@ -52,22 +52,18 @@ export function LandingHero() {
             className="animate-fade-in mb-6 font-serif text-5xl leading-[1.1] text-base-100 dark:text-base-content md:text-7xl"
             style={{ animationDelay: "100ms" }}
           >
-            Discover{" "}
-            <span className="italic text-primary">homemade</span> food near you
+            Discover <span className="italic text-primary">homemade</span> food near you
           </h1>
 
           <p
             className="animate-fade-in mb-10 max-w-lg text-lg leading-relaxed text-base-100/70 dark:text-base-content/70 md:text-xl"
             style={{ animationDelay: "200ms" }}
           >
-            Dishi connects you with talented neighborhood cooks serving
-            authentic, homemade meals right from their kitchens.
+            Dishi connects you with talented neighborhood cooks serving authentic, homemade meals
+            right from their kitchens.
           </p>
 
-          <div
-            className="animate-fade-in"
-            style={{ animationDelay: "300ms" }}
-          >
+          <div className="animate-fade-in" style={{ animationDelay: "300ms" }}>
             <Suspense fallback={<SearchBarFallback />}>
               <LandingSearchBar />
             </Suspense>

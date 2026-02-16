@@ -11,10 +11,10 @@ const searchParams = z.object({
 export const Route = createFileRoute("/search")({
   validateSearch: (search) => searchParams.parse(search),
   component: SearchPage,
-  head: ({ search }) => ({
+  head: () => ({
     meta: [
       {
-        title: search.q ? `"${search.q}" - Dishi Search` : "Search - Dishi",
+        title: `Dishi Search`,
         description: "Search for homemade food near you on Dishi.",
       },
     ],
@@ -27,7 +27,7 @@ function SearchPage() {
   return (
     <div className="bg-base-100 flex min-h-screen w-full flex-col">
       <ResponsiveGenericToolbar>
-        <div className="container flex flex-1 flex-col items-center justify-center gap-6 py-20">
+        <div className="min-h-screen flex flex-1 flex-col items-center justify-center gap-6 py-20">
           <SearchIcon className="size-16 text-primary/30" />
           <h1 className="text-center font-serif text-4xl text-base-content md:text-5xl">
             {q ? (
@@ -39,8 +39,8 @@ function SearchPage() {
             )}
           </h1>
           <p className="max-w-md text-center text-base-content/60">
-            This page is a work in progress. Soon you will be able to discover
-            kitchens, dishes, and cooks in your neighborhood.
+            This page is a work in progress. Soon you will be able to discover kitchens, dishes, and
+            cooks in your neighborhood.
           </p>
         </div>
         <Footer />

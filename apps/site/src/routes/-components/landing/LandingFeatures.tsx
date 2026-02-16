@@ -13,24 +13,21 @@ const FEATURES: FeatureItem[] = [
   {
     icon: MapPin,
     title: "Hyperlocal",
-    description:
-      "Find kitchens and dishes available in your neighborhood. Fresh food, zero miles.",
+    description: "Find kitchens and dishes available in your neighborhood. Fresh food, zero miles.",
     iconColor: "text-primary",
     iconBg: "bg-primary/10",
   },
   {
     icon: Compass,
     title: "Discover",
-    description:
-      "Browse diverse cuisines crafted by passionate home cooks from around the world.",
+    description: "Browse diverse cuisines crafted by passionate home cooks from around the world.",
     iconColor: "text-earth-green-400",
     iconBg: "bg-earth-green-400/10",
   },
   {
     icon: Star,
     title: "Rate & Review",
-    description:
-      "Share your experience and help the community find the best homemade meals.",
+    description: "Share your experience and help the community find the best homemade meals.",
     iconColor: "text-terracotta",
     iconBg: "bg-terracotta/10",
   },
@@ -49,12 +46,8 @@ function FeatureCard({ feature, index }: { feature: FeatureItem; index: number }
       >
         <Icon className="size-7" />
       </div>
-      <h3 className="mb-3 font-serif text-2xl text-base-content">
-        {feature.title}
-      </h3>
-      <p className="leading-relaxed text-base-content/60">
-        {feature.description}
-      </p>
+      <h3 className="mb-3 font-serif text-2xl text-base-content">{feature.title}</h3>
+      <p className="leading-relaxed text-base-content/60">{feature.description}</p>
     </div>
   );
 }

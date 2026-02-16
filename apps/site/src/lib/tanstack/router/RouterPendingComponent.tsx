@@ -1,7 +1,5 @@
 import { SiteIcon } from "@/components/icon/SiteIcon";
 
-
-
 export function RouterPendingComponent() {
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center gap-2">

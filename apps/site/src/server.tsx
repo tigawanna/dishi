@@ -1,7 +1,7 @@
 import handler, { createServerEntry } from "@tanstack/react-start/server-entry";
 
 type MyRequestContext = {
-  isServer:true
+  isServer: true;
 };
 
 declare module "@tanstack/react-start" {
@@ -14,6 +14,6 @@ declare module "@tanstack/react-start" {
 
 export default createServerEntry({
   async fetch(request) {
-    return handler.fetch(request, { context: { isServer:true }});
+    return handler.fetch(request, { context: { isServer: true } });
   },
 });
