@@ -5,7 +5,7 @@ import {
   timestamp,
   boolean,
   decimal,
-  time,
+  jsonb,
   index,
   primaryKey,
   geometry,
@@ -38,9 +38,9 @@ export const kitchenProfile = pgTable(
     neighborhood: text("neighborhood"),
     deliveryRadiusKm: decimal("delivery_radius_km", { precision: 5, scale: 2 }),
     isOpen: boolean("is_open").default(false).notNull(),
-    opensAt: time("opens_at"),
-    closesAt: time("closes_at"),
-    operatingDays: text("operating_days").array(),
+    operatingHours: jsonb("operating_hours").$type<
+      Partial<Record<"mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun", { opensAt: string; closesAt: string }>>
+    >(),
     coverImage: text("cover_image"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at")

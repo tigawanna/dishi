@@ -1,12 +1,11 @@
 import { viewerMiddleware } from "@/data-access-layer/users/viewer";
-import { createFileRoute, redirect } from "@tanstack/react-router";
-import { DashboardLayout } from "./-components/dashoboard-sidebar/DashboardLayout";
+import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard")({
   server: {
     middleware: [viewerMiddleware],
   },
-  component: DashboardLayout,
+  component: DashboardAuthShell,
   beforeLoad: async ({ context, serverContext }) => {
     if (!serverContext?.isServer && !context.viewer?.user) {
       throw redirect({ to: "/auth", search: { returnTo: location.pathname } });
@@ -21,3 +20,7 @@ export const Route = createFileRoute("/dashboard")({
     ],
   }),
 });
+
+function DashboardAuthShell() {
+  return <Outlet />;
+}

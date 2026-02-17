@@ -10,6 +10,15 @@ export type CreateOrganizationPayload = {
   metadata?: Record<string, unknown>;
 };
 
+export type DayHours = {
+  opensAt: string;
+  closesAt: string;
+};
+
+export type OperatingHours = Partial<
+  Record<"mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun", DayHours>
+>;
+
 export type CreateKitchenProfilePayload = {
   organizationId: string;
   description?: string;
@@ -17,9 +26,7 @@ export type CreateKitchenProfilePayload = {
   address?: string;
   neighborhood?: string;
   deliveryRadiusKm?: string;
-  opensAt?: string;
-  closesAt?: string;
-  operatingDays?: string[];
+  operatingHours?: OperatingHours;
   coverImage?: string;
 };
 

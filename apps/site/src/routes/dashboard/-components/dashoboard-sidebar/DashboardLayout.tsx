@@ -1,3 +1,4 @@
+import { SidebarItem } from "@/components/sidebar/types";
 import { Separator } from "@/components/ui/separator";
 import {
   Sidebar,
@@ -18,10 +19,12 @@ import { DashboardSidebarUser } from "./DashboardSidebarUser";
 import { DashboardTheme } from "./DashboardTheme";
 
 interface DashboardLayoutProps {
+  sidebarRoutes: SidebarItem[];
+  sidebarLabel: string;
   sidebar_props?: React.ComponentProps<typeof Sidebar>;
 }
 
-export function DashboardLayout({ sidebar_props }: DashboardLayoutProps) {
+export function DashboardLayout({ sidebarRoutes, sidebarLabel, sidebar_props }: DashboardLayoutProps) {
   return (
     <SidebarProvider defaultOpen={false}>
       <Helmet title="Dishi | Dashboard" description="Manage your kitchens, orders, and more" />
@@ -30,7 +33,7 @@ export function DashboardLayout({ sidebar_props }: DashboardLayoutProps) {
           <DashboardSidebarHeader />
         </SidebarHeader>
         <SidebarContent>
-          <DashboardSidebarLinks />
+          <DashboardSidebarLinks routes={sidebarRoutes} label={sidebarLabel} />
         </SidebarContent>
         <SidebarFooter className="gap-3">
           <DashboardTheme />
@@ -47,7 +50,6 @@ export function DashboardLayout({ sidebar_props }: DashboardLayoutProps) {
             <TSRBreadCrumbs />
           </div>
         </header>
-        {/* main content */}
         <div className="mx-auto flex h-full min-h-screen w-full flex-col items-center justify-center p-6">
           <Outlet />
         </div>

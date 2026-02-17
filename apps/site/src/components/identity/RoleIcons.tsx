@@ -24,6 +24,25 @@ export function RoleIcons({ role }: RoleIconsProps) {
       </svg>
     );
   }
+  if (role === "staff") {
+    return (
+      <svg
+        className="text-success size-10"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+          <path
+            d="M20 7H15V4C15 2.9 14.1 2 13 2H11C9.9 2 9 2.9 9 4V7H4C2.9 7 2 7.9 2 9V14C2 14.74 2.4 15.38 3 15.73V20C3 21.1 3.9 22 5 22H19C20.1 22 21 21.1 21 20V15.72C21.6 15.37 22 14.73 22 14V9C22 7.9 21.1 7 20 7ZM11 4H13V7H11V4ZM4 9H20V14H15V11H9V14H4V9ZM13 15V14H11V15H13ZM19 20H5V16H9V17H15V16H19V20Z"
+            fill="currentColor"
+          />
+        </g>
+      </svg>
+    );
+  }
   if (role === "customer") {
     return (
       <svg

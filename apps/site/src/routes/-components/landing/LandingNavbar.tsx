@@ -7,7 +7,6 @@ import { Menu, Moon, Sun, X } from "lucide-react";
 const NAV_LINKS = [
   { label: "How it works", href: "#features" },
   { label: "Browse", href: "#showcase" },
-  { label: "For Cooks", href: "#cta" },
 ] as const;
 
 export function LandingNavbar() {
@@ -57,6 +56,11 @@ export function LandingNavbar() {
           >
             {theme === "light" ? <Moon className="size-4" /> : <Sun className="size-4" />}
           </button>
+          <Link to="/dashboard/owner/onboarding/kitchen">
+            <Button size="sm" variant="ghost" className="rounded-full px-4">
+              Start Your Kitchen
+            </Button>
+          </Link>
           <Link to="/auth" search={{ returnTo: pathname }}>
             <Button size="sm" className="rounded-full px-6">
               Get Started
@@ -94,6 +98,11 @@ export function LandingNavbar() {
               {item.label}
             </a>
           ))}
+          <Link to="/dashboard/owner/onboarding/kitchen" onClick={() => setMobileOpen(false)}>
+            <Button variant="outline" className="w-full rounded-full">
+              Start Your Kitchen
+            </Button>
+          </Link>
           <Link to="/auth" search={{ returnTo: pathname }}>
             <Button className="w-full rounded-full">Get Started</Button>
           </Link>

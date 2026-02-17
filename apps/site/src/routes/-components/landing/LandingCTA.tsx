@@ -32,13 +32,13 @@ export function LandingCTA() {
                   <ArrowRight className="size-4" />
                 </Button>
               </Link>
-              <Link to="/auth" search={{ returnTo: pathname }}>
+              <Link to="/dashboard/owner/onboarding/kitchen">
                 <Button
                   variant="ghost"
                   size="lg"
                   className="rounded-full border border-primary-content/25 px-8 text-base text-primary-content hover:bg-primary-content/10 hover:text-primary-content"
                 >
-                  Become a Cook
+                  Start Your Kitchen
                 </Button>
               </Link>
             </div>

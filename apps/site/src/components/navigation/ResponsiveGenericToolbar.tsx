@@ -120,13 +120,13 @@ export function ResponsiveGenericToolbar({ children }: ResponsiveGenericToolbarP
           <div className="divider my-2">Explore</div>
 
           <li>
-            <Link to="/dashboard/organizations" className="gap-3">
+            <Link to="/dashboard/customer/kitchens" className="gap-3">
               <MapPin className="size-5" />
               <span>Kitchens</span>
             </Link>
           </li>
           <li>
-            <Link to="/dashboard/orders" className="gap-3">
+            <Link to="/dashboard/customer/orders" className="gap-3">
               <ShoppingBag className="size-5" />
               <span>Orders</span>
             </Link>

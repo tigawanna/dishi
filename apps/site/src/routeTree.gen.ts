@@ -16,19 +16,33 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProfileIndexRouteImport } from './routes/profile/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as AuthIndexRouteImport } from './routes/auth/index'
-import { Route as DashboardTenantsRouteImport } from './routes/dashboard/tenants'
-import { Route as DashboardStaffRouteImport } from './routes/dashboard/staff'
-import { Route as DashboardAuditRouteImport } from './routes/dashboard/audit'
 import { Route as AuthSignupRouteImport } from './routes/auth/signup'
-import { Route as DashboardUsersIndexRouteImport } from './routes/dashboard/users/index'
-import { Route as DashboardProposalsIndexRouteImport } from './routes/dashboard/proposals/index'
-import { Route as DashboardOrganizationsIndexRouteImport } from './routes/dashboard/organizations/index'
-import { Route as DashboardUsersNewRouteImport } from './routes/dashboard/users/new'
-import { Route as DashboardUsersUseridRouteImport } from './routes/dashboard/users/$userid'
-import { Route as DashboardProposalsNewRouteImport } from './routes/dashboard/proposals/new'
-import { Route as DashboardOrganizationsOrgIdIndexRouteImport } from './routes/dashboard/organizations/$orgId/index'
-import { Route as DashboardOnboardingKitchenIndexRouteImport } from './routes/dashboard/onboarding/kitchen/index'
-import { Route as DashboardOrganizationsOrgIdMembersRouteImport } from './routes/dashboard/organizations/$orgId/members'
+import { Route as DashboardStaffLayoutRouteImport } from './routes/dashboard/staff/layout'
+import { Route as DashboardOwnerLayoutRouteImport } from './routes/dashboard/owner/layout'
+import { Route as DashboardCustomerLayoutRouteImport } from './routes/dashboard/customer/layout'
+import { Route as DashboardStaffIndexRouteImport } from './routes/dashboard/staff/index'
+import { Route as DashboardOwnerIndexRouteImport } from './routes/dashboard/owner/index'
+import { Route as DashboardCustomerIndexRouteImport } from './routes/dashboard/customer/index'
+import { Route as DashboardStaffReviewsRouteImport } from './routes/dashboard/staff/reviews'
+import { Route as DashboardStaffOrdersRouteImport } from './routes/dashboard/staff/orders'
+import { Route as DashboardStaffMenuRouteImport } from './routes/dashboard/staff/menu'
+import { Route as DashboardStaffMembersRouteImport } from './routes/dashboard/staff/members'
+import { Route as DashboardOwnerStaffRouteImport } from './routes/dashboard/owner/staff'
+import { Route as DashboardOwnerReviewsRouteImport } from './routes/dashboard/owner/reviews'
+import { Route as DashboardOwnerOrdersRouteImport } from './routes/dashboard/owner/orders'
+import { Route as DashboardOwnerMenuRouteImport } from './routes/dashboard/owner/menu'
+import { Route as DashboardOwnerAuditRouteImport } from './routes/dashboard/owner/audit'
+import { Route as DashboardCustomerReviewsRouteImport } from './routes/dashboard/customer/reviews'
+import { Route as DashboardCustomerOrdersRouteImport } from './routes/dashboard/customer/orders'
+import { Route as DashboardCustomerKitchensRouteImport } from './routes/dashboard/customer/kitchens'
+import { Route as DashboardCustomerFavoritesRouteImport } from './routes/dashboard/customer/favorites'
+import { Route as DashboardOwnerUsersIndexRouteImport } from './routes/dashboard/owner/users/index'
+import { Route as DashboardOwnerKitchensIndexRouteImport } from './routes/dashboard/owner/kitchens/index'
+import { Route as DashboardOwnerUsersNewRouteImport } from './routes/dashboard/owner/users/new'
+import { Route as DashboardOwnerUsersUseridRouteImport } from './routes/dashboard/owner/users/$userid'
+import { Route as DashboardOwnerOnboardingKitchenIndexRouteImport } from './routes/dashboard/owner/onboarding/kitchen/index'
+import { Route as DashboardOwnerKitchensOrgIdIndexRouteImport } from './routes/dashboard/owner/kitchens/$orgId/index'
+import { Route as DashboardOwnerKitchensOrgIdMembersRouteImport } from './routes/dashboard/owner/kitchens/$orgId/members'
 
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
@@ -65,74 +79,149 @@ const AuthIndexRoute = AuthIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthLayoutRoute,
 } as any)
-const DashboardTenantsRoute = DashboardTenantsRouteImport.update({
-  id: '/tenants',
-  path: '/tenants',
-  getParentRoute: () => DashboardLayoutRoute,
-} as any)
-const DashboardStaffRoute = DashboardStaffRouteImport.update({
-  id: '/staff',
-  path: '/staff',
-  getParentRoute: () => DashboardLayoutRoute,
-} as any)
-const DashboardAuditRoute = DashboardAuditRouteImport.update({
-  id: '/audit',
-  path: '/audit',
-  getParentRoute: () => DashboardLayoutRoute,
-} as any)
 const AuthSignupRoute = AuthSignupRouteImport.update({
   id: '/signup',
   path: '/signup',
   getParentRoute: () => AuthLayoutRoute,
 } as any)
-const DashboardUsersIndexRoute = DashboardUsersIndexRouteImport.update({
-  id: '/users/',
-  path: '/users/',
+const DashboardStaffLayoutRoute = DashboardStaffLayoutRouteImport.update({
+  id: '/staff',
+  path: '/staff',
   getParentRoute: () => DashboardLayoutRoute,
 } as any)
-const DashboardProposalsIndexRoute = DashboardProposalsIndexRouteImport.update({
-  id: '/proposals/',
-  path: '/proposals/',
+const DashboardOwnerLayoutRoute = DashboardOwnerLayoutRouteImport.update({
+  id: '/owner',
+  path: '/owner',
   getParentRoute: () => DashboardLayoutRoute,
 } as any)
-const DashboardOrganizationsIndexRoute =
-  DashboardOrganizationsIndexRouteImport.update({
-    id: '/organizations/',
-    path: '/organizations/',
-    getParentRoute: () => DashboardLayoutRoute,
+const DashboardCustomerLayoutRoute = DashboardCustomerLayoutRouteImport.update({
+  id: '/customer',
+  path: '/customer',
+  getParentRoute: () => DashboardLayoutRoute,
+} as any)
+const DashboardStaffIndexRoute = DashboardStaffIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardStaffLayoutRoute,
+} as any)
+const DashboardOwnerIndexRoute = DashboardOwnerIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardOwnerLayoutRoute,
+} as any)
+const DashboardCustomerIndexRoute = DashboardCustomerIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardCustomerLayoutRoute,
+} as any)
+const DashboardStaffReviewsRoute = DashboardStaffReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => DashboardStaffLayoutRoute,
+} as any)
+const DashboardStaffOrdersRoute = DashboardStaffOrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => DashboardStaffLayoutRoute,
+} as any)
+const DashboardStaffMenuRoute = DashboardStaffMenuRouteImport.update({
+  id: '/menu',
+  path: '/menu',
+  getParentRoute: () => DashboardStaffLayoutRoute,
+} as any)
+const DashboardStaffMembersRoute = DashboardStaffMembersRouteImport.update({
+  id: '/members',
+  path: '/members',
+  getParentRoute: () => DashboardStaffLayoutRoute,
+} as any)
+const DashboardOwnerStaffRoute = DashboardOwnerStaffRouteImport.update({
+  id: '/staff',
+  path: '/staff',
+  getParentRoute: () => DashboardOwnerLayoutRoute,
+} as any)
+const DashboardOwnerReviewsRoute = DashboardOwnerReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => DashboardOwnerLayoutRoute,
+} as any)
+const DashboardOwnerOrdersRoute = DashboardOwnerOrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => DashboardOwnerLayoutRoute,
+} as any)
+const DashboardOwnerMenuRoute = DashboardOwnerMenuRouteImport.update({
+  id: '/menu',
+  path: '/menu',
+  getParentRoute: () => DashboardOwnerLayoutRoute,
+} as any)
+const DashboardOwnerAuditRoute = DashboardOwnerAuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
+  getParentRoute: () => DashboardOwnerLayoutRoute,
+} as any)
+const DashboardCustomerReviewsRoute =
+  DashboardCustomerReviewsRouteImport.update({
+    id: '/reviews',
+    path: '/reviews',
+    getParentRoute: () => DashboardCustomerLayoutRoute,
   } as any)
-const DashboardUsersNewRoute = DashboardUsersNewRouteImport.update({
+const DashboardCustomerOrdersRoute = DashboardCustomerOrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => DashboardCustomerLayoutRoute,
+} as any)
+const DashboardCustomerKitchensRoute =
+  DashboardCustomerKitchensRouteImport.update({
+    id: '/kitchens',
+    path: '/kitchens',
+    getParentRoute: () => DashboardCustomerLayoutRoute,
+  } as any)
+const DashboardCustomerFavoritesRoute =
+  DashboardCustomerFavoritesRouteImport.update({
+    id: '/favorites',
+    path: '/favorites',
+    getParentRoute: () => DashboardCustomerLayoutRoute,
+  } as any)
+const DashboardOwnerUsersIndexRoute =
+  DashboardOwnerUsersIndexRouteImport.update({
+    id: '/users/',
+    path: '/users/',
+    getParentRoute: () => DashboardOwnerLayoutRoute,
+  } as any)
+const DashboardOwnerKitchensIndexRoute =
+  DashboardOwnerKitchensIndexRouteImport.update({
+    id: '/kitchens/',
+    path: '/kitchens/',
+    getParentRoute: () => DashboardOwnerLayoutRoute,
+  } as any)
+const DashboardOwnerUsersNewRoute = DashboardOwnerUsersNewRouteImport.update({
   id: '/users/new',
   path: '/users/new',
-  getParentRoute: () => DashboardLayoutRoute,
+  getParentRoute: () => DashboardOwnerLayoutRoute,
 } as any)
-const DashboardUsersUseridRoute = DashboardUsersUseridRouteImport.update({
-  id: '/users/$userid',
-  path: '/users/$userid',
-  getParentRoute: () => DashboardLayoutRoute,
-} as any)
-const DashboardProposalsNewRoute = DashboardProposalsNewRouteImport.update({
-  id: '/proposals/new',
-  path: '/proposals/new',
-  getParentRoute: () => DashboardLayoutRoute,
-} as any)
-const DashboardOrganizationsOrgIdIndexRoute =
-  DashboardOrganizationsOrgIdIndexRouteImport.update({
-    id: '/organizations/$orgId/',
-    path: '/organizations/$orgId/',
-    getParentRoute: () => DashboardLayoutRoute,
+const DashboardOwnerUsersUseridRoute =
+  DashboardOwnerUsersUseridRouteImport.update({
+    id: '/users/$userid',
+    path: '/users/$userid',
+    getParentRoute: () => DashboardOwnerLayoutRoute,
   } as any)
-const DashboardOnboardingKitchenIndexRoute =
-  DashboardOnboardingKitchenIndexRouteImport.update({
+const DashboardOwnerOnboardingKitchenIndexRoute =
+  DashboardOwnerOnboardingKitchenIndexRouteImport.update({
     id: '/onboarding/kitchen/',
     path: '/onboarding/kitchen/',
-    getParentRoute: () => DashboardLayoutRoute,
+    getParentRoute: () => DashboardOwnerLayoutRoute,
   } as any)
-const DashboardOrganizationsOrgIdMembersRoute =
-  DashboardOrganizationsOrgIdMembersRouteImport.update({
-    id: '/organizations/$orgId/members',
-    path: '/organizations/$orgId/members',
-    getParentRoute: () => DashboardLayoutRoute,
+const DashboardOwnerKitchensOrgIdIndexRoute =
+  DashboardOwnerKitchensOrgIdIndexRouteImport.update({
+    id: '/kitchens/$orgId/',
+    path: '/kitchens/$orgId/',
+    getParentRoute: () => DashboardOwnerLayoutRoute,
+  } as any)
+const DashboardOwnerKitchensOrgIdMembersRoute =
+  DashboardOwnerKitchensOrgIdMembersRouteImport.update({
+    id: '/kitchens/$orgId/members',
+    path: '/kitchens/$orgId/members',
+    getParentRoute: () => DashboardOwnerLayoutRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -140,42 +229,67 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthLayoutRouteWithChildren
   '/dashboard': typeof DashboardLayoutRouteWithChildren
   '/search': typeof SearchRoute
+  '/dashboard/customer': typeof DashboardCustomerLayoutRouteWithChildren
+  '/dashboard/owner': typeof DashboardOwnerLayoutRouteWithChildren
+  '/dashboard/staff': typeof DashboardStaffLayoutRouteWithChildren
   '/auth/signup': typeof AuthSignupRoute
-  '/dashboard/audit': typeof DashboardAuditRoute
-  '/dashboard/staff': typeof DashboardStaffRoute
-  '/dashboard/tenants': typeof DashboardTenantsRoute
   '/auth/': typeof AuthIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/profile/': typeof ProfileIndexRoute
-  '/dashboard/proposals/new': typeof DashboardProposalsNewRoute
-  '/dashboard/users/$userid': typeof DashboardUsersUseridRoute
-  '/dashboard/users/new': typeof DashboardUsersNewRoute
-  '/dashboard/organizations/': typeof DashboardOrganizationsIndexRoute
-  '/dashboard/proposals/': typeof DashboardProposalsIndexRoute
-  '/dashboard/users/': typeof DashboardUsersIndexRoute
-  '/dashboard/organizations/$orgId/members': typeof DashboardOrganizationsOrgIdMembersRoute
-  '/dashboard/onboarding/kitchen/': typeof DashboardOnboardingKitchenIndexRoute
-  '/dashboard/organizations/$orgId/': typeof DashboardOrganizationsOrgIdIndexRoute
+  '/dashboard/customer/favorites': typeof DashboardCustomerFavoritesRoute
+  '/dashboard/customer/kitchens': typeof DashboardCustomerKitchensRoute
+  '/dashboard/customer/orders': typeof DashboardCustomerOrdersRoute
+  '/dashboard/customer/reviews': typeof DashboardCustomerReviewsRoute
+  '/dashboard/owner/audit': typeof DashboardOwnerAuditRoute
+  '/dashboard/owner/menu': typeof DashboardOwnerMenuRoute
+  '/dashboard/owner/orders': typeof DashboardOwnerOrdersRoute
+  '/dashboard/owner/reviews': typeof DashboardOwnerReviewsRoute
+  '/dashboard/owner/staff': typeof DashboardOwnerStaffRoute
+  '/dashboard/staff/members': typeof DashboardStaffMembersRoute
+  '/dashboard/staff/menu': typeof DashboardStaffMenuRoute
+  '/dashboard/staff/orders': typeof DashboardStaffOrdersRoute
+  '/dashboard/staff/reviews': typeof DashboardStaffReviewsRoute
+  '/dashboard/customer/': typeof DashboardCustomerIndexRoute
+  '/dashboard/owner/': typeof DashboardOwnerIndexRoute
+  '/dashboard/staff/': typeof DashboardStaffIndexRoute
+  '/dashboard/owner/users/$userid': typeof DashboardOwnerUsersUseridRoute
+  '/dashboard/owner/users/new': typeof DashboardOwnerUsersNewRoute
+  '/dashboard/owner/kitchens/': typeof DashboardOwnerKitchensIndexRoute
+  '/dashboard/owner/users/': typeof DashboardOwnerUsersIndexRoute
+  '/dashboard/owner/kitchens/$orgId/members': typeof DashboardOwnerKitchensOrgIdMembersRoute
+  '/dashboard/owner/kitchens/$orgId/': typeof DashboardOwnerKitchensOrgIdIndexRoute
+  '/dashboard/owner/onboarding/kitchen/': typeof DashboardOwnerOnboardingKitchenIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/search': typeof SearchRoute
   '/auth/signup': typeof AuthSignupRoute
-  '/dashboard/audit': typeof DashboardAuditRoute
-  '/dashboard/staff': typeof DashboardStaffRoute
-  '/dashboard/tenants': typeof DashboardTenantsRoute
   '/auth': typeof AuthIndexRoute
   '/dashboard': typeof DashboardIndexRoute
   '/profile': typeof ProfileIndexRoute
-  '/dashboard/proposals/new': typeof DashboardProposalsNewRoute
-  '/dashboard/users/$userid': typeof DashboardUsersUseridRoute
-  '/dashboard/users/new': typeof DashboardUsersNewRoute
-  '/dashboard/organizations': typeof DashboardOrganizationsIndexRoute
-  '/dashboard/proposals': typeof DashboardProposalsIndexRoute
-  '/dashboard/users': typeof DashboardUsersIndexRoute
-  '/dashboard/organizations/$orgId/members': typeof DashboardOrganizationsOrgIdMembersRoute
-  '/dashboard/onboarding/kitchen': typeof DashboardOnboardingKitchenIndexRoute
-  '/dashboard/organizations/$orgId': typeof DashboardOrganizationsOrgIdIndexRoute
+  '/dashboard/customer/favorites': typeof DashboardCustomerFavoritesRoute
+  '/dashboard/customer/kitchens': typeof DashboardCustomerKitchensRoute
+  '/dashboard/customer/orders': typeof DashboardCustomerOrdersRoute
+  '/dashboard/customer/reviews': typeof DashboardCustomerReviewsRoute
+  '/dashboard/owner/audit': typeof DashboardOwnerAuditRoute
+  '/dashboard/owner/menu': typeof DashboardOwnerMenuRoute
+  '/dashboard/owner/orders': typeof DashboardOwnerOrdersRoute
+  '/dashboard/owner/reviews': typeof DashboardOwnerReviewsRoute
+  '/dashboard/owner/staff': typeof DashboardOwnerStaffRoute
+  '/dashboard/staff/members': typeof DashboardStaffMembersRoute
+  '/dashboard/staff/menu': typeof DashboardStaffMenuRoute
+  '/dashboard/staff/orders': typeof DashboardStaffOrdersRoute
+  '/dashboard/staff/reviews': typeof DashboardStaffReviewsRoute
+  '/dashboard/customer': typeof DashboardCustomerIndexRoute
+  '/dashboard/owner': typeof DashboardOwnerIndexRoute
+  '/dashboard/staff': typeof DashboardStaffIndexRoute
+  '/dashboard/owner/users/$userid': typeof DashboardOwnerUsersUseridRoute
+  '/dashboard/owner/users/new': typeof DashboardOwnerUsersNewRoute
+  '/dashboard/owner/kitchens': typeof DashboardOwnerKitchensIndexRoute
+  '/dashboard/owner/users': typeof DashboardOwnerUsersIndexRoute
+  '/dashboard/owner/kitchens/$orgId/members': typeof DashboardOwnerKitchensOrgIdMembersRoute
+  '/dashboard/owner/kitchens/$orgId': typeof DashboardOwnerKitchensOrgIdIndexRoute
+  '/dashboard/owner/onboarding/kitchen': typeof DashboardOwnerOnboardingKitchenIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -183,22 +297,36 @@ export interface FileRoutesById {
   '/auth': typeof AuthLayoutRouteWithChildren
   '/dashboard': typeof DashboardLayoutRouteWithChildren
   '/search': typeof SearchRoute
+  '/dashboard/customer': typeof DashboardCustomerLayoutRouteWithChildren
+  '/dashboard/owner': typeof DashboardOwnerLayoutRouteWithChildren
+  '/dashboard/staff': typeof DashboardStaffLayoutRouteWithChildren
   '/auth/signup': typeof AuthSignupRoute
-  '/dashboard/audit': typeof DashboardAuditRoute
-  '/dashboard/staff': typeof DashboardStaffRoute
-  '/dashboard/tenants': typeof DashboardTenantsRoute
   '/auth/': typeof AuthIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/profile/': typeof ProfileIndexRoute
-  '/dashboard/proposals/new': typeof DashboardProposalsNewRoute
-  '/dashboard/users/$userid': typeof DashboardUsersUseridRoute
-  '/dashboard/users/new': typeof DashboardUsersNewRoute
-  '/dashboard/organizations/': typeof DashboardOrganizationsIndexRoute
-  '/dashboard/proposals/': typeof DashboardProposalsIndexRoute
-  '/dashboard/users/': typeof DashboardUsersIndexRoute
-  '/dashboard/organizations/$orgId/members': typeof DashboardOrganizationsOrgIdMembersRoute
-  '/dashboard/onboarding/kitchen/': typeof DashboardOnboardingKitchenIndexRoute
-  '/dashboard/organizations/$orgId/': typeof DashboardOrganizationsOrgIdIndexRoute
+  '/dashboard/customer/favorites': typeof DashboardCustomerFavoritesRoute
+  '/dashboard/customer/kitchens': typeof DashboardCustomerKitchensRoute
+  '/dashboard/customer/orders': typeof DashboardCustomerOrdersRoute
+  '/dashboard/customer/reviews': typeof DashboardCustomerReviewsRoute
+  '/dashboard/owner/audit': typeof DashboardOwnerAuditRoute
+  '/dashboard/owner/menu': typeof DashboardOwnerMenuRoute
+  '/dashboard/owner/orders': typeof DashboardOwnerOrdersRoute
+  '/dashboard/owner/reviews': typeof DashboardOwnerReviewsRoute
+  '/dashboard/owner/staff': typeof DashboardOwnerStaffRoute
+  '/dashboard/staff/members': typeof DashboardStaffMembersRoute
+  '/dashboard/staff/menu': typeof DashboardStaffMenuRoute
+  '/dashboard/staff/orders': typeof DashboardStaffOrdersRoute
+  '/dashboard/staff/reviews': typeof DashboardStaffReviewsRoute
+  '/dashboard/customer/': typeof DashboardCustomerIndexRoute
+  '/dashboard/owner/': typeof DashboardOwnerIndexRoute
+  '/dashboard/staff/': typeof DashboardStaffIndexRoute
+  '/dashboard/owner/users/$userid': typeof DashboardOwnerUsersUseridRoute
+  '/dashboard/owner/users/new': typeof DashboardOwnerUsersNewRoute
+  '/dashboard/owner/kitchens/': typeof DashboardOwnerKitchensIndexRoute
+  '/dashboard/owner/users/': typeof DashboardOwnerUsersIndexRoute
+  '/dashboard/owner/kitchens/$orgId/members': typeof DashboardOwnerKitchensOrgIdMembersRoute
+  '/dashboard/owner/kitchens/$orgId/': typeof DashboardOwnerKitchensOrgIdIndexRoute
+  '/dashboard/owner/onboarding/kitchen/': typeof DashboardOwnerOnboardingKitchenIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -207,64 +335,103 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/search'
-    | '/auth/signup'
-    | '/dashboard/audit'
+    | '/dashboard/customer'
+    | '/dashboard/owner'
     | '/dashboard/staff'
-    | '/dashboard/tenants'
+    | '/auth/signup'
     | '/auth/'
     | '/dashboard/'
     | '/profile/'
-    | '/dashboard/proposals/new'
-    | '/dashboard/users/$userid'
-    | '/dashboard/users/new'
-    | '/dashboard/organizations/'
-    | '/dashboard/proposals/'
-    | '/dashboard/users/'
-    | '/dashboard/organizations/$orgId/members'
-    | '/dashboard/onboarding/kitchen/'
-    | '/dashboard/organizations/$orgId/'
+    | '/dashboard/customer/favorites'
+    | '/dashboard/customer/kitchens'
+    | '/dashboard/customer/orders'
+    | '/dashboard/customer/reviews'
+    | '/dashboard/owner/audit'
+    | '/dashboard/owner/menu'
+    | '/dashboard/owner/orders'
+    | '/dashboard/owner/reviews'
+    | '/dashboard/owner/staff'
+    | '/dashboard/staff/members'
+    | '/dashboard/staff/menu'
+    | '/dashboard/staff/orders'
+    | '/dashboard/staff/reviews'
+    | '/dashboard/customer/'
+    | '/dashboard/owner/'
+    | '/dashboard/staff/'
+    | '/dashboard/owner/users/$userid'
+    | '/dashboard/owner/users/new'
+    | '/dashboard/owner/kitchens/'
+    | '/dashboard/owner/users/'
+    | '/dashboard/owner/kitchens/$orgId/members'
+    | '/dashboard/owner/kitchens/$orgId/'
+    | '/dashboard/owner/onboarding/kitchen/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/search'
     | '/auth/signup'
-    | '/dashboard/audit'
-    | '/dashboard/staff'
-    | '/dashboard/tenants'
     | '/auth'
     | '/dashboard'
     | '/profile'
-    | '/dashboard/proposals/new'
-    | '/dashboard/users/$userid'
-    | '/dashboard/users/new'
-    | '/dashboard/organizations'
-    | '/dashboard/proposals'
-    | '/dashboard/users'
-    | '/dashboard/organizations/$orgId/members'
-    | '/dashboard/onboarding/kitchen'
-    | '/dashboard/organizations/$orgId'
+    | '/dashboard/customer/favorites'
+    | '/dashboard/customer/kitchens'
+    | '/dashboard/customer/orders'
+    | '/dashboard/customer/reviews'
+    | '/dashboard/owner/audit'
+    | '/dashboard/owner/menu'
+    | '/dashboard/owner/orders'
+    | '/dashboard/owner/reviews'
+    | '/dashboard/owner/staff'
+    | '/dashboard/staff/members'
+    | '/dashboard/staff/menu'
+    | '/dashboard/staff/orders'
+    | '/dashboard/staff/reviews'
+    | '/dashboard/customer'
+    | '/dashboard/owner'
+    | '/dashboard/staff'
+    | '/dashboard/owner/users/$userid'
+    | '/dashboard/owner/users/new'
+    | '/dashboard/owner/kitchens'
+    | '/dashboard/owner/users'
+    | '/dashboard/owner/kitchens/$orgId/members'
+    | '/dashboard/owner/kitchens/$orgId'
+    | '/dashboard/owner/onboarding/kitchen'
   id:
     | '__root__'
     | '/'
     | '/auth'
     | '/dashboard'
     | '/search'
-    | '/auth/signup'
-    | '/dashboard/audit'
+    | '/dashboard/customer'
+    | '/dashboard/owner'
     | '/dashboard/staff'
-    | '/dashboard/tenants'
+    | '/auth/signup'
     | '/auth/'
     | '/dashboard/'
     | '/profile/'
-    | '/dashboard/proposals/new'
-    | '/dashboard/users/$userid'
-    | '/dashboard/users/new'
-    | '/dashboard/organizations/'
-    | '/dashboard/proposals/'
-    | '/dashboard/users/'
-    | '/dashboard/organizations/$orgId/members'
-    | '/dashboard/onboarding/kitchen/'
-    | '/dashboard/organizations/$orgId/'
+    | '/dashboard/customer/favorites'
+    | '/dashboard/customer/kitchens'
+    | '/dashboard/customer/orders'
+    | '/dashboard/customer/reviews'
+    | '/dashboard/owner/audit'
+    | '/dashboard/owner/menu'
+    | '/dashboard/owner/orders'
+    | '/dashboard/owner/reviews'
+    | '/dashboard/owner/staff'
+    | '/dashboard/staff/members'
+    | '/dashboard/staff/menu'
+    | '/dashboard/staff/orders'
+    | '/dashboard/staff/reviews'
+    | '/dashboard/customer/'
+    | '/dashboard/owner/'
+    | '/dashboard/staff/'
+    | '/dashboard/owner/users/$userid'
+    | '/dashboard/owner/users/new'
+    | '/dashboard/owner/kitchens/'
+    | '/dashboard/owner/users/'
+    | '/dashboard/owner/kitchens/$orgId/members'
+    | '/dashboard/owner/kitchens/$orgId/'
+    | '/dashboard/owner/onboarding/kitchen/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -326,27 +493,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthIndexRouteImport
       parentRoute: typeof AuthLayoutRoute
     }
-    '/dashboard/tenants': {
-      id: '/dashboard/tenants'
-      path: '/tenants'
-      fullPath: '/dashboard/tenants'
-      preLoaderRoute: typeof DashboardTenantsRouteImport
-      parentRoute: typeof DashboardLayoutRoute
-    }
-    '/dashboard/staff': {
-      id: '/dashboard/staff'
-      path: '/staff'
-      fullPath: '/dashboard/staff'
-      preLoaderRoute: typeof DashboardStaffRouteImport
-      parentRoute: typeof DashboardLayoutRoute
-    }
-    '/dashboard/audit': {
-      id: '/dashboard/audit'
-      path: '/audit'
-      fullPath: '/dashboard/audit'
-      preLoaderRoute: typeof DashboardAuditRouteImport
-      parentRoute: typeof DashboardLayoutRoute
-    }
     '/auth/signup': {
       id: '/auth/signup'
       path: '/signup'
@@ -354,68 +500,187 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignupRouteImport
       parentRoute: typeof AuthLayoutRoute
     }
-    '/dashboard/users/': {
-      id: '/dashboard/users/'
+    '/dashboard/staff': {
+      id: '/dashboard/staff'
+      path: '/staff'
+      fullPath: '/dashboard/staff'
+      preLoaderRoute: typeof DashboardStaffLayoutRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/dashboard/owner': {
+      id: '/dashboard/owner'
+      path: '/owner'
+      fullPath: '/dashboard/owner'
+      preLoaderRoute: typeof DashboardOwnerLayoutRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/dashboard/customer': {
+      id: '/dashboard/customer'
+      path: '/customer'
+      fullPath: '/dashboard/customer'
+      preLoaderRoute: typeof DashboardCustomerLayoutRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/dashboard/staff/': {
+      id: '/dashboard/staff/'
+      path: '/'
+      fullPath: '/dashboard/staff/'
+      preLoaderRoute: typeof DashboardStaffIndexRouteImport
+      parentRoute: typeof DashboardStaffLayoutRoute
+    }
+    '/dashboard/owner/': {
+      id: '/dashboard/owner/'
+      path: '/'
+      fullPath: '/dashboard/owner/'
+      preLoaderRoute: typeof DashboardOwnerIndexRouteImport
+      parentRoute: typeof DashboardOwnerLayoutRoute
+    }
+    '/dashboard/customer/': {
+      id: '/dashboard/customer/'
+      path: '/'
+      fullPath: '/dashboard/customer/'
+      preLoaderRoute: typeof DashboardCustomerIndexRouteImport
+      parentRoute: typeof DashboardCustomerLayoutRoute
+    }
+    '/dashboard/staff/reviews': {
+      id: '/dashboard/staff/reviews'
+      path: '/reviews'
+      fullPath: '/dashboard/staff/reviews'
+      preLoaderRoute: typeof DashboardStaffReviewsRouteImport
+      parentRoute: typeof DashboardStaffLayoutRoute
+    }
+    '/dashboard/staff/orders': {
+      id: '/dashboard/staff/orders'
+      path: '/orders'
+      fullPath: '/dashboard/staff/orders'
+      preLoaderRoute: typeof DashboardStaffOrdersRouteImport
+      parentRoute: typeof DashboardStaffLayoutRoute
+    }
+    '/dashboard/staff/menu': {
+      id: '/dashboard/staff/menu'
+      path: '/menu'
+      fullPath: '/dashboard/staff/menu'
+      preLoaderRoute: typeof DashboardStaffMenuRouteImport
+      parentRoute: typeof DashboardStaffLayoutRoute
+    }
+    '/dashboard/staff/members': {
+      id: '/dashboard/staff/members'
+      path: '/members'
+      fullPath: '/dashboard/staff/members'
+      preLoaderRoute: typeof DashboardStaffMembersRouteImport
+      parentRoute: typeof DashboardStaffLayoutRoute
+    }
+    '/dashboard/owner/staff': {
+      id: '/dashboard/owner/staff'
+      path: '/staff'
+      fullPath: '/dashboard/owner/staff'
+      preLoaderRoute: typeof DashboardOwnerStaffRouteImport
+      parentRoute: typeof DashboardOwnerLayoutRoute
+    }
+    '/dashboard/owner/reviews': {
+      id: '/dashboard/owner/reviews'
+      path: '/reviews'
+      fullPath: '/dashboard/owner/reviews'
+      preLoaderRoute: typeof DashboardOwnerReviewsRouteImport
+      parentRoute: typeof DashboardOwnerLayoutRoute
+    }
+    '/dashboard/owner/orders': {
+      id: '/dashboard/owner/orders'
+      path: '/orders'
+      fullPath: '/dashboard/owner/orders'
+      preLoaderRoute: typeof DashboardOwnerOrdersRouteImport
+      parentRoute: typeof DashboardOwnerLayoutRoute
+    }
+    '/dashboard/owner/menu': {
+      id: '/dashboard/owner/menu'
+      path: '/menu'
+      fullPath: '/dashboard/owner/menu'
+      preLoaderRoute: typeof DashboardOwnerMenuRouteImport
+      parentRoute: typeof DashboardOwnerLayoutRoute
+    }
+    '/dashboard/owner/audit': {
+      id: '/dashboard/owner/audit'
+      path: '/audit'
+      fullPath: '/dashboard/owner/audit'
+      preLoaderRoute: typeof DashboardOwnerAuditRouteImport
+      parentRoute: typeof DashboardOwnerLayoutRoute
+    }
+    '/dashboard/customer/reviews': {
+      id: '/dashboard/customer/reviews'
+      path: '/reviews'
+      fullPath: '/dashboard/customer/reviews'
+      preLoaderRoute: typeof DashboardCustomerReviewsRouteImport
+      parentRoute: typeof DashboardCustomerLayoutRoute
+    }
+    '/dashboard/customer/orders': {
+      id: '/dashboard/customer/orders'
+      path: '/orders'
+      fullPath: '/dashboard/customer/orders'
+      preLoaderRoute: typeof DashboardCustomerOrdersRouteImport
+      parentRoute: typeof DashboardCustomerLayoutRoute
+    }
+    '/dashboard/customer/kitchens': {
+      id: '/dashboard/customer/kitchens'
+      path: '/kitchens'
+      fullPath: '/dashboard/customer/kitchens'
+      preLoaderRoute: typeof DashboardCustomerKitchensRouteImport
+      parentRoute: typeof DashboardCustomerLayoutRoute
+    }
+    '/dashboard/customer/favorites': {
+      id: '/dashboard/customer/favorites'
+      path: '/favorites'
+      fullPath: '/dashboard/customer/favorites'
+      preLoaderRoute: typeof DashboardCustomerFavoritesRouteImport
+      parentRoute: typeof DashboardCustomerLayoutRoute
+    }
+    '/dashboard/owner/users/': {
+      id: '/dashboard/owner/users/'
       path: '/users'
-      fullPath: '/dashboard/users/'
-      preLoaderRoute: typeof DashboardUsersIndexRouteImport
-      parentRoute: typeof DashboardLayoutRoute
+      fullPath: '/dashboard/owner/users/'
+      preLoaderRoute: typeof DashboardOwnerUsersIndexRouteImport
+      parentRoute: typeof DashboardOwnerLayoutRoute
     }
-    '/dashboard/proposals/': {
-      id: '/dashboard/proposals/'
-      path: '/proposals'
-      fullPath: '/dashboard/proposals/'
-      preLoaderRoute: typeof DashboardProposalsIndexRouteImport
-      parentRoute: typeof DashboardLayoutRoute
+    '/dashboard/owner/kitchens/': {
+      id: '/dashboard/owner/kitchens/'
+      path: '/kitchens'
+      fullPath: '/dashboard/owner/kitchens/'
+      preLoaderRoute: typeof DashboardOwnerKitchensIndexRouteImport
+      parentRoute: typeof DashboardOwnerLayoutRoute
     }
-    '/dashboard/organizations/': {
-      id: '/dashboard/organizations/'
-      path: '/organizations'
-      fullPath: '/dashboard/organizations/'
-      preLoaderRoute: typeof DashboardOrganizationsIndexRouteImport
-      parentRoute: typeof DashboardLayoutRoute
-    }
-    '/dashboard/users/new': {
-      id: '/dashboard/users/new'
+    '/dashboard/owner/users/new': {
+      id: '/dashboard/owner/users/new'
       path: '/users/new'
-      fullPath: '/dashboard/users/new'
-      preLoaderRoute: typeof DashboardUsersNewRouteImport
-      parentRoute: typeof DashboardLayoutRoute
+      fullPath: '/dashboard/owner/users/new'
+      preLoaderRoute: typeof DashboardOwnerUsersNewRouteImport
+      parentRoute: typeof DashboardOwnerLayoutRoute
     }
-    '/dashboard/users/$userid': {
-      id: '/dashboard/users/$userid'
+    '/dashboard/owner/users/$userid': {
+      id: '/dashboard/owner/users/$userid'
       path: '/users/$userid'
-      fullPath: '/dashboard/users/$userid'
-      preLoaderRoute: typeof DashboardUsersUseridRouteImport
-      parentRoute: typeof DashboardLayoutRoute
+      fullPath: '/dashboard/owner/users/$userid'
+      preLoaderRoute: typeof DashboardOwnerUsersUseridRouteImport
+      parentRoute: typeof DashboardOwnerLayoutRoute
     }
-    '/dashboard/proposals/new': {
-      id: '/dashboard/proposals/new'
-      path: '/proposals/new'
-      fullPath: '/dashboard/proposals/new'
-      preLoaderRoute: typeof DashboardProposalsNewRouteImport
-      parentRoute: typeof DashboardLayoutRoute
-    }
-    '/dashboard/organizations/$orgId/': {
-      id: '/dashboard/organizations/$orgId/'
-      path: '/organizations/$orgId'
-      fullPath: '/dashboard/organizations/$orgId/'
-      preLoaderRoute: typeof DashboardOrganizationsOrgIdIndexRouteImport
-      parentRoute: typeof DashboardLayoutRoute
-    }
-    '/dashboard/onboarding/kitchen/': {
-      id: '/dashboard/onboarding/kitchen/'
+    '/dashboard/owner/onboarding/kitchen/': {
+      id: '/dashboard/owner/onboarding/kitchen/'
       path: '/onboarding/kitchen'
-      fullPath: '/dashboard/onboarding/kitchen/'
-      preLoaderRoute: typeof DashboardOnboardingKitchenIndexRouteImport
-      parentRoute: typeof DashboardLayoutRoute
+      fullPath: '/dashboard/owner/onboarding/kitchen/'
+      preLoaderRoute: typeof DashboardOwnerOnboardingKitchenIndexRouteImport
+      parentRoute: typeof DashboardOwnerLayoutRoute
     }
-    '/dashboard/organizations/$orgId/members': {
-      id: '/dashboard/organizations/$orgId/members'
-      path: '/organizations/$orgId/members'
-      fullPath: '/dashboard/organizations/$orgId/members'
-      preLoaderRoute: typeof DashboardOrganizationsOrgIdMembersRouteImport
-      parentRoute: typeof DashboardLayoutRoute
+    '/dashboard/owner/kitchens/$orgId/': {
+      id: '/dashboard/owner/kitchens/$orgId/'
+      path: '/kitchens/$orgId'
+      fullPath: '/dashboard/owner/kitchens/$orgId/'
+      preLoaderRoute: typeof DashboardOwnerKitchensOrgIdIndexRouteImport
+      parentRoute: typeof DashboardOwnerLayoutRoute
+    }
+    '/dashboard/owner/kitchens/$orgId/members': {
+      id: '/dashboard/owner/kitchens/$orgId/members'
+      path: '/kitchens/$orgId/members'
+      fullPath: '/dashboard/owner/kitchens/$orgId/members'
+      preLoaderRoute: typeof DashboardOwnerKitchensOrgIdMembersRouteImport
+      parentRoute: typeof DashboardOwnerLayoutRoute
     }
   }
 }
@@ -434,37 +699,96 @@ const AuthLayoutRouteWithChildren = AuthLayoutRoute._addFileChildren(
   AuthLayoutRouteChildren,
 )
 
+interface DashboardCustomerLayoutRouteChildren {
+  DashboardCustomerFavoritesRoute: typeof DashboardCustomerFavoritesRoute
+  DashboardCustomerKitchensRoute: typeof DashboardCustomerKitchensRoute
+  DashboardCustomerOrdersRoute: typeof DashboardCustomerOrdersRoute
+  DashboardCustomerReviewsRoute: typeof DashboardCustomerReviewsRoute
+  DashboardCustomerIndexRoute: typeof DashboardCustomerIndexRoute
+}
+
+const DashboardCustomerLayoutRouteChildren: DashboardCustomerLayoutRouteChildren =
+  {
+    DashboardCustomerFavoritesRoute: DashboardCustomerFavoritesRoute,
+    DashboardCustomerKitchensRoute: DashboardCustomerKitchensRoute,
+    DashboardCustomerOrdersRoute: DashboardCustomerOrdersRoute,
+    DashboardCustomerReviewsRoute: DashboardCustomerReviewsRoute,
+    DashboardCustomerIndexRoute: DashboardCustomerIndexRoute,
+  }
+
+const DashboardCustomerLayoutRouteWithChildren =
+  DashboardCustomerLayoutRoute._addFileChildren(
+    DashboardCustomerLayoutRouteChildren,
+  )
+
+interface DashboardOwnerLayoutRouteChildren {
+  DashboardOwnerAuditRoute: typeof DashboardOwnerAuditRoute
+  DashboardOwnerMenuRoute: typeof DashboardOwnerMenuRoute
+  DashboardOwnerOrdersRoute: typeof DashboardOwnerOrdersRoute
+  DashboardOwnerReviewsRoute: typeof DashboardOwnerReviewsRoute
+  DashboardOwnerStaffRoute: typeof DashboardOwnerStaffRoute
+  DashboardOwnerIndexRoute: typeof DashboardOwnerIndexRoute
+  DashboardOwnerUsersUseridRoute: typeof DashboardOwnerUsersUseridRoute
+  DashboardOwnerUsersNewRoute: typeof DashboardOwnerUsersNewRoute
+  DashboardOwnerKitchensIndexRoute: typeof DashboardOwnerKitchensIndexRoute
+  DashboardOwnerUsersIndexRoute: typeof DashboardOwnerUsersIndexRoute
+  DashboardOwnerKitchensOrgIdMembersRoute: typeof DashboardOwnerKitchensOrgIdMembersRoute
+  DashboardOwnerKitchensOrgIdIndexRoute: typeof DashboardOwnerKitchensOrgIdIndexRoute
+  DashboardOwnerOnboardingKitchenIndexRoute: typeof DashboardOwnerOnboardingKitchenIndexRoute
+}
+
+const DashboardOwnerLayoutRouteChildren: DashboardOwnerLayoutRouteChildren = {
+  DashboardOwnerAuditRoute: DashboardOwnerAuditRoute,
+  DashboardOwnerMenuRoute: DashboardOwnerMenuRoute,
+  DashboardOwnerOrdersRoute: DashboardOwnerOrdersRoute,
+  DashboardOwnerReviewsRoute: DashboardOwnerReviewsRoute,
+  DashboardOwnerStaffRoute: DashboardOwnerStaffRoute,
+  DashboardOwnerIndexRoute: DashboardOwnerIndexRoute,
+  DashboardOwnerUsersUseridRoute: DashboardOwnerUsersUseridRoute,
+  DashboardOwnerUsersNewRoute: DashboardOwnerUsersNewRoute,
+  DashboardOwnerKitchensIndexRoute: DashboardOwnerKitchensIndexRoute,
+  DashboardOwnerUsersIndexRoute: DashboardOwnerUsersIndexRoute,
+  DashboardOwnerKitchensOrgIdMembersRoute:
+    DashboardOwnerKitchensOrgIdMembersRoute,
+  DashboardOwnerKitchensOrgIdIndexRoute: DashboardOwnerKitchensOrgIdIndexRoute,
+  DashboardOwnerOnboardingKitchenIndexRoute:
+    DashboardOwnerOnboardingKitchenIndexRoute,
+}
+
+const DashboardOwnerLayoutRouteWithChildren =
+  DashboardOwnerLayoutRoute._addFileChildren(DashboardOwnerLayoutRouteChildren)
+
+interface DashboardStaffLayoutRouteChildren {
+  DashboardStaffMembersRoute: typeof DashboardStaffMembersRoute
+  DashboardStaffMenuRoute: typeof DashboardStaffMenuRoute
+  DashboardStaffOrdersRoute: typeof DashboardStaffOrdersRoute
+  DashboardStaffReviewsRoute: typeof DashboardStaffReviewsRoute
+  DashboardStaffIndexRoute: typeof DashboardStaffIndexRoute
+}
+
+const DashboardStaffLayoutRouteChildren: DashboardStaffLayoutRouteChildren = {
+  DashboardStaffMembersRoute: DashboardStaffMembersRoute,
+  DashboardStaffMenuRoute: DashboardStaffMenuRoute,
+  DashboardStaffOrdersRoute: DashboardStaffOrdersRoute,
+  DashboardStaffReviewsRoute: DashboardStaffReviewsRoute,
+  DashboardStaffIndexRoute: DashboardStaffIndexRoute,
+}
+
+const DashboardStaffLayoutRouteWithChildren =
+  DashboardStaffLayoutRoute._addFileChildren(DashboardStaffLayoutRouteChildren)
+
 interface DashboardLayoutRouteChildren {
-  DashboardAuditRoute: typeof DashboardAuditRoute
-  DashboardStaffRoute: typeof DashboardStaffRoute
-  DashboardTenantsRoute: typeof DashboardTenantsRoute
+  DashboardCustomerLayoutRoute: typeof DashboardCustomerLayoutRouteWithChildren
+  DashboardOwnerLayoutRoute: typeof DashboardOwnerLayoutRouteWithChildren
+  DashboardStaffLayoutRoute: typeof DashboardStaffLayoutRouteWithChildren
   DashboardIndexRoute: typeof DashboardIndexRoute
-  DashboardProposalsNewRoute: typeof DashboardProposalsNewRoute
-  DashboardUsersUseridRoute: typeof DashboardUsersUseridRoute
-  DashboardUsersNewRoute: typeof DashboardUsersNewRoute
-  DashboardOrganizationsIndexRoute: typeof DashboardOrganizationsIndexRoute
-  DashboardProposalsIndexRoute: typeof DashboardProposalsIndexRoute
-  DashboardUsersIndexRoute: typeof DashboardUsersIndexRoute
-  DashboardOrganizationsOrgIdMembersRoute: typeof DashboardOrganizationsOrgIdMembersRoute
-  DashboardOnboardingKitchenIndexRoute: typeof DashboardOnboardingKitchenIndexRoute
-  DashboardOrganizationsOrgIdIndexRoute: typeof DashboardOrganizationsOrgIdIndexRoute
 }
 
 const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
-  DashboardAuditRoute: DashboardAuditRoute,
-  DashboardStaffRoute: DashboardStaffRoute,
-  DashboardTenantsRoute: DashboardTenantsRoute,
+  DashboardCustomerLayoutRoute: DashboardCustomerLayoutRouteWithChildren,
+  DashboardOwnerLayoutRoute: DashboardOwnerLayoutRouteWithChildren,
+  DashboardStaffLayoutRoute: DashboardStaffLayoutRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
-  DashboardProposalsNewRoute: DashboardProposalsNewRoute,
-  DashboardUsersUseridRoute: DashboardUsersUseridRoute,
-  DashboardUsersNewRoute: DashboardUsersNewRoute,
-  DashboardOrganizationsIndexRoute: DashboardOrganizationsIndexRoute,
-  DashboardProposalsIndexRoute: DashboardProposalsIndexRoute,
-  DashboardUsersIndexRoute: DashboardUsersIndexRoute,
-  DashboardOrganizationsOrgIdMembersRoute:
-    DashboardOrganizationsOrgIdMembersRoute,
-  DashboardOnboardingKitchenIndexRoute: DashboardOnboardingKitchenIndexRoute,
-  DashboardOrganizationsOrgIdIndexRoute: DashboardOrganizationsOrgIdIndexRoute,
 }
 
 const DashboardLayoutRouteWithChildren = DashboardLayoutRoute._addFileChildren(

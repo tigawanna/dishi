@@ -12,7 +12,23 @@ import { and, count, eq, ilike, inArray, or, type SQL } from "drizzle-orm";
 import { Elysia, status } from "elysia";
 import { z } from "zod";
 
-const DAYS_OF_WEEK = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"] as const;
+const dayHoursSchema = z.object({
+  opensAt: z.string().regex(/^\d{2}:\d{2}$/, "Must be HH:mm format"),
+  closesAt: z.string().regex(/^\d{2}:\d{2}$/, "Must be HH:mm format"),
+});
+
+const operatingHoursSchema = z
+  .object({
+    mon: dayHoursSchema,
+    tue: dayHoursSchema,
+    wed: dayHoursSchema,
+    thu: dayHoursSchema,
+    fri: dayHoursSchema,
+    sat: dayHoursSchema,
+    sun: dayHoursSchema,
+  })
+  .partial()
+  .optional();
 
 const createKitchenProfileSchema = z.object({
   organizationId: z.string().min(1),
@@ -21,9 +37,7 @@ const createKitchenProfileSchema = z.object({
   address: z.string().optional(),
   neighborhood: z.string().optional(),
   deliveryRadiusKm: z.string().optional(),
-  opensAt: z.string().optional(),
-  closesAt: z.string().optional(),
-  operatingDays: z.array(z.enum(DAYS_OF_WEEK)).optional(),
+  operatingHours: operatingHoursSchema,
   coverImage: z.string().url().optional().or(z.literal("")),
 });
 
@@ -53,9 +67,7 @@ export const kitchenRoute = new Elysia({ name: "kitchen", prefix: "/kitchen" })
             address: body.address,
             neighborhood: body.neighborhood,
             deliveryRadiusKm: body.deliveryRadiusKm,
-            opensAt: body.opensAt,
-            closesAt: body.closesAt,
-            operatingDays: body.operatingDays,
+            operatingHours: body.operatingHours,
             coverImage: body.coverImage || undefined,
           })
           .returning();
