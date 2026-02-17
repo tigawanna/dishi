@@ -7,6 +7,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Link } from "@tanstack/react-router";
+import { UtensilsCrossed } from "lucide-react";
 import { useEffect, useState } from "react";
 
 function OrgSwitcherFallback() {
@@ -48,9 +49,7 @@ export function DashboardSidebarHeader({ showOrgSwitcher = true }: DashboardSide
         to="/"
         className="hover:bg-base-300 flex w-full cursor-pointer items-center gap-2 rounded-sm p-1"
       >
-        <span className="font-serif text-xl tracking-tight">
-          d<span className="text-primary">.</span>
-        </span>
+        <UtensilsCrossed className="text-primary size-5" />
         {(state === "expanded" || isMobile) && (
           <span className="font-serif text-xl tracking-tight">
             dishi<span className="text-primary">.</span>
