@@ -7,5 +7,5 @@ export const Route = createFileRoute("/dashboard/customer")({
 });
 
 function CustomerDashboardLayout() {
-  return <DashboardLayout sidebarRoutes={customer_routes} sidebarLabel="Customer" />;
+  return <DashboardLayout sidebarRoutes={customer_routes} sidebarLabel="Customer" showOrgSwitcher={false} />;
 }

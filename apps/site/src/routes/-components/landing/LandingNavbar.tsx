@@ -56,7 +56,7 @@ export function LandingNavbar() {
           >
             {theme === "light" ? <Moon className="size-4" /> : <Sun className="size-4" />}
           </button>
-          <Link to="/dashboard/owner/onboarding/kitchen">
+          <Link to="/auth/signup" search={{ returnTo: "/dashboard/owner/onboarding/kitchen" }}>
             <Button size="sm" variant="ghost" className="rounded-full px-4">
               Start Your Kitchen
             </Button>
@@ -98,7 +98,7 @@ export function LandingNavbar() {
               {item.label}
             </a>
           ))}
-          <Link to="/dashboard/owner/onboarding/kitchen" onClick={() => setMobileOpen(false)}>
+          <Link to="/auth/signup" search={{ returnTo: "/dashboard/owner/onboarding/kitchen" }} onClick={() => setMobileOpen(false)}>
             <Button variant="outline" className="w-full rounded-full">
               Start Your Kitchen
             </Button>

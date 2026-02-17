@@ -6,8 +6,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { Link, useLocation } from "@tanstack/react-router";
-import { LayoutDashboard } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 function OrgSwitcherFallback() {
@@ -26,11 +25,12 @@ function OrgSwitcherFallback() {
   );
 }
 
-interface DashboardSidebarHeaderProps {}
+interface DashboardSidebarHeaderProps {
+  showOrgSwitcher?: boolean;
+}
 
-export function DashboardSidebarHeader({}: DashboardSidebarHeaderProps) {
+export function DashboardSidebarHeader({ showOrgSwitcher = true }: DashboardSidebarHeaderProps) {
   const { state, setOpenMobile, isMobile } = useSidebar();
-  const { pathname } = useLocation();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -44,18 +44,20 @@ export function DashboardSidebarHeader({}: DashboardSidebarHeaderProps) {
         setOpenMobile(false);
       }}
     >
-      {mounted ? <OrgSwitcher /> : <OrgSwitcherFallback />}
       <Link
-        to="/dashboard"
-        className={
-          pathname === "/dashboard"
-            ? `bg-primary/10 text-primary flex w-full cursor-pointer items-center gap-2 rounded-lg p-1 font-medium`
-            : `hover:bg-base-300 flex w-full cursor-pointer items-center gap-2 rounded-sm p-1`
-        }
+        to="/"
+        className="hover:bg-base-300 flex w-full cursor-pointer items-center gap-2 rounded-sm p-1"
       >
-        <LayoutDashboard className="size-5" />
-        {(state === "expanded" || isMobile) && <h1 className="text-sm font-semibold">Dashboard</h1>}
+        <span className="font-serif text-xl tracking-tight">
+          d<span className="text-primary">.</span>
+        </span>
+        {(state === "expanded" || isMobile) && (
+          <span className="font-serif text-xl tracking-tight">
+            dishi<span className="text-primary">.</span>
+          </span>
+        )}
       </Link>
+      {showOrgSwitcher && (mounted ? <OrgSwitcher /> : <OrgSwitcherFallback />)}
     </div>
   );
 }

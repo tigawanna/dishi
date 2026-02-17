@@ -21,16 +21,17 @@ import { DashboardTheme } from "./DashboardTheme";
 interface DashboardLayoutProps {
   sidebarRoutes: SidebarItem[];
   sidebarLabel: string;
+  showOrgSwitcher?: boolean;
   sidebar_props?: React.ComponentProps<typeof Sidebar>;
 }
 
-export function DashboardLayout({ sidebarRoutes, sidebarLabel, sidebar_props }: DashboardLayoutProps) {
+export function DashboardLayout({ sidebarRoutes, sidebarLabel, showOrgSwitcher = true, sidebar_props }: DashboardLayoutProps) {
   return (
     <SidebarProvider defaultOpen={false}>
       <Helmet title="Dishi | Dashboard" description="Manage your kitchens, orders, and more" />
       <Sidebar className="" collapsible="icon" {...sidebar_props}>
         <SidebarHeader>
-          <DashboardSidebarHeader />
+          <DashboardSidebarHeader showOrgSwitcher={showOrgSwitcher} />
         </SidebarHeader>
         <SidebarContent>
           <DashboardSidebarLinks routes={sidebarRoutes} label={sidebarLabel} />
