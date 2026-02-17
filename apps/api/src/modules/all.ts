@@ -8,6 +8,7 @@ import { Elysia } from "elysia";
 import { adminRoute } from "./admin";
 import { crudRouteGroup } from "./crud";
 import { indexRoute } from "./home";
+import { kitchenRoute } from "./kitchen";
 import { viewerRoute } from "./viewer";
 
 export const allRoutes = new Elysia()
@@ -72,4 +73,5 @@ export const allRoutes = new Elysia()
   .use(indexRoute)
   .use(viewerRoute)
   .use(adminRoute)
+  .use(kitchenRoute)
   .use(crudRouteGroup);

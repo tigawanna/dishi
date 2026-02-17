@@ -3,4 +3,6 @@ export const queryKeyPrefixes = {
   users: "users",
   organizations: "organizations",
   invitations: "invitations",
+  kitchenProfile: "kitchenProfile",
+  cuisineTypes: "cuisineTypes",
 } as const;
