@@ -51,16 +51,21 @@ const setCuisinesSchema = z.object({
 
 export const kitchenRoute = new Elysia({ name: "kitchen", prefix: "/kitchen" })
   .use(betterAuthZMiddleware)
-
   .post(
     "/claim-owner",
     async ({ user }) => {
       console.log("[claim-owner] called by user:", { id: user.id, role: user.role });
 
-      if (user.role !== "customer") {
-        console.log("[claim-owner] rejected: role is", user.role);
-        return status(403, {
-          error: "Only customers can claim the owner role",
+      // if (user.role !== "customer") {
+      //   console.log("[claim-owner] rejected: role is", user.role);
+      //   return status(403, {
+      //     error: "Only customers can claim the owner role",
+      //   });
+      // }
+      const isKitchenClaimed = await db.select().from(kitchenProfile).where(eq(kitchenProfile.organizationId, user.id));
+      if (isKitchenClaimed) {
+        return status(400, {
+          error: "Kitchen already claimed",
         });
       }
 

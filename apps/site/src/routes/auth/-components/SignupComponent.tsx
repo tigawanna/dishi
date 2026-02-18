@@ -45,7 +45,7 @@ export function SignupComponent() {
   const { returnTo, intent: rawIntent } = useSearch({
     from: "/auth/signup",
   });
-  const intent: SignupIntent = rawIntent ?? "customer";
+  const intent = rawIntent ?? "customer";
   console.log("[Signup] intent:", intent, "| rawIntent:", rawIntent, "| returnTo:", returnTo);
   const [showPassword, setShowPassword] = useState(false);
   const qc = useQueryClient();
