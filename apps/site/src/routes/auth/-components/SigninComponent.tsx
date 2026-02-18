@@ -24,7 +24,7 @@ export function SigninComponent() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const qc = useQueryClient();
-  const { returnTo } = Route.useSearch();
+  const { returnTo, intent } = Route.useSearch();
   const navigate = useNavigate({ from: "/auth/" });
 
   const mutation = useMutation({
@@ -121,7 +121,7 @@ export function SigninComponent() {
         <div className="flex w-full flex-col items-center justify-center gap-4">
           <div className="flex items-center gap-1">
             <span>Don&apos;t have an account?</span>
-            <Link to="/auth/signup" search={{ returnTo }} className="link link-primary">
+            <Link to="/auth/signup" search={{ returnTo, intent }} className="link link-primary">
               Sign up
             </Link>
           </div>

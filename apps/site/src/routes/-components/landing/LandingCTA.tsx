@@ -26,18 +26,16 @@ export function LandingCTA() {
                 <Button
                   variant="secondary"
                   size="lg"
-                  className="gap-2 rounded-full px-8 text-base shadow-lg"
-                >
+                  className="gap-2 rounded-full px-8 text-base shadow-lg">
                   Get Started
                   <ArrowRight className="size-4" />
                 </Button>
               </Link>
-              <Link to="/auth/signup" search={{ returnTo: "/dashboard/owner/onboarding/kitchen" }}>
+              <Link to="/auth/signup" search={{ intent: "kitchen-owner" }}>
                 <Button
                   variant="ghost"
                   size="lg"
-                  className="rounded-full border border-primary-content/25 px-8 text-base text-primary-content hover:bg-primary-content/10 hover:text-primary-content"
-                >
+                  className="rounded-full border border-primary-content/25 px-8 text-base text-primary-content hover:bg-primary-content/10 hover:text-primary-content">
                   Start Your Kitchen
                 </Button>
               </Link>

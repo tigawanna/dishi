@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/lib/tanstack/router/use-theme";
 import { Link, useLocation } from "@tanstack/react-router";
 import { Menu, Moon, Sun, X } from "lucide-react";
+import { useState } from "react";
 
 const NAV_LINKS = [
   { label: "How it works", href: "#features" },
@@ -34,8 +34,7 @@ export function LandingNavbar() {
       <div className="container flex h-16 items-center justify-between">
         <Link
           to="/"
-          className="font-serif text-2xl tracking-tight text-base-100 dark:text-base-content"
-        >
+          className="font-serif text-2xl tracking-tight text-base-100 dark:text-base-content">
           dishi<span className="text-primary">.</span>
         </Link>
 
@@ -44,19 +43,17 @@ export function LandingNavbar() {
             <a
               key={item.label}
               href={item.href}
-              className="text-sm text-base-100/70 transition-colors hover:text-base-100 dark:text-base-content/70 dark:hover:text-base-content"
-            >
+              className="text-sm text-base-100/70 transition-colors hover:text-base-100 dark:text-base-content/70 dark:hover:text-base-content">
               {item.label}
             </a>
           ))}
           <button
             onClick={toggleTheme}
             className="rounded-full p-2 text-base-100/70 transition-colors hover:text-base-100 dark:text-base-content/70 dark:hover:text-base-content"
-            aria-label="Toggle theme"
-          >
+            aria-label="Toggle theme">
             {theme === "light" ? <Moon className="size-4" /> : <Sun className="size-4" />}
           </button>
-          <Link to="/auth/signup" search={{ returnTo: "/dashboard/owner/onboarding/kitchen" }}>
+          <Link to="/auth/signup" search={{ intent: "kitchen-owner" }}>
             <Button size="sm" variant="ghost" className="rounded-full px-4">
               Start Your Kitchen
             </Button>
@@ -72,15 +69,13 @@ export function LandingNavbar() {
           <button
             onClick={toggleTheme}
             className="rounded-full p-2 text-base-100/70 transition-colors hover:text-base-100 dark:text-base-content/70 dark:hover:text-base-content"
-            aria-label="Toggle theme"
-          >
+            aria-label="Toggle theme">
             {theme === "light" ? <Moon className="size-4" /> : <Sun className="size-4" />}
           </button>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="text-base-100 dark:text-base-content"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          >
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}>
             {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
         </div>
@@ -93,12 +88,14 @@ export function LandingNavbar() {
               key={item.label}
               href={item.href}
               onClick={() => setMobileOpen(false)}
-              className="block text-base-100/70 transition-colors hover:text-base-100 dark:text-base-content/70 dark:hover:text-base-content"
-            >
+              className="block text-base-100/70 transition-colors hover:text-base-100 dark:text-base-content/70 dark:hover:text-base-content">
               {item.label}
             </a>
           ))}
-          <Link to="/auth/signup" search={{ returnTo: "/dashboard/owner/onboarding/kitchen" }} onClick={() => setMobileOpen(false)}>
+          <Link
+            to="/auth/signup"
+            search={{ intent: "kitchen-owner" }}
+            onClick={() => setMobileOpen(false)}>
             <Button variant="outline" className="w-full rounded-full">
               Start Your Kitchen
             </Button>

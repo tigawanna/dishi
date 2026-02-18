@@ -1,12 +1,12 @@
 import { db } from "@backend/db/client";
 import {
-  buildOrderBy,
-  buildPaginatedResponse,
-  calculateOffset,
-  createSimpleQueryEngine,
-  listQueryParamsSchema,
+    buildOrderBy,
+    buildPaginatedResponse,
+    calculateOffset,
+    createSimpleQueryEngine,
+    listQueryParamsSchema,
 } from "@backend/db/helpers/QueryEngine";
-import { cuisineType, kitchenCuisine, kitchenProfile } from "@backend/db/schema";
+import { cuisineType, kitchenCuisine, kitchenProfile, user as userTable } from "@backend/db/schema";
 import { betterAuthZMiddleware } from "@backend/middleware/better-auth-authz";
 import { and, count, eq, ilike, inArray, or, type SQL } from "drizzle-orm";
 import { Elysia, status } from "elysia";
@@ -51,6 +51,35 @@ const setCuisinesSchema = z.object({
 
 export const kitchenRoute = new Elysia({ name: "kitchen", prefix: "/kitchen" })
   .use(betterAuthZMiddleware)
+
+  .post(
+    "/claim-owner",
+    async ({ user }) => {
+      console.log("[claim-owner] called by user:", { id: user.id, role: user.role });
+
+      if (user.role !== "customer") {
+        console.log("[claim-owner] rejected: role is", user.role);
+        return status(403, {
+          error: "Only customers can claim the owner role",
+        });
+      }
+
+      const [updated] = await db
+        .update(userTable)
+        .set({ role: "owner" })
+        .where(eq(userTable.id, user.id))
+        .returning({ id: userTable.id, role: userTable.role });
+
+      if (!updated) {
+        console.log("[claim-owner] DB update failed for user:", user.id);
+        return status(500, { error: "Failed to update user role" });
+      }
+
+      console.log("[claim-owner] success:", updated);
+      return { success: true };
+    },
+    { auth: true },
+  )
 
   .post(
     "/profile",
@@ -252,9 +281,7 @@ export const kitchenRoute = new Elysia({ name: "kitchen", prefix: "/kitchen" })
     "/profile/:kitchenId/cuisines",
     async ({ params, body }) => {
       try {
-        await db
-          .delete(kitchenCuisine)
-          .where(eq(kitchenCuisine.kitchenId, params.kitchenId));
+        await db.delete(kitchenCuisine).where(eq(kitchenCuisine.kitchenId, params.kitchenId));
 
         if (body.cuisineIds.length > 0) {
           const validCuisines = await db

@@ -24,15 +24,18 @@ import { Route as DashboardStaffIndexRouteImport } from './routes/dashboard/staf
 import { Route as DashboardOwnerIndexRouteImport } from './routes/dashboard/owner/index'
 import { Route as DashboardCustomerIndexRouteImport } from './routes/dashboard/customer/index'
 import { Route as DashboardStaffReviewsRouteImport } from './routes/dashboard/staff/reviews'
+import { Route as DashboardStaffProfileRouteImport } from './routes/dashboard/staff/profile'
 import { Route as DashboardStaffOrdersRouteImport } from './routes/dashboard/staff/orders'
 import { Route as DashboardStaffMenuRouteImport } from './routes/dashboard/staff/menu'
 import { Route as DashboardStaffMembersRouteImport } from './routes/dashboard/staff/members'
 import { Route as DashboardOwnerStaffRouteImport } from './routes/dashboard/owner/staff'
 import { Route as DashboardOwnerReviewsRouteImport } from './routes/dashboard/owner/reviews'
+import { Route as DashboardOwnerProfileRouteImport } from './routes/dashboard/owner/profile'
 import { Route as DashboardOwnerOrdersRouteImport } from './routes/dashboard/owner/orders'
 import { Route as DashboardOwnerMenuRouteImport } from './routes/dashboard/owner/menu'
 import { Route as DashboardOwnerAuditRouteImport } from './routes/dashboard/owner/audit'
 import { Route as DashboardCustomerReviewsRouteImport } from './routes/dashboard/customer/reviews'
+import { Route as DashboardCustomerProfileRouteImport } from './routes/dashboard/customer/profile'
 import { Route as DashboardCustomerOrdersRouteImport } from './routes/dashboard/customer/orders'
 import { Route as DashboardCustomerKitchensRouteImport } from './routes/dashboard/customer/kitchens'
 import { Route as DashboardCustomerFavoritesRouteImport } from './routes/dashboard/customer/favorites'
@@ -119,6 +122,11 @@ const DashboardStaffReviewsRoute = DashboardStaffReviewsRouteImport.update({
   path: '/reviews',
   getParentRoute: () => DashboardStaffLayoutRoute,
 } as any)
+const DashboardStaffProfileRoute = DashboardStaffProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => DashboardStaffLayoutRoute,
+} as any)
 const DashboardStaffOrdersRoute = DashboardStaffOrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
@@ -144,6 +152,11 @@ const DashboardOwnerReviewsRoute = DashboardOwnerReviewsRouteImport.update({
   path: '/reviews',
   getParentRoute: () => DashboardOwnerLayoutRoute,
 } as any)
+const DashboardOwnerProfileRoute = DashboardOwnerProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => DashboardOwnerLayoutRoute,
+} as any)
 const DashboardOwnerOrdersRoute = DashboardOwnerOrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
@@ -163,6 +176,12 @@ const DashboardCustomerReviewsRoute =
   DashboardCustomerReviewsRouteImport.update({
     id: '/reviews',
     path: '/reviews',
+    getParentRoute: () => DashboardCustomerLayoutRoute,
+  } as any)
+const DashboardCustomerProfileRoute =
+  DashboardCustomerProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
     getParentRoute: () => DashboardCustomerLayoutRoute,
   } as any)
 const DashboardCustomerOrdersRoute = DashboardCustomerOrdersRouteImport.update({
@@ -239,15 +258,18 @@ export interface FileRoutesByFullPath {
   '/dashboard/customer/favorites': typeof DashboardCustomerFavoritesRoute
   '/dashboard/customer/kitchens': typeof DashboardCustomerKitchensRoute
   '/dashboard/customer/orders': typeof DashboardCustomerOrdersRoute
+  '/dashboard/customer/profile': typeof DashboardCustomerProfileRoute
   '/dashboard/customer/reviews': typeof DashboardCustomerReviewsRoute
   '/dashboard/owner/audit': typeof DashboardOwnerAuditRoute
   '/dashboard/owner/menu': typeof DashboardOwnerMenuRoute
   '/dashboard/owner/orders': typeof DashboardOwnerOrdersRoute
+  '/dashboard/owner/profile': typeof DashboardOwnerProfileRoute
   '/dashboard/owner/reviews': typeof DashboardOwnerReviewsRoute
   '/dashboard/owner/staff': typeof DashboardOwnerStaffRoute
   '/dashboard/staff/members': typeof DashboardStaffMembersRoute
   '/dashboard/staff/menu': typeof DashboardStaffMenuRoute
   '/dashboard/staff/orders': typeof DashboardStaffOrdersRoute
+  '/dashboard/staff/profile': typeof DashboardStaffProfileRoute
   '/dashboard/staff/reviews': typeof DashboardStaffReviewsRoute
   '/dashboard/customer/': typeof DashboardCustomerIndexRoute
   '/dashboard/owner/': typeof DashboardOwnerIndexRoute
@@ -270,15 +292,18 @@ export interface FileRoutesByTo {
   '/dashboard/customer/favorites': typeof DashboardCustomerFavoritesRoute
   '/dashboard/customer/kitchens': typeof DashboardCustomerKitchensRoute
   '/dashboard/customer/orders': typeof DashboardCustomerOrdersRoute
+  '/dashboard/customer/profile': typeof DashboardCustomerProfileRoute
   '/dashboard/customer/reviews': typeof DashboardCustomerReviewsRoute
   '/dashboard/owner/audit': typeof DashboardOwnerAuditRoute
   '/dashboard/owner/menu': typeof DashboardOwnerMenuRoute
   '/dashboard/owner/orders': typeof DashboardOwnerOrdersRoute
+  '/dashboard/owner/profile': typeof DashboardOwnerProfileRoute
   '/dashboard/owner/reviews': typeof DashboardOwnerReviewsRoute
   '/dashboard/owner/staff': typeof DashboardOwnerStaffRoute
   '/dashboard/staff/members': typeof DashboardStaffMembersRoute
   '/dashboard/staff/menu': typeof DashboardStaffMenuRoute
   '/dashboard/staff/orders': typeof DashboardStaffOrdersRoute
+  '/dashboard/staff/profile': typeof DashboardStaffProfileRoute
   '/dashboard/staff/reviews': typeof DashboardStaffReviewsRoute
   '/dashboard/customer': typeof DashboardCustomerIndexRoute
   '/dashboard/owner': typeof DashboardOwnerIndexRoute
@@ -307,15 +332,18 @@ export interface FileRoutesById {
   '/dashboard/customer/favorites': typeof DashboardCustomerFavoritesRoute
   '/dashboard/customer/kitchens': typeof DashboardCustomerKitchensRoute
   '/dashboard/customer/orders': typeof DashboardCustomerOrdersRoute
+  '/dashboard/customer/profile': typeof DashboardCustomerProfileRoute
   '/dashboard/customer/reviews': typeof DashboardCustomerReviewsRoute
   '/dashboard/owner/audit': typeof DashboardOwnerAuditRoute
   '/dashboard/owner/menu': typeof DashboardOwnerMenuRoute
   '/dashboard/owner/orders': typeof DashboardOwnerOrdersRoute
+  '/dashboard/owner/profile': typeof DashboardOwnerProfileRoute
   '/dashboard/owner/reviews': typeof DashboardOwnerReviewsRoute
   '/dashboard/owner/staff': typeof DashboardOwnerStaffRoute
   '/dashboard/staff/members': typeof DashboardStaffMembersRoute
   '/dashboard/staff/menu': typeof DashboardStaffMenuRoute
   '/dashboard/staff/orders': typeof DashboardStaffOrdersRoute
+  '/dashboard/staff/profile': typeof DashboardStaffProfileRoute
   '/dashboard/staff/reviews': typeof DashboardStaffReviewsRoute
   '/dashboard/customer/': typeof DashboardCustomerIndexRoute
   '/dashboard/owner/': typeof DashboardOwnerIndexRoute
@@ -345,15 +373,18 @@ export interface FileRouteTypes {
     | '/dashboard/customer/favorites'
     | '/dashboard/customer/kitchens'
     | '/dashboard/customer/orders'
+    | '/dashboard/customer/profile'
     | '/dashboard/customer/reviews'
     | '/dashboard/owner/audit'
     | '/dashboard/owner/menu'
     | '/dashboard/owner/orders'
+    | '/dashboard/owner/profile'
     | '/dashboard/owner/reviews'
     | '/dashboard/owner/staff'
     | '/dashboard/staff/members'
     | '/dashboard/staff/menu'
     | '/dashboard/staff/orders'
+    | '/dashboard/staff/profile'
     | '/dashboard/staff/reviews'
     | '/dashboard/customer/'
     | '/dashboard/owner/'
@@ -376,15 +407,18 @@ export interface FileRouteTypes {
     | '/dashboard/customer/favorites'
     | '/dashboard/customer/kitchens'
     | '/dashboard/customer/orders'
+    | '/dashboard/customer/profile'
     | '/dashboard/customer/reviews'
     | '/dashboard/owner/audit'
     | '/dashboard/owner/menu'
     | '/dashboard/owner/orders'
+    | '/dashboard/owner/profile'
     | '/dashboard/owner/reviews'
     | '/dashboard/owner/staff'
     | '/dashboard/staff/members'
     | '/dashboard/staff/menu'
     | '/dashboard/staff/orders'
+    | '/dashboard/staff/profile'
     | '/dashboard/staff/reviews'
     | '/dashboard/customer'
     | '/dashboard/owner'
@@ -412,15 +446,18 @@ export interface FileRouteTypes {
     | '/dashboard/customer/favorites'
     | '/dashboard/customer/kitchens'
     | '/dashboard/customer/orders'
+    | '/dashboard/customer/profile'
     | '/dashboard/customer/reviews'
     | '/dashboard/owner/audit'
     | '/dashboard/owner/menu'
     | '/dashboard/owner/orders'
+    | '/dashboard/owner/profile'
     | '/dashboard/owner/reviews'
     | '/dashboard/owner/staff'
     | '/dashboard/staff/members'
     | '/dashboard/staff/menu'
     | '/dashboard/staff/orders'
+    | '/dashboard/staff/profile'
     | '/dashboard/staff/reviews'
     | '/dashboard/customer/'
     | '/dashboard/owner/'
@@ -549,6 +586,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardStaffReviewsRouteImport
       parentRoute: typeof DashboardStaffLayoutRoute
     }
+    '/dashboard/staff/profile': {
+      id: '/dashboard/staff/profile'
+      path: '/profile'
+      fullPath: '/dashboard/staff/profile'
+      preLoaderRoute: typeof DashboardStaffProfileRouteImport
+      parentRoute: typeof DashboardStaffLayoutRoute
+    }
     '/dashboard/staff/orders': {
       id: '/dashboard/staff/orders'
       path: '/orders'
@@ -584,6 +628,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardOwnerReviewsRouteImport
       parentRoute: typeof DashboardOwnerLayoutRoute
     }
+    '/dashboard/owner/profile': {
+      id: '/dashboard/owner/profile'
+      path: '/profile'
+      fullPath: '/dashboard/owner/profile'
+      preLoaderRoute: typeof DashboardOwnerProfileRouteImport
+      parentRoute: typeof DashboardOwnerLayoutRoute
+    }
     '/dashboard/owner/orders': {
       id: '/dashboard/owner/orders'
       path: '/orders'
@@ -610,6 +661,13 @@ declare module '@tanstack/react-router' {
       path: '/reviews'
       fullPath: '/dashboard/customer/reviews'
       preLoaderRoute: typeof DashboardCustomerReviewsRouteImport
+      parentRoute: typeof DashboardCustomerLayoutRoute
+    }
+    '/dashboard/customer/profile': {
+      id: '/dashboard/customer/profile'
+      path: '/profile'
+      fullPath: '/dashboard/customer/profile'
+      preLoaderRoute: typeof DashboardCustomerProfileRouteImport
       parentRoute: typeof DashboardCustomerLayoutRoute
     }
     '/dashboard/customer/orders': {
@@ -703,6 +761,7 @@ interface DashboardCustomerLayoutRouteChildren {
   DashboardCustomerFavoritesRoute: typeof DashboardCustomerFavoritesRoute
   DashboardCustomerKitchensRoute: typeof DashboardCustomerKitchensRoute
   DashboardCustomerOrdersRoute: typeof DashboardCustomerOrdersRoute
+  DashboardCustomerProfileRoute: typeof DashboardCustomerProfileRoute
   DashboardCustomerReviewsRoute: typeof DashboardCustomerReviewsRoute
   DashboardCustomerIndexRoute: typeof DashboardCustomerIndexRoute
 }
@@ -712,6 +771,7 @@ const DashboardCustomerLayoutRouteChildren: DashboardCustomerLayoutRouteChildren
     DashboardCustomerFavoritesRoute: DashboardCustomerFavoritesRoute,
     DashboardCustomerKitchensRoute: DashboardCustomerKitchensRoute,
     DashboardCustomerOrdersRoute: DashboardCustomerOrdersRoute,
+    DashboardCustomerProfileRoute: DashboardCustomerProfileRoute,
     DashboardCustomerReviewsRoute: DashboardCustomerReviewsRoute,
     DashboardCustomerIndexRoute: DashboardCustomerIndexRoute,
   }
@@ -725,6 +785,7 @@ interface DashboardOwnerLayoutRouteChildren {
   DashboardOwnerAuditRoute: typeof DashboardOwnerAuditRoute
   DashboardOwnerMenuRoute: typeof DashboardOwnerMenuRoute
   DashboardOwnerOrdersRoute: typeof DashboardOwnerOrdersRoute
+  DashboardOwnerProfileRoute: typeof DashboardOwnerProfileRoute
   DashboardOwnerReviewsRoute: typeof DashboardOwnerReviewsRoute
   DashboardOwnerStaffRoute: typeof DashboardOwnerStaffRoute
   DashboardOwnerIndexRoute: typeof DashboardOwnerIndexRoute
@@ -741,6 +802,7 @@ const DashboardOwnerLayoutRouteChildren: DashboardOwnerLayoutRouteChildren = {
   DashboardOwnerAuditRoute: DashboardOwnerAuditRoute,
   DashboardOwnerMenuRoute: DashboardOwnerMenuRoute,
   DashboardOwnerOrdersRoute: DashboardOwnerOrdersRoute,
+  DashboardOwnerProfileRoute: DashboardOwnerProfileRoute,
   DashboardOwnerReviewsRoute: DashboardOwnerReviewsRoute,
   DashboardOwnerStaffRoute: DashboardOwnerStaffRoute,
   DashboardOwnerIndexRoute: DashboardOwnerIndexRoute,
@@ -762,6 +824,7 @@ interface DashboardStaffLayoutRouteChildren {
   DashboardStaffMembersRoute: typeof DashboardStaffMembersRoute
   DashboardStaffMenuRoute: typeof DashboardStaffMenuRoute
   DashboardStaffOrdersRoute: typeof DashboardStaffOrdersRoute
+  DashboardStaffProfileRoute: typeof DashboardStaffProfileRoute
   DashboardStaffReviewsRoute: typeof DashboardStaffReviewsRoute
   DashboardStaffIndexRoute: typeof DashboardStaffIndexRoute
 }
@@ -770,6 +833,7 @@ const DashboardStaffLayoutRouteChildren: DashboardStaffLayoutRouteChildren = {
   DashboardStaffMembersRoute: DashboardStaffMembersRoute,
   DashboardStaffMenuRoute: DashboardStaffMenuRoute,
   DashboardStaffOrdersRoute: DashboardStaffOrdersRoute,
+  DashboardStaffProfileRoute: DashboardStaffProfileRoute,
   DashboardStaffReviewsRoute: DashboardStaffReviewsRoute,
   DashboardStaffIndexRoute: DashboardStaffIndexRoute,
 }
