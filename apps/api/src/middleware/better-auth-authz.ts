@@ -18,7 +18,7 @@
  *
  * Available Roles:
  * - owner: Platform super admin, full user/session/org management
- * - customer: Default role, browse kitchens, favorites, saved addresses
+ * - user: Default role, browse kitchens, favorites, saved addresses
  */
 
 import { auth } from "@backend/lib/auth";
@@ -79,7 +79,7 @@ export const betterAuthZMiddleware = new Elysia({ name: "better-auth" }).mount(a
           message: "Authentication required to access this resource.",
         });
 
-      const userRole = (session.user.role || "customer") as BetterAuthUserRoles;
+      const userRole = (session.user.role || "user") as BetterAuthUserRoles;
       if (!requireRole.includes(userRole)) {
         return status(403, {
           code: "FORBIDDEN",
@@ -122,7 +122,7 @@ export const betterAuthZMiddleware = new Elysia({ name: "better-auth" }).mount(a
           message: "Authentication required to access this resource.",
         });
 
-      const userRole = (session.user.role || "customer") as BetterAuthUserRoles;
+      const userRole = (session.user.role || "user") as BetterAuthUserRoles;
       const hasPermission = await auth.api.userHasPermission({
         body: {
           role: userRole,

@@ -56,7 +56,7 @@ export const kitchenRoute = new Elysia({ name: "kitchen", prefix: "/kitchen" })
     async ({ user }) => {
       console.log("[claim-owner] called by user:", { id: user.id, role: user.role });
 
-      // if (user.role !== "customer") {
+      // if (user.role !== "user") {
       //   console.log("[claim-owner] rejected: role is", user.role);
       //   return status(403, {
       //     error: "Only customers can claim the owner role",

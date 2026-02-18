@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Heart, MapPin, Truck, User } from "lucide-react";
 
-export const Route = createFileRoute("/dashboard/customer/profile")({
-  component: CustomerProfilePage,
+export const Route = createFileRoute("/dashboard/user/profile")({
+  component: UserProfilePage,
 });
 
-function CustomerProfilePage() {
+function UserProfilePage() {
   return (
     <div className="flex h-full w-full flex-col gap-8 p-6">
       <div>

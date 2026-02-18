@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronLeft, Heart, MapPin, ShoppingBag, Star } from "lucide-react";
 
-export const Route = createFileRoute("/dashboard/customer/")({
-  component: CustomerHomePage,
+export const Route = createFileRoute("/dashboard/user/")({
+  component: UserHomePage,
 });
 
-function CustomerHomePage() {
+function UserHomePage() {
   return (
     <div className="bg-base-100 flex h-full min-h-screen w-full flex-col items-center justify-center gap-8 p-6">
       <div className="flex flex-col gap-4 text-center">
@@ -15,7 +15,7 @@ function CustomerHomePage() {
 
       <div className="grid w-full max-w-3xl grid-cols-1 gap-6 md:grid-cols-2">
         <Link
-          to="/dashboard/customer/kitchens"
+          to="/dashboard/user/kitchens"
           className="card bg-base-200 hover:bg-base-300 cursor-pointer shadow-lg transition-all hover:scale-105"
         >
           <div className="card-body items-center text-center">
@@ -25,7 +25,7 @@ function CustomerHomePage() {
           </div>
         </Link>
         <Link
-          to="/dashboard/customer/orders"
+          to="/dashboard/user/orders"
           className="card bg-base-200 hover:bg-base-300 cursor-pointer shadow-lg transition-all hover:scale-105"
         >
           <div className="card-body items-center text-center">
@@ -35,7 +35,7 @@ function CustomerHomePage() {
           </div>
         </Link>
         <Link
-          to="/dashboard/customer/favorites"
+          to="/dashboard/user/favorites"
           className="card bg-base-200 hover:bg-base-300 cursor-pointer shadow-lg transition-all hover:scale-105"
         >
           <div className="card-body items-center text-center">
@@ -45,7 +45,7 @@ function CustomerHomePage() {
           </div>
         </Link>
         <Link
-          to="/dashboard/customer/reviews"
+          to="/dashboard/user/reviews"
           className="card bg-base-200 hover:bg-base-300 cursor-pointer shadow-lg transition-all hover:scale-105"
         >
           <div className="card-body items-center text-center">

@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MapPin } from "lucide-react";
 
-export const Route = createFileRoute("/dashboard/customer/kitchens")({
-  component: CustomerKitchensPage,
+export const Route = createFileRoute("/dashboard/user/kitchens")({
+  component: UserKitchensPage,
 });
 
-function CustomerKitchensPage() {
+function UserKitchensPage() {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-6">
       <MapPin className="text-base-content/30 size-16" />

@@ -17,12 +17,17 @@ import { Route as ProfileIndexRouteImport } from './routes/profile/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as AuthIndexRouteImport } from './routes/auth/index'
 import { Route as AuthSignupRouteImport } from './routes/auth/signup'
+import { Route as DashboardUserLayoutRouteImport } from './routes/dashboard/user/layout'
 import { Route as DashboardStaffLayoutRouteImport } from './routes/dashboard/staff/layout'
 import { Route as DashboardOwnerLayoutRouteImport } from './routes/dashboard/owner/layout'
-import { Route as DashboardCustomerLayoutRouteImport } from './routes/dashboard/customer/layout'
+import { Route as DashboardUserIndexRouteImport } from './routes/dashboard/user/index'
 import { Route as DashboardStaffIndexRouteImport } from './routes/dashboard/staff/index'
 import { Route as DashboardOwnerIndexRouteImport } from './routes/dashboard/owner/index'
-import { Route as DashboardCustomerIndexRouteImport } from './routes/dashboard/customer/index'
+import { Route as DashboardUserReviewsRouteImport } from './routes/dashboard/user/reviews'
+import { Route as DashboardUserProfileRouteImport } from './routes/dashboard/user/profile'
+import { Route as DashboardUserOrdersRouteImport } from './routes/dashboard/user/orders'
+import { Route as DashboardUserKitchensRouteImport } from './routes/dashboard/user/kitchens'
+import { Route as DashboardUserFavoritesRouteImport } from './routes/dashboard/user/favorites'
 import { Route as DashboardStaffReviewsRouteImport } from './routes/dashboard/staff/reviews'
 import { Route as DashboardStaffProfileRouteImport } from './routes/dashboard/staff/profile'
 import { Route as DashboardStaffOrdersRouteImport } from './routes/dashboard/staff/orders'
@@ -34,11 +39,6 @@ import { Route as DashboardOwnerProfileRouteImport } from './routes/dashboard/ow
 import { Route as DashboardOwnerOrdersRouteImport } from './routes/dashboard/owner/orders'
 import { Route as DashboardOwnerMenuRouteImport } from './routes/dashboard/owner/menu'
 import { Route as DashboardOwnerAuditRouteImport } from './routes/dashboard/owner/audit'
-import { Route as DashboardCustomerReviewsRouteImport } from './routes/dashboard/customer/reviews'
-import { Route as DashboardCustomerProfileRouteImport } from './routes/dashboard/customer/profile'
-import { Route as DashboardCustomerOrdersRouteImport } from './routes/dashboard/customer/orders'
-import { Route as DashboardCustomerKitchensRouteImport } from './routes/dashboard/customer/kitchens'
-import { Route as DashboardCustomerFavoritesRouteImport } from './routes/dashboard/customer/favorites'
 import { Route as DashboardOwnerUsersIndexRouteImport } from './routes/dashboard/owner/users/index'
 import { Route as DashboardOwnerKitchensIndexRouteImport } from './routes/dashboard/owner/kitchens/index'
 import { Route as DashboardOwnerUsersNewRouteImport } from './routes/dashboard/owner/users/new'
@@ -87,6 +87,11 @@ const AuthSignupRoute = AuthSignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => AuthLayoutRoute,
 } as any)
+const DashboardUserLayoutRoute = DashboardUserLayoutRouteImport.update({
+  id: '/user',
+  path: '/user',
+  getParentRoute: () => DashboardLayoutRoute,
+} as any)
 const DashboardStaffLayoutRoute = DashboardStaffLayoutRouteImport.update({
   id: '/staff',
   path: '/staff',
@@ -97,10 +102,10 @@ const DashboardOwnerLayoutRoute = DashboardOwnerLayoutRouteImport.update({
   path: '/owner',
   getParentRoute: () => DashboardLayoutRoute,
 } as any)
-const DashboardCustomerLayoutRoute = DashboardCustomerLayoutRouteImport.update({
-  id: '/customer',
-  path: '/customer',
-  getParentRoute: () => DashboardLayoutRoute,
+const DashboardUserIndexRoute = DashboardUserIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardUserLayoutRoute,
 } as any)
 const DashboardStaffIndexRoute = DashboardStaffIndexRouteImport.update({
   id: '/',
@@ -112,10 +117,30 @@ const DashboardOwnerIndexRoute = DashboardOwnerIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardOwnerLayoutRoute,
 } as any)
-const DashboardCustomerIndexRoute = DashboardCustomerIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => DashboardCustomerLayoutRoute,
+const DashboardUserReviewsRoute = DashboardUserReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => DashboardUserLayoutRoute,
+} as any)
+const DashboardUserProfileRoute = DashboardUserProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => DashboardUserLayoutRoute,
+} as any)
+const DashboardUserOrdersRoute = DashboardUserOrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => DashboardUserLayoutRoute,
+} as any)
+const DashboardUserKitchensRoute = DashboardUserKitchensRouteImport.update({
+  id: '/kitchens',
+  path: '/kitchens',
+  getParentRoute: () => DashboardUserLayoutRoute,
+} as any)
+const DashboardUserFavoritesRoute = DashboardUserFavoritesRouteImport.update({
+  id: '/favorites',
+  path: '/favorites',
+  getParentRoute: () => DashboardUserLayoutRoute,
 } as any)
 const DashboardStaffReviewsRoute = DashboardStaffReviewsRouteImport.update({
   id: '/reviews',
@@ -172,35 +197,6 @@ const DashboardOwnerAuditRoute = DashboardOwnerAuditRouteImport.update({
   path: '/audit',
   getParentRoute: () => DashboardOwnerLayoutRoute,
 } as any)
-const DashboardCustomerReviewsRoute =
-  DashboardCustomerReviewsRouteImport.update({
-    id: '/reviews',
-    path: '/reviews',
-    getParentRoute: () => DashboardCustomerLayoutRoute,
-  } as any)
-const DashboardCustomerProfileRoute =
-  DashboardCustomerProfileRouteImport.update({
-    id: '/profile',
-    path: '/profile',
-    getParentRoute: () => DashboardCustomerLayoutRoute,
-  } as any)
-const DashboardCustomerOrdersRoute = DashboardCustomerOrdersRouteImport.update({
-  id: '/orders',
-  path: '/orders',
-  getParentRoute: () => DashboardCustomerLayoutRoute,
-} as any)
-const DashboardCustomerKitchensRoute =
-  DashboardCustomerKitchensRouteImport.update({
-    id: '/kitchens',
-    path: '/kitchens',
-    getParentRoute: () => DashboardCustomerLayoutRoute,
-  } as any)
-const DashboardCustomerFavoritesRoute =
-  DashboardCustomerFavoritesRouteImport.update({
-    id: '/favorites',
-    path: '/favorites',
-    getParentRoute: () => DashboardCustomerLayoutRoute,
-  } as any)
 const DashboardOwnerUsersIndexRoute =
   DashboardOwnerUsersIndexRouteImport.update({
     id: '/users/',
@@ -248,18 +244,13 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthLayoutRouteWithChildren
   '/dashboard': typeof DashboardLayoutRouteWithChildren
   '/search': typeof SearchRoute
-  '/dashboard/customer': typeof DashboardCustomerLayoutRouteWithChildren
   '/dashboard/owner': typeof DashboardOwnerLayoutRouteWithChildren
   '/dashboard/staff': typeof DashboardStaffLayoutRouteWithChildren
+  '/dashboard/user': typeof DashboardUserLayoutRouteWithChildren
   '/auth/signup': typeof AuthSignupRoute
   '/auth/': typeof AuthIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/profile/': typeof ProfileIndexRoute
-  '/dashboard/customer/favorites': typeof DashboardCustomerFavoritesRoute
-  '/dashboard/customer/kitchens': typeof DashboardCustomerKitchensRoute
-  '/dashboard/customer/orders': typeof DashboardCustomerOrdersRoute
-  '/dashboard/customer/profile': typeof DashboardCustomerProfileRoute
-  '/dashboard/customer/reviews': typeof DashboardCustomerReviewsRoute
   '/dashboard/owner/audit': typeof DashboardOwnerAuditRoute
   '/dashboard/owner/menu': typeof DashboardOwnerMenuRoute
   '/dashboard/owner/orders': typeof DashboardOwnerOrdersRoute
@@ -271,9 +262,14 @@ export interface FileRoutesByFullPath {
   '/dashboard/staff/orders': typeof DashboardStaffOrdersRoute
   '/dashboard/staff/profile': typeof DashboardStaffProfileRoute
   '/dashboard/staff/reviews': typeof DashboardStaffReviewsRoute
-  '/dashboard/customer/': typeof DashboardCustomerIndexRoute
+  '/dashboard/user/favorites': typeof DashboardUserFavoritesRoute
+  '/dashboard/user/kitchens': typeof DashboardUserKitchensRoute
+  '/dashboard/user/orders': typeof DashboardUserOrdersRoute
+  '/dashboard/user/profile': typeof DashboardUserProfileRoute
+  '/dashboard/user/reviews': typeof DashboardUserReviewsRoute
   '/dashboard/owner/': typeof DashboardOwnerIndexRoute
   '/dashboard/staff/': typeof DashboardStaffIndexRoute
+  '/dashboard/user/': typeof DashboardUserIndexRoute
   '/dashboard/owner/users/$userid': typeof DashboardOwnerUsersUseridRoute
   '/dashboard/owner/users/new': typeof DashboardOwnerUsersNewRoute
   '/dashboard/owner/kitchens/': typeof DashboardOwnerKitchensIndexRoute
@@ -289,11 +285,6 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthIndexRoute
   '/dashboard': typeof DashboardIndexRoute
   '/profile': typeof ProfileIndexRoute
-  '/dashboard/customer/favorites': typeof DashboardCustomerFavoritesRoute
-  '/dashboard/customer/kitchens': typeof DashboardCustomerKitchensRoute
-  '/dashboard/customer/orders': typeof DashboardCustomerOrdersRoute
-  '/dashboard/customer/profile': typeof DashboardCustomerProfileRoute
-  '/dashboard/customer/reviews': typeof DashboardCustomerReviewsRoute
   '/dashboard/owner/audit': typeof DashboardOwnerAuditRoute
   '/dashboard/owner/menu': typeof DashboardOwnerMenuRoute
   '/dashboard/owner/orders': typeof DashboardOwnerOrdersRoute
@@ -305,9 +296,14 @@ export interface FileRoutesByTo {
   '/dashboard/staff/orders': typeof DashboardStaffOrdersRoute
   '/dashboard/staff/profile': typeof DashboardStaffProfileRoute
   '/dashboard/staff/reviews': typeof DashboardStaffReviewsRoute
-  '/dashboard/customer': typeof DashboardCustomerIndexRoute
+  '/dashboard/user/favorites': typeof DashboardUserFavoritesRoute
+  '/dashboard/user/kitchens': typeof DashboardUserKitchensRoute
+  '/dashboard/user/orders': typeof DashboardUserOrdersRoute
+  '/dashboard/user/profile': typeof DashboardUserProfileRoute
+  '/dashboard/user/reviews': typeof DashboardUserReviewsRoute
   '/dashboard/owner': typeof DashboardOwnerIndexRoute
   '/dashboard/staff': typeof DashboardStaffIndexRoute
+  '/dashboard/user': typeof DashboardUserIndexRoute
   '/dashboard/owner/users/$userid': typeof DashboardOwnerUsersUseridRoute
   '/dashboard/owner/users/new': typeof DashboardOwnerUsersNewRoute
   '/dashboard/owner/kitchens': typeof DashboardOwnerKitchensIndexRoute
@@ -322,18 +318,13 @@ export interface FileRoutesById {
   '/auth': typeof AuthLayoutRouteWithChildren
   '/dashboard': typeof DashboardLayoutRouteWithChildren
   '/search': typeof SearchRoute
-  '/dashboard/customer': typeof DashboardCustomerLayoutRouteWithChildren
   '/dashboard/owner': typeof DashboardOwnerLayoutRouteWithChildren
   '/dashboard/staff': typeof DashboardStaffLayoutRouteWithChildren
+  '/dashboard/user': typeof DashboardUserLayoutRouteWithChildren
   '/auth/signup': typeof AuthSignupRoute
   '/auth/': typeof AuthIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/profile/': typeof ProfileIndexRoute
-  '/dashboard/customer/favorites': typeof DashboardCustomerFavoritesRoute
-  '/dashboard/customer/kitchens': typeof DashboardCustomerKitchensRoute
-  '/dashboard/customer/orders': typeof DashboardCustomerOrdersRoute
-  '/dashboard/customer/profile': typeof DashboardCustomerProfileRoute
-  '/dashboard/customer/reviews': typeof DashboardCustomerReviewsRoute
   '/dashboard/owner/audit': typeof DashboardOwnerAuditRoute
   '/dashboard/owner/menu': typeof DashboardOwnerMenuRoute
   '/dashboard/owner/orders': typeof DashboardOwnerOrdersRoute
@@ -345,9 +336,14 @@ export interface FileRoutesById {
   '/dashboard/staff/orders': typeof DashboardStaffOrdersRoute
   '/dashboard/staff/profile': typeof DashboardStaffProfileRoute
   '/dashboard/staff/reviews': typeof DashboardStaffReviewsRoute
-  '/dashboard/customer/': typeof DashboardCustomerIndexRoute
+  '/dashboard/user/favorites': typeof DashboardUserFavoritesRoute
+  '/dashboard/user/kitchens': typeof DashboardUserKitchensRoute
+  '/dashboard/user/orders': typeof DashboardUserOrdersRoute
+  '/dashboard/user/profile': typeof DashboardUserProfileRoute
+  '/dashboard/user/reviews': typeof DashboardUserReviewsRoute
   '/dashboard/owner/': typeof DashboardOwnerIndexRoute
   '/dashboard/staff/': typeof DashboardStaffIndexRoute
+  '/dashboard/user/': typeof DashboardUserIndexRoute
   '/dashboard/owner/users/$userid': typeof DashboardOwnerUsersUseridRoute
   '/dashboard/owner/users/new': typeof DashboardOwnerUsersNewRoute
   '/dashboard/owner/kitchens/': typeof DashboardOwnerKitchensIndexRoute
@@ -363,18 +359,13 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/search'
-    | '/dashboard/customer'
     | '/dashboard/owner'
     | '/dashboard/staff'
+    | '/dashboard/user'
     | '/auth/signup'
     | '/auth/'
     | '/dashboard/'
     | '/profile/'
-    | '/dashboard/customer/favorites'
-    | '/dashboard/customer/kitchens'
-    | '/dashboard/customer/orders'
-    | '/dashboard/customer/profile'
-    | '/dashboard/customer/reviews'
     | '/dashboard/owner/audit'
     | '/dashboard/owner/menu'
     | '/dashboard/owner/orders'
@@ -386,9 +377,14 @@ export interface FileRouteTypes {
     | '/dashboard/staff/orders'
     | '/dashboard/staff/profile'
     | '/dashboard/staff/reviews'
-    | '/dashboard/customer/'
+    | '/dashboard/user/favorites'
+    | '/dashboard/user/kitchens'
+    | '/dashboard/user/orders'
+    | '/dashboard/user/profile'
+    | '/dashboard/user/reviews'
     | '/dashboard/owner/'
     | '/dashboard/staff/'
+    | '/dashboard/user/'
     | '/dashboard/owner/users/$userid'
     | '/dashboard/owner/users/new'
     | '/dashboard/owner/kitchens/'
@@ -404,11 +400,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/profile'
-    | '/dashboard/customer/favorites'
-    | '/dashboard/customer/kitchens'
-    | '/dashboard/customer/orders'
-    | '/dashboard/customer/profile'
-    | '/dashboard/customer/reviews'
     | '/dashboard/owner/audit'
     | '/dashboard/owner/menu'
     | '/dashboard/owner/orders'
@@ -420,9 +411,14 @@ export interface FileRouteTypes {
     | '/dashboard/staff/orders'
     | '/dashboard/staff/profile'
     | '/dashboard/staff/reviews'
-    | '/dashboard/customer'
+    | '/dashboard/user/favorites'
+    | '/dashboard/user/kitchens'
+    | '/dashboard/user/orders'
+    | '/dashboard/user/profile'
+    | '/dashboard/user/reviews'
     | '/dashboard/owner'
     | '/dashboard/staff'
+    | '/dashboard/user'
     | '/dashboard/owner/users/$userid'
     | '/dashboard/owner/users/new'
     | '/dashboard/owner/kitchens'
@@ -436,18 +432,13 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/search'
-    | '/dashboard/customer'
     | '/dashboard/owner'
     | '/dashboard/staff'
+    | '/dashboard/user'
     | '/auth/signup'
     | '/auth/'
     | '/dashboard/'
     | '/profile/'
-    | '/dashboard/customer/favorites'
-    | '/dashboard/customer/kitchens'
-    | '/dashboard/customer/orders'
-    | '/dashboard/customer/profile'
-    | '/dashboard/customer/reviews'
     | '/dashboard/owner/audit'
     | '/dashboard/owner/menu'
     | '/dashboard/owner/orders'
@@ -459,9 +450,14 @@ export interface FileRouteTypes {
     | '/dashboard/staff/orders'
     | '/dashboard/staff/profile'
     | '/dashboard/staff/reviews'
-    | '/dashboard/customer/'
+    | '/dashboard/user/favorites'
+    | '/dashboard/user/kitchens'
+    | '/dashboard/user/orders'
+    | '/dashboard/user/profile'
+    | '/dashboard/user/reviews'
     | '/dashboard/owner/'
     | '/dashboard/staff/'
+    | '/dashboard/user/'
     | '/dashboard/owner/users/$userid'
     | '/dashboard/owner/users/new'
     | '/dashboard/owner/kitchens/'
@@ -537,6 +533,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignupRouteImport
       parentRoute: typeof AuthLayoutRoute
     }
+    '/dashboard/user': {
+      id: '/dashboard/user'
+      path: '/user'
+      fullPath: '/dashboard/user'
+      preLoaderRoute: typeof DashboardUserLayoutRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
     '/dashboard/staff': {
       id: '/dashboard/staff'
       path: '/staff'
@@ -551,12 +554,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardOwnerLayoutRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
-    '/dashboard/customer': {
-      id: '/dashboard/customer'
-      path: '/customer'
-      fullPath: '/dashboard/customer'
-      preLoaderRoute: typeof DashboardCustomerLayoutRouteImport
-      parentRoute: typeof DashboardLayoutRoute
+    '/dashboard/user/': {
+      id: '/dashboard/user/'
+      path: '/'
+      fullPath: '/dashboard/user/'
+      preLoaderRoute: typeof DashboardUserIndexRouteImport
+      parentRoute: typeof DashboardUserLayoutRoute
     }
     '/dashboard/staff/': {
       id: '/dashboard/staff/'
@@ -572,12 +575,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardOwnerIndexRouteImport
       parentRoute: typeof DashboardOwnerLayoutRoute
     }
-    '/dashboard/customer/': {
-      id: '/dashboard/customer/'
-      path: '/'
-      fullPath: '/dashboard/customer/'
-      preLoaderRoute: typeof DashboardCustomerIndexRouteImport
-      parentRoute: typeof DashboardCustomerLayoutRoute
+    '/dashboard/user/reviews': {
+      id: '/dashboard/user/reviews'
+      path: '/reviews'
+      fullPath: '/dashboard/user/reviews'
+      preLoaderRoute: typeof DashboardUserReviewsRouteImport
+      parentRoute: typeof DashboardUserLayoutRoute
+    }
+    '/dashboard/user/profile': {
+      id: '/dashboard/user/profile'
+      path: '/profile'
+      fullPath: '/dashboard/user/profile'
+      preLoaderRoute: typeof DashboardUserProfileRouteImport
+      parentRoute: typeof DashboardUserLayoutRoute
+    }
+    '/dashboard/user/orders': {
+      id: '/dashboard/user/orders'
+      path: '/orders'
+      fullPath: '/dashboard/user/orders'
+      preLoaderRoute: typeof DashboardUserOrdersRouteImport
+      parentRoute: typeof DashboardUserLayoutRoute
+    }
+    '/dashboard/user/kitchens': {
+      id: '/dashboard/user/kitchens'
+      path: '/kitchens'
+      fullPath: '/dashboard/user/kitchens'
+      preLoaderRoute: typeof DashboardUserKitchensRouteImport
+      parentRoute: typeof DashboardUserLayoutRoute
+    }
+    '/dashboard/user/favorites': {
+      id: '/dashboard/user/favorites'
+      path: '/favorites'
+      fullPath: '/dashboard/user/favorites'
+      preLoaderRoute: typeof DashboardUserFavoritesRouteImport
+      parentRoute: typeof DashboardUserLayoutRoute
     }
     '/dashboard/staff/reviews': {
       id: '/dashboard/staff/reviews'
@@ -656,41 +687,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardOwnerAuditRouteImport
       parentRoute: typeof DashboardOwnerLayoutRoute
     }
-    '/dashboard/customer/reviews': {
-      id: '/dashboard/customer/reviews'
-      path: '/reviews'
-      fullPath: '/dashboard/customer/reviews'
-      preLoaderRoute: typeof DashboardCustomerReviewsRouteImport
-      parentRoute: typeof DashboardCustomerLayoutRoute
-    }
-    '/dashboard/customer/profile': {
-      id: '/dashboard/customer/profile'
-      path: '/profile'
-      fullPath: '/dashboard/customer/profile'
-      preLoaderRoute: typeof DashboardCustomerProfileRouteImport
-      parentRoute: typeof DashboardCustomerLayoutRoute
-    }
-    '/dashboard/customer/orders': {
-      id: '/dashboard/customer/orders'
-      path: '/orders'
-      fullPath: '/dashboard/customer/orders'
-      preLoaderRoute: typeof DashboardCustomerOrdersRouteImport
-      parentRoute: typeof DashboardCustomerLayoutRoute
-    }
-    '/dashboard/customer/kitchens': {
-      id: '/dashboard/customer/kitchens'
-      path: '/kitchens'
-      fullPath: '/dashboard/customer/kitchens'
-      preLoaderRoute: typeof DashboardCustomerKitchensRouteImport
-      parentRoute: typeof DashboardCustomerLayoutRoute
-    }
-    '/dashboard/customer/favorites': {
-      id: '/dashboard/customer/favorites'
-      path: '/favorites'
-      fullPath: '/dashboard/customer/favorites'
-      preLoaderRoute: typeof DashboardCustomerFavoritesRouteImport
-      parentRoute: typeof DashboardCustomerLayoutRoute
-    }
     '/dashboard/owner/users/': {
       id: '/dashboard/owner/users/'
       path: '/users'
@@ -757,30 +753,6 @@ const AuthLayoutRouteWithChildren = AuthLayoutRoute._addFileChildren(
   AuthLayoutRouteChildren,
 )
 
-interface DashboardCustomerLayoutRouteChildren {
-  DashboardCustomerFavoritesRoute: typeof DashboardCustomerFavoritesRoute
-  DashboardCustomerKitchensRoute: typeof DashboardCustomerKitchensRoute
-  DashboardCustomerOrdersRoute: typeof DashboardCustomerOrdersRoute
-  DashboardCustomerProfileRoute: typeof DashboardCustomerProfileRoute
-  DashboardCustomerReviewsRoute: typeof DashboardCustomerReviewsRoute
-  DashboardCustomerIndexRoute: typeof DashboardCustomerIndexRoute
-}
-
-const DashboardCustomerLayoutRouteChildren: DashboardCustomerLayoutRouteChildren =
-  {
-    DashboardCustomerFavoritesRoute: DashboardCustomerFavoritesRoute,
-    DashboardCustomerKitchensRoute: DashboardCustomerKitchensRoute,
-    DashboardCustomerOrdersRoute: DashboardCustomerOrdersRoute,
-    DashboardCustomerProfileRoute: DashboardCustomerProfileRoute,
-    DashboardCustomerReviewsRoute: DashboardCustomerReviewsRoute,
-    DashboardCustomerIndexRoute: DashboardCustomerIndexRoute,
-  }
-
-const DashboardCustomerLayoutRouteWithChildren =
-  DashboardCustomerLayoutRoute._addFileChildren(
-    DashboardCustomerLayoutRouteChildren,
-  )
-
 interface DashboardOwnerLayoutRouteChildren {
   DashboardOwnerAuditRoute: typeof DashboardOwnerAuditRoute
   DashboardOwnerMenuRoute: typeof DashboardOwnerMenuRoute
@@ -841,17 +813,38 @@ const DashboardStaffLayoutRouteChildren: DashboardStaffLayoutRouteChildren = {
 const DashboardStaffLayoutRouteWithChildren =
   DashboardStaffLayoutRoute._addFileChildren(DashboardStaffLayoutRouteChildren)
 
+interface DashboardUserLayoutRouteChildren {
+  DashboardUserFavoritesRoute: typeof DashboardUserFavoritesRoute
+  DashboardUserKitchensRoute: typeof DashboardUserKitchensRoute
+  DashboardUserOrdersRoute: typeof DashboardUserOrdersRoute
+  DashboardUserProfileRoute: typeof DashboardUserProfileRoute
+  DashboardUserReviewsRoute: typeof DashboardUserReviewsRoute
+  DashboardUserIndexRoute: typeof DashboardUserIndexRoute
+}
+
+const DashboardUserLayoutRouteChildren: DashboardUserLayoutRouteChildren = {
+  DashboardUserFavoritesRoute: DashboardUserFavoritesRoute,
+  DashboardUserKitchensRoute: DashboardUserKitchensRoute,
+  DashboardUserOrdersRoute: DashboardUserOrdersRoute,
+  DashboardUserProfileRoute: DashboardUserProfileRoute,
+  DashboardUserReviewsRoute: DashboardUserReviewsRoute,
+  DashboardUserIndexRoute: DashboardUserIndexRoute,
+}
+
+const DashboardUserLayoutRouteWithChildren =
+  DashboardUserLayoutRoute._addFileChildren(DashboardUserLayoutRouteChildren)
+
 interface DashboardLayoutRouteChildren {
-  DashboardCustomerLayoutRoute: typeof DashboardCustomerLayoutRouteWithChildren
   DashboardOwnerLayoutRoute: typeof DashboardOwnerLayoutRouteWithChildren
   DashboardStaffLayoutRoute: typeof DashboardStaffLayoutRouteWithChildren
+  DashboardUserLayoutRoute: typeof DashboardUserLayoutRouteWithChildren
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
-  DashboardCustomerLayoutRoute: DashboardCustomerLayoutRouteWithChildren,
   DashboardOwnerLayoutRoute: DashboardOwnerLayoutRouteWithChildren,
   DashboardStaffLayoutRoute: DashboardStaffLayoutRouteWithChildren,
+  DashboardUserLayoutRoute: DashboardUserLayoutRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 

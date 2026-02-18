@@ -31,10 +31,10 @@ export const staff_routes = [
   { title: "Profile", href: "/dashboard/staff/profile", icon: User },
 ] satisfies SidebarItem[];
 
-export const customer_routes = [
-  { title: "Nearby Kitchens", href: "/dashboard/customer/kitchens", icon: MapPin },
-  { title: "My Orders", href: "/dashboard/customer/orders", icon: ShoppingBag },
-  { title: "Favorites", href: "/dashboard/customer/favorites", icon: Heart },
-  { title: "My Reviews", href: "/dashboard/customer/reviews", icon: Star },
-  { title: "Profile", href: "/dashboard/customer/profile", icon: User },
+export const user_routes = [
+  { title: "Nearby Kitchens", href: "/dashboard/user/kitchens", icon: MapPin },
+  { title: "My Orders", href: "/dashboard/user/orders", icon: ShoppingBag },
+  { title: "Favorites", href: "/dashboard/user/favorites", icon: Heart },
+  { title: "My Reviews", href: "/dashboard/user/reviews", icon: Star },
+  { title: "Profile", href: "/dashboard/user/profile", icon: User },
 ] satisfies SidebarItem[];

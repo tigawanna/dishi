@@ -9,7 +9,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 
-type SignupIntent = "kitchen-owner" | "staff" | "customer";
+type SignupIntent = "kitchen-owner" | "staff" | "user";
 
 type SignupUserPayload = {
   name: string;
@@ -22,13 +22,13 @@ type SignupUserPayload = {
 const INTENT_HEADINGS: Record<SignupIntent, string> = {
   "kitchen-owner": "Start Your Kitchen",
   staff: "Join Your Team",
-  customer: "Sign up",
+  user: "Sign up",
 };
 
 const INTENT_REDIRECT: Record<SignupIntent, string> = {
   "kitchen-owner": "/dashboard/owner/onboarding/kitchen",
   staff: "/dashboard/staff/profile",
-  customer: "/dashboard/customer/profile",
+  user: "/dashboard/user/profile",
 };
 
 const formOpts = formOptions({
@@ -45,7 +45,7 @@ export function SignupComponent() {
   const { returnTo, intent: rawIntent } = useSearch({
     from: "/auth/signup",
   });
-  const intent = rawIntent ?? "customer";
+  const intent = rawIntent ?? "user";
   console.log("[Signup] intent:", intent, "| rawIntent:", rawIntent, "| returnTo:", returnTo);
   const [showPassword, setShowPassword] = useState(false);
   const qc = useQueryClient();

@@ -6,7 +6,7 @@ import { SigninComponent } from "./-components/SigninComponent";
 
 const searchparams = z.object({
   returnTo: z.string().default("/"),
-  intent: z.enum(["kitchen-owner", "staff", "customer"]).optional(),
+  intent: z.enum(["kitchen-owner", "staff", "user"]).optional(),
 });
 export const Route = createFileRoute("/auth/")({
   component: SigninPage,

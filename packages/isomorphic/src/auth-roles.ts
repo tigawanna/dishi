@@ -42,7 +42,7 @@ const roles = {
     session: [],
   }),
 
-  customer: ac.newRole({
+  user: ac.newRole({
     kitchen: ["list", "view"],
     cuisine: ["list", "view"],
     menu: ["list", "view"],

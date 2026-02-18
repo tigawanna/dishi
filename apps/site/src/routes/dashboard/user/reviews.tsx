@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Star } from "lucide-react";
 
-export const Route = createFileRoute("/dashboard/customer/reviews")({
-  component: CustomerReviewsPage,
+export const Route = createFileRoute("/dashboard/user/reviews")({
+  component: UserReviewsPage,
 });
 
-function CustomerReviewsPage() {
+function UserReviewsPage() {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-6">
       <Star className="text-base-content/30 size-16" />

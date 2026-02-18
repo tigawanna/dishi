@@ -6,7 +6,7 @@ import { SignupComponent } from "./-components/SignupComponent";
 
 const searchparams = z.object({
   returnTo: z.string().optional().catch("/"),
-  intent: z.enum(["kitchen-owner", "staff", "customer"]).optional().catch("customer"),
+  intent: z.enum(["kitchen-owner", "staff", "user"]).optional().catch("user"),
 });
 export const Route = createFileRoute("/auth/signup")({
   component: SignupPage,
