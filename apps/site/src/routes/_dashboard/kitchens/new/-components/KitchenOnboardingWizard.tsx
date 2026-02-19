@@ -32,11 +32,7 @@ const STEP_CONFIG: Record<OnboardingStep, { title: string; description: string; 
 
 const ORDERED_STEPS: OnboardingStep[] = ["basics", "location", "cuisines", "complete"];
 
-interface KitchenOnboardingWizardProps {
-  onBack?: () => void;
-}
-
-export function KitchenOnboardingWizard({ onBack }: KitchenOnboardingWizardProps) {
+export function KitchenOnboardingWizard() {
   const onboarding = useKitchenOnboarding();
   const config = STEP_CONFIG[onboarding.currentStep];
 
@@ -69,7 +65,6 @@ export function KitchenOnboardingWizard({ onBack }: KitchenOnboardingWizardProps
           {onboarding.currentStep === "basics" && (
             <StepBasics
               onSubmit={onboarding.submitBasics}
-              onBack={onBack}
               isPending={onboarding.isPending}
               initialData={onboarding.state.basics}
             />

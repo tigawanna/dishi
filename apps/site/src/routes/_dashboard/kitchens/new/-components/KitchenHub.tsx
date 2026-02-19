@@ -14,36 +14,28 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { ArrowRight, Building2, ChefHat, Plus } from "lucide-react";
 
-interface KitchenHubProps {
-  onCreateNew: () => void;
-}
+const WIZARD_PATH = "/kitchens/new/wizard";
 
-export function KitchenHub({ onCreateNew }: KitchenHubProps) {
+export function KitchenHub() {
   const navigate = useNavigate();
+  const { data: orgs, isLoading } = useQuery(userOrgsQueryOptions({}));
 
-  const { data: orgs, isLoading } = useQuery(
-    userOrgsQueryOptions({}),
-  );
+  if (isLoading) {
+    return (
+      <div className="w-full max-w-2xl space-y-8">
+        <KitchenHubHeader hasOrgs={false} />
+        <KitchenHubSkeleton />
+        <CreateNewKitchenCard onNavigate={() => navigate({ to: WIZARD_PATH })} />
+      </div>
+    );
+  }
 
-  const hasOrgs = orgs && orgs.length > 0;
+  const hasOrgs = orgs != null && orgs.length > 0;
 
   return (
     <div className="w-full max-w-2xl space-y-8">
-      <div className="space-y-2 text-center">
-        <div className="bg-primary/10 mx-auto flex size-16 items-center justify-center rounded-2xl">
-          <ChefHat className="text-primary size-8" />
-        </div>
-        <h1 className="text-3xl font-bold tracking-tight">Your Kitchens</h1>
-        <p className="text-muted-foreground mx-auto max-w-md">
-          {hasOrgs
-            ? "Manage your existing kitchens or create a new one"
-            : "Get started by setting up your first kitchen on Dishi"}
-        </p>
-      </div>
-
-      {isLoading && <KitchenHubSkeleton />}
-
-      {!isLoading && hasOrgs && (
+      <KitchenHubHeader hasOrgs={hasOrgs} />
+      {hasOrgs && (
         <div className="space-y-3">
           {orgs.map((org) => (
             <Card
@@ -91,33 +83,57 @@ export function KitchenHub({ onCreateNew }: KitchenHubProps) {
           ))}
         </div>
       )}
-
-      <Card
-        className="border-dashed cursor-pointer transition-all hover:border-primary/50 hover:shadow-md"
-        onClick={onCreateNew}
-      >
-        <CardContent className="flex items-center justify-center gap-3 py-8">
-          <div className="bg-primary/10 flex size-10 items-center justify-center rounded-full">
-            <Plus className="text-primary size-5" />
-          </div>
-          <div>
-            <p className="font-semibold">Create a New Kitchen</p>
-            <p className="text-muted-foreground text-sm">
-              Set up a new kitchen profile and start serving
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-
-      {!isLoading && !hasOrgs && (
+      <CreateNewKitchenCard onNavigate={() => navigate({ to: WIZARD_PATH })} />
+      {!hasOrgs && (
         <div className="text-center">
-          <Button size="lg" onClick={onCreateNew} className="gap-2">
+          <Button
+            size="lg"
+            onClick={() => navigate({ to: WIZARD_PATH })}
+            className="gap-2"
+          >
             <ChefHat className="size-5" />
             Get Started
           </Button>
         </div>
       )}
     </div>
+  );
+}
+
+function KitchenHubHeader({ hasOrgs }: { hasOrgs: boolean }) {
+  return (
+    <div className="space-y-2 text-center">
+      <div className="bg-primary/10 mx-auto flex size-16 items-center justify-center rounded-2xl">
+        <ChefHat className="text-primary size-8" />
+      </div>
+      <h1 className="text-3xl font-bold tracking-tight">Your Kitchens</h1>
+      <p className="text-muted-foreground mx-auto max-w-md">
+        {hasOrgs
+          ? "Manage your existing kitchens or create a new one"
+          : "Get started by setting up your first kitchen on Dishi"}
+      </p>
+    </div>
+  );
+}
+
+function CreateNewKitchenCard({ onNavigate }: { onNavigate: () => void }) {
+  return (
+    <Card
+      className="border-dashed cursor-pointer transition-all hover:border-primary/50 hover:shadow-md"
+      onClick={onNavigate}
+    >
+      <CardContent className="flex items-center justify-center gap-3 py-8">
+        <div className="bg-primary/10 flex size-10 items-center justify-center rounded-full">
+          <Plus className="text-primary size-5" />
+        </div>
+        <div>
+          <p className="font-semibold">Create a New Kitchen</p>
+          <p className="text-muted-foreground text-sm">
+            Set up a new kitchen profile and start serving
+          </p>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 

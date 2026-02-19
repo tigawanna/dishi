@@ -94,7 +94,7 @@ export function LandingNavbar() {
           ))}
           <Link
             to="/auth/signup"
-            search={{ returnTo: "/kitchens/new" }}
+            search={{ returnTo: "/kitchens/new/wizard" }}
             onClick={() => setMobileOpen(false)}>
             <Button variant="outline" className="w-full rounded-full">
               Start Your Kitchen
