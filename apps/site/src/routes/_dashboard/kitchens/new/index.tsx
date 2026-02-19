@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { KitchenHub } from "./-components/KitchenHub";
+import { KitchenOnboardingWizard } from "./-components/KitchenOnboardingWizard";
 
 export const Route = createFileRoute("/_dashboard/kitchens/new/")({
   component: NewKitchenPage,
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/_dashboard/kitchens/new/")({
 function NewKitchenPage() {
   return (
     <div className="flex min-h-full w-full items-start justify-center p-4 md:p-8">
-      <KitchenHub />
+      <KitchenOnboardingWizard />
     </div>
   );
 }

@@ -32,10 +32,10 @@ import { useTSRSearchQuery } from "@/lib/tanstack/router/use-search-query";
 import { getRelativeTimeString } from "@/utils/date-helpers";
 import { count, ilike } from "@tanstack/db";
 import { useLiveQuery } from "@tanstack/react-db";
-import { useNavigate, useSearch } from "@tanstack/react-router";
-import { Building2 } from "lucide-react";
+import { Link, useNavigate, useSearch } from "@tanstack/react-router";
+import { Building2, Plus } from "lucide-react";
 import { useState } from "react";
-import { CreateOrg, EditOrg } from "./OrgDialogs";
+import { EditOrg } from "./OrgDialogs";
 import { createSortableColumns } from "@/lib/tanstack/db/sortable-columns";
 import { TanstackDBColumnFilters } from "@/lib/tanstack/db/TanstackDBColumnfilters";
 
@@ -105,14 +105,18 @@ export function OrgList() {
             <EmptyMedia variant="icon">
               <Building2 />
             </EmptyMedia>
-            <EmptyTitle>No organizations Yet</EmptyTitle>
+            <EmptyTitle>No kitchens yet</EmptyTitle>
             <EmptyDescription>
-              You haven&apos;t created any organizations yet. Get started by creating your first
-              one.
+              Create your first kitchen to get started on Dishi.
             </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
-            <CreateOrg triggerLabel="Create Organization" />
+            <Button asChild size="lg" className="gap-2">
+              <Link to="/kitchens/new">
+                <Plus className="size-5" />
+                Create your first kitchen
+              </Link>
+            </Button>
           </EmptyContent>
         </Empty>
       </div>
@@ -123,19 +127,29 @@ export function OrgList() {
     <div className="flex h-full w-full min-w-[90%] flex-col gap-4">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold">organizations</h1>
+          <h1 className="text-2xl font-semibold">Your kitchens</h1>
           <p className="text-muted-foreground mt-1 text-sm">
-            Manage and view all organizations in your community
+            Manage and view all your kitchens
           </p>
         </div>
 
         <div className="mt-3 md:mt-0">
-          <CreateOrg />
+          <Button asChild className="gap-2" size="sm">
+            <Link to="/kitchens/new">
+              <Plus className="size-4" />
+              New kitchen
+            </Link>
+          </Button>
         </div>
       </div>
 
       <div className="flex items-end gap-3">
         <SearchBox {...{ debouncedValue, isDebouncing, keyword, setKeyword }} />
+        <Button asChild size="icon" variant="outline" className="shrink-0" title="Add kitchen">
+          <Link to="/kitchens/new">
+            <Plus className="size-5" />
+          </Link>
+        </Button>
         <TanstackDBColumnFilters
           collection={organizationsCollection}
           sortableColumns={sortableColumns}

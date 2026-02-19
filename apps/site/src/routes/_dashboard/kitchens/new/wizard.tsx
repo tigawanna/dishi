@@ -1,14 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { KitchenOnboardingWizard } from "./-components/KitchenOnboardingWizard";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_dashboard/kitchens/new/wizard")({
-  component: RouteComponent,
+  beforeLoad: () => {
+    throw redirect({ to: "/kitchens/new" });
+  },
+  component: function WizardRedirect() {
+    return null;
+  },
 });
-
-function RouteComponent() {
-  return (
-    <div className="flex min-h-full w-full items-start justify-center p-4 md:p-8">
-      <KitchenOnboardingWizard />
-    </div>
-  );
-}

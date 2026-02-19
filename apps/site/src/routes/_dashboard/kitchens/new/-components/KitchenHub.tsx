@@ -1,12 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { userOrgsQueryOptions } from "@/data-access-layer/users/user-orgs";
 import { getRelativeTimeString } from "@/utils/date-helpers";
@@ -14,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { ArrowRight, Building2, ChefHat, Plus } from "lucide-react";
 
-const WIZARD_PATH = "/kitchens/new/wizard";
+const NEW_KITCHEN_PATH = "/kitchens/new";
 
 export function KitchenHub() {
   const navigate = useNavigate();
@@ -25,7 +18,7 @@ export function KitchenHub() {
       <div className="w-full max-w-2xl space-y-8">
         <KitchenHubHeader hasOrgs={false} />
         <KitchenHubSkeleton />
-        <CreateNewKitchenCard onNavigate={() => navigate({ to: WIZARD_PATH })} />
+        <CreateNewKitchenCard onNavigate={() => navigate({ to: NEW_KITCHEN_PATH })} />
       </div>
     );
   }
@@ -46,8 +39,7 @@ export function KitchenHub() {
                   to: "/kitchens/$kitchenId",
                   params: { kitchenId: org.id },
                 })
-              }
-            >
+              }>
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -83,19 +75,7 @@ export function KitchenHub() {
           ))}
         </div>
       )}
-      <CreateNewKitchenCard onNavigate={() => navigate({ to: WIZARD_PATH })} />
-      {!hasOrgs && (
-        <div className="text-center">
-          <Button
-            size="lg"
-            onClick={() => navigate({ to: WIZARD_PATH })}
-            className="gap-2"
-          >
-            <ChefHat className="size-5" />
-            Get Started
-          </Button>
-        </div>
-      )}
+      <CreateNewKitchenCard onNavigate={() => navigate({ to: NEW_KITCHEN_PATH })} />
     </div>
   );
 }
@@ -120,8 +100,7 @@ function CreateNewKitchenCard({ onNavigate }: { onNavigate: () => void }) {
   return (
     <Card
       className="border-dashed cursor-pointer transition-all hover:border-primary/50 hover:shadow-md"
-      onClick={onNavigate}
-    >
+      onClick={onNavigate}>
       <CardContent className="flex items-center justify-center gap-3 py-8">
         <div className="bg-primary/10 flex size-10 items-center justify-center rounded-full">
           <Plus className="text-primary size-5" />
