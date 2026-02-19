@@ -4,7 +4,9 @@ import {
   setKitchenCuisinesMutation,
   type OperatingHours,
 } from "@/data-access-layer/kitchen/kitchen-profile";
+import { queryKeyPrefixes } from "@/data-access-layer/query-keys";
 import { viewerqueryOptions } from "@/data-access-layer/users/viewer";
+import { authClient } from "@/lib/better-auth/client";
 import { treatyClient } from "@/lib/elysia/eden-treaty";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useRouter } from "@tanstack/react-router";
@@ -18,8 +20,8 @@ const STEPS: OnboardingStep[] = ["basics", "location", "cuisines", "complete"];
 export type KitchenBasicsData = {
   name: string;
   slug: string;
-  description: string;
-  phone: string;
+  description?: string;
+  phone?: string;
 };
 
 export type KitchenLocationData = {
@@ -77,22 +79,24 @@ export function useKitchenOnboarding() {
         name: data.name,
         slug: data.slug,
       });
-
-      try {
-        await claimOwnerMut.mutateAsync();
-        qc.invalidateQueries(viewerqueryOptions);
-        router.invalidate();
-      } catch {
-        toast.error("Could not assign owner role. Contact support if this persists.");
+      const { error: setActiveorgError } = await authClient.organization.setActive({
+        organizationId: org.id,
+      });
+      if (setActiveorgError) {
+        toast.error("Failed to set active organization", {
+          description: String(setActiveorgError),
+        });
       }
-
+      qc.invalidateQueries(viewerqueryOptions);
+      qc.invalidateQueries({ queryKey: [queryKeyPrefixes.organizations, "active"] });
+      router.invalidate();
       setState((prev) => ({
         ...prev,
         basics: data,
         organizationId: org.id,
       }));
 
-      goToStep("location");
+      // goToStep("location");
     } catch (err) {
       toast.error("Failed to create organization", {
         description: err instanceof Error ? err.message : String(err),
@@ -108,14 +112,14 @@ export function useKitchenOnboarding() {
 
     try {
       const profile = await createProfileMut.mutateAsync({
-          organizationId: state.organizationId,
-          description: state.basics?.description,
-          phone: state.basics?.phone,
-          address: data.address,
-          neighborhood: data.neighborhood,
-          deliveryRadiusKm: data.deliveryRadiusKm,
-          operatingHours: data.operatingHours,
-        });
+        organizationId: state.organizationId,
+        description: state.basics?.description,
+        phone: state.basics?.phone,
+        address: data.address,
+        neighborhood: data.neighborhood,
+        deliveryRadiusKm: data.deliveryRadiusKm,
+        operatingHours: data.operatingHours,
+      });
 
       setState((prev) => ({
         ...prev,
@@ -176,6 +180,9 @@ export function useKitchenOnboarding() {
     submitCuisines,
     finishOnboarding,
     isPending:
-      createOrgMut.isPending || claimOwnerMut.isPending || createProfileMut.isPending || setCuisinesMut.isPending,
+      createOrgMut.isPending ||
+      claimOwnerMut.isPending ||
+      createProfileMut.isPending ||
+      setCuisinesMut.isPending,
   } as const;
 }

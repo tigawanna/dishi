@@ -20,8 +20,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { organizationsCollection } from "@/data-access-layer/collections/admin/organizations-collection";
 import {
-  createOrganizationMutationOptions,
-  setActiveOrganizationMutationOptions,
+  setActiveOrganizationMutationOptions
 } from "@/data-access-layer/users/user-orgs";
 import { authClient } from "@/lib/better-auth/client";
 import { CreateOrg } from "@/routes/_dashboard/kitchens/-components/OrgDialogs";
@@ -29,10 +28,9 @@ import { useLiveQuery } from "@tanstack/react-db";
 import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { toast } from "sonner";
 
 export function OrgSwitcher() {
-  const { isMobile, state, open } = useSidebar();
+  const { isMobile } = useSidebar();
   const navigate = useNavigate();
   const { data: session } = authClient.useSession();
   const userRole = session?.user?.role || "user";
@@ -83,8 +81,7 @@ export function OrgSwitcher() {
             <SidebarMenuButton
               size="lg"
               onClick={() => navigate({ to: "/" })}
-              className="justify-center group-data-[collapsible=icon]:justify-center"
-            >
+              className="justify-center group-data-[collapsible=icon]:justify-center">
               <div className="bg-sidebar-primary/10 flex aspect-square size-8 items-center justify-center rounded-lg">
                 <Link to="/" className="flex items-center gap-2 px-2 py-1.5 text-sm">
                   <Building2 className="text-muted-foreground/50 mb-2 h-8 w-8" />
@@ -141,8 +138,7 @@ export function OrgSwitcher() {
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-            >
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
               <div className="bg-primary/20 text-primary flex aspect-square size-8 items-center justify-center rounded-lg font-semibold">
                 {displayOrg.name.charAt(0).toUpperCase()}
               </div>
@@ -157,8 +153,7 @@ export function OrgSwitcher() {
             className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
             align="start"
             side={isMobile ? "bottom" : "right"}
-            sideOffset={4}
-          >
+            sideOffset={4}>
             <DropdownMenuLabel asChild className="p-0">
               <Link to="/" className="flex items-center gap-2 px-2 py-1.5 text-sm">
                 <Building2 className="text-muted-foreground/50 mb-2 h-8 w-8" />
@@ -173,8 +168,7 @@ export function OrgSwitcher() {
               <DropdownMenuItem
                 key={org.id}
                 onClick={() => switchOrgMutation.mutate({ organizationId: org.id })}
-                className="gap-2 p-2"
-              >
+                className="gap-2 p-2">
                 <div className="flex size-6 items-center justify-center rounded-md border text-xs font-semibold">
                   {org.name.charAt(0).toUpperCase()}
                 </div>

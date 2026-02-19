@@ -30,8 +30,8 @@ export function StepBasics({ onSubmit, onBack, isPending, initialData }: StepBas
       await onSubmit({
         name: value.name.trim(),
         slug: value.slug.trim(),
-        description: value.description.trim(),
-        phone: value.phone.trim(),
+        description: value.description?.trim(),
+        phone: value.phone?.trim(),
       });
     },
   });
