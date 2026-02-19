@@ -10,51 +10,34 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SearchRouteImport } from './routes/search'
-import { Route as DashboardLayoutRouteImport } from './routes/dashboard/layout'
 import { Route as AuthLayoutRouteImport } from './routes/auth/layout'
+import { Route as DashboardLayoutRouteImport } from './routes/_dashboard/layout'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProfileIndexRouteImport } from './routes/profile/index'
-import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as AuthIndexRouteImport } from './routes/auth/index'
 import { Route as AuthSignupRouteImport } from './routes/auth/signup'
-import { Route as DashboardUserLayoutRouteImport } from './routes/dashboard/user/layout'
-import { Route as DashboardStaffLayoutRouteImport } from './routes/dashboard/staff/layout'
-import { Route as DashboardOwnerLayoutRouteImport } from './routes/dashboard/owner/layout'
-import { Route as DashboardUserIndexRouteImport } from './routes/dashboard/user/index'
-import { Route as DashboardStaffIndexRouteImport } from './routes/dashboard/staff/index'
-import { Route as DashboardOwnerIndexRouteImport } from './routes/dashboard/owner/index'
-import { Route as DashboardUserReviewsRouteImport } from './routes/dashboard/user/reviews'
-import { Route as DashboardUserProfileRouteImport } from './routes/dashboard/user/profile'
-import { Route as DashboardUserOrdersRouteImport } from './routes/dashboard/user/orders'
-import { Route as DashboardUserKitchensRouteImport } from './routes/dashboard/user/kitchens'
-import { Route as DashboardUserFavoritesRouteImport } from './routes/dashboard/user/favorites'
-import { Route as DashboardStaffReviewsRouteImport } from './routes/dashboard/staff/reviews'
-import { Route as DashboardStaffProfileRouteImport } from './routes/dashboard/staff/profile'
-import { Route as DashboardStaffOrdersRouteImport } from './routes/dashboard/staff/orders'
-import { Route as DashboardStaffMenuRouteImport } from './routes/dashboard/staff/menu'
-import { Route as DashboardStaffMembersRouteImport } from './routes/dashboard/staff/members'
-import { Route as DashboardOwnerStaffRouteImport } from './routes/dashboard/owner/staff'
-import { Route as DashboardOwnerReviewsRouteImport } from './routes/dashboard/owner/reviews'
-import { Route as DashboardOwnerProfileRouteImport } from './routes/dashboard/owner/profile'
-import { Route as DashboardOwnerOrdersRouteImport } from './routes/dashboard/owner/orders'
-import { Route as DashboardOwnerMenuRouteImport } from './routes/dashboard/owner/menu'
-import { Route as DashboardOwnerAuditRouteImport } from './routes/dashboard/owner/audit'
-import { Route as DashboardOwnerUsersIndexRouteImport } from './routes/dashboard/owner/users/index'
-import { Route as DashboardOwnerKitchensIndexRouteImport } from './routes/dashboard/owner/kitchens/index'
-import { Route as DashboardOwnerUsersNewRouteImport } from './routes/dashboard/owner/users/new'
-import { Route as DashboardOwnerUsersUseridRouteImport } from './routes/dashboard/owner/users/$userid'
-import { Route as DashboardOwnerOnboardingKitchenIndexRouteImport } from './routes/dashboard/owner/onboarding/kitchen/index'
-import { Route as DashboardOwnerKitchensOrgIdIndexRouteImport } from './routes/dashboard/owner/kitchens/$orgId/index'
-import { Route as DashboardOwnerKitchensOrgIdMembersRouteImport } from './routes/dashboard/owner/kitchens/$orgId/members'
+import { Route as DashboardSettingsRouteImport } from './routes/_dashboard/settings'
+import { Route as DashboardReviewsRouteImport } from './routes/_dashboard/reviews'
+import { Route as DashboardProfileRouteImport } from './routes/_dashboard/profile'
+import { Route as DashboardOrdersRouteImport } from './routes/_dashboard/orders'
+import { Route as DashboardFavoritesRouteImport } from './routes/_dashboard/favorites'
+import { Route as DashboardExploreRouteImport } from './routes/_dashboard/explore'
+import { Route as DashboardKitchensIndexRouteImport } from './routes/_dashboard/kitchens/index'
+import { Route as DashboardAdminIndexRouteImport } from './routes/_dashboard/admin/index'
+import { Route as DashboardKitchensNewIndexRouteImport } from './routes/_dashboard/kitchens/new/index'
+import { Route as DashboardKitchensKitchenIdIndexRouteImport } from './routes/_dashboard/kitchens/$kitchenId/index'
+import { Route as DashboardKitchensKitchenIdStaffRouteImport } from './routes/_dashboard/kitchens/$kitchenId/staff'
+import { Route as DashboardKitchensKitchenIdSettingsRouteImport } from './routes/_dashboard/kitchens/$kitchenId/settings'
+import { Route as DashboardKitchensKitchenIdOrdersRouteImport } from './routes/_dashboard/kitchens/$kitchenId/orders'
+import { Route as DashboardKitchensKitchenIdMenuRouteImport } from './routes/_dashboard/kitchens/$kitchenId/menu'
+import { Route as DashboardKitchensKitchenIdCuisinesRouteImport } from './routes/_dashboard/kitchens/$kitchenId/cuisines'
+import { Route as DashboardKitchensKitchenIdAuditRouteImport } from './routes/_dashboard/kitchens/$kitchenId/audit'
+import { Route as DashboardKitchensKitchenIdUsersIndexRouteImport } from './routes/_dashboard/kitchens/$kitchenId/users/index'
+import { Route as DashboardKitchensKitchenIdUsersNewRouteImport } from './routes/_dashboard/kitchens/$kitchenId/users/new'
+import { Route as DashboardKitchensKitchenIdUsersUseridRouteImport } from './routes/_dashboard/kitchens/$kitchenId/users/$userid'
 
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardLayoutRoute = DashboardLayoutRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthLayoutRoute = AuthLayoutRouteImport.update({
@@ -62,20 +45,14 @@ const AuthLayoutRoute = AuthLayoutRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardLayoutRoute = DashboardLayoutRouteImport.update({
+  id: '/_dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
-} as any)
-const ProfileIndexRoute = ProfileIndexRouteImport.update({
-  id: '/profile/',
-  path: '/profile/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardIndexRoute = DashboardIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => DashboardLayoutRoute,
 } as any)
 const AuthIndexRoute = AuthIndexRouteImport.update({
   id: '/',
@@ -87,392 +64,278 @@ const AuthSignupRoute = AuthSignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => AuthLayoutRoute,
 } as any)
-const DashboardUserLayoutRoute = DashboardUserLayoutRouteImport.update({
-  id: '/user',
-  path: '/user',
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => DashboardLayoutRoute,
 } as any)
-const DashboardStaffLayoutRoute = DashboardStaffLayoutRouteImport.update({
-  id: '/staff',
-  path: '/staff',
-  getParentRoute: () => DashboardLayoutRoute,
-} as any)
-const DashboardOwnerLayoutRoute = DashboardOwnerLayoutRouteImport.update({
-  id: '/owner',
-  path: '/owner',
-  getParentRoute: () => DashboardLayoutRoute,
-} as any)
-const DashboardUserIndexRoute = DashboardUserIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => DashboardUserLayoutRoute,
-} as any)
-const DashboardStaffIndexRoute = DashboardStaffIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => DashboardStaffLayoutRoute,
-} as any)
-const DashboardOwnerIndexRoute = DashboardOwnerIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => DashboardOwnerLayoutRoute,
-} as any)
-const DashboardUserReviewsRoute = DashboardUserReviewsRouteImport.update({
+const DashboardReviewsRoute = DashboardReviewsRouteImport.update({
   id: '/reviews',
   path: '/reviews',
-  getParentRoute: () => DashboardUserLayoutRoute,
+  getParentRoute: () => DashboardLayoutRoute,
 } as any)
-const DashboardUserProfileRoute = DashboardUserProfileRouteImport.update({
+const DashboardProfileRoute = DashboardProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
-  getParentRoute: () => DashboardUserLayoutRoute,
+  getParentRoute: () => DashboardLayoutRoute,
 } as any)
-const DashboardUserOrdersRoute = DashboardUserOrdersRouteImport.update({
+const DashboardOrdersRoute = DashboardOrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
-  getParentRoute: () => DashboardUserLayoutRoute,
+  getParentRoute: () => DashboardLayoutRoute,
 } as any)
-const DashboardUserKitchensRoute = DashboardUserKitchensRouteImport.update({
-  id: '/kitchens',
-  path: '/kitchens',
-  getParentRoute: () => DashboardUserLayoutRoute,
-} as any)
-const DashboardUserFavoritesRoute = DashboardUserFavoritesRouteImport.update({
+const DashboardFavoritesRoute = DashboardFavoritesRouteImport.update({
   id: '/favorites',
   path: '/favorites',
-  getParentRoute: () => DashboardUserLayoutRoute,
+  getParentRoute: () => DashboardLayoutRoute,
 } as any)
-const DashboardStaffReviewsRoute = DashboardStaffReviewsRouteImport.update({
-  id: '/reviews',
-  path: '/reviews',
-  getParentRoute: () => DashboardStaffLayoutRoute,
+const DashboardExploreRoute = DashboardExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => DashboardLayoutRoute,
 } as any)
-const DashboardStaffProfileRoute = DashboardStaffProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => DashboardStaffLayoutRoute,
+const DashboardKitchensIndexRoute = DashboardKitchensIndexRouteImport.update({
+  id: '/kitchens/',
+  path: '/kitchens/',
+  getParentRoute: () => DashboardLayoutRoute,
 } as any)
-const DashboardStaffOrdersRoute = DashboardStaffOrdersRouteImport.update({
-  id: '/orders',
-  path: '/orders',
-  getParentRoute: () => DashboardStaffLayoutRoute,
+const DashboardAdminIndexRoute = DashboardAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => DashboardLayoutRoute,
 } as any)
-const DashboardStaffMenuRoute = DashboardStaffMenuRouteImport.update({
-  id: '/menu',
-  path: '/menu',
-  getParentRoute: () => DashboardStaffLayoutRoute,
-} as any)
-const DashboardStaffMembersRoute = DashboardStaffMembersRouteImport.update({
-  id: '/members',
-  path: '/members',
-  getParentRoute: () => DashboardStaffLayoutRoute,
-} as any)
-const DashboardOwnerStaffRoute = DashboardOwnerStaffRouteImport.update({
-  id: '/staff',
-  path: '/staff',
-  getParentRoute: () => DashboardOwnerLayoutRoute,
-} as any)
-const DashboardOwnerReviewsRoute = DashboardOwnerReviewsRouteImport.update({
-  id: '/reviews',
-  path: '/reviews',
-  getParentRoute: () => DashboardOwnerLayoutRoute,
-} as any)
-const DashboardOwnerProfileRoute = DashboardOwnerProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => DashboardOwnerLayoutRoute,
-} as any)
-const DashboardOwnerOrdersRoute = DashboardOwnerOrdersRouteImport.update({
-  id: '/orders',
-  path: '/orders',
-  getParentRoute: () => DashboardOwnerLayoutRoute,
-} as any)
-const DashboardOwnerMenuRoute = DashboardOwnerMenuRouteImport.update({
-  id: '/menu',
-  path: '/menu',
-  getParentRoute: () => DashboardOwnerLayoutRoute,
-} as any)
-const DashboardOwnerAuditRoute = DashboardOwnerAuditRouteImport.update({
-  id: '/audit',
-  path: '/audit',
-  getParentRoute: () => DashboardOwnerLayoutRoute,
-} as any)
-const DashboardOwnerUsersIndexRoute =
-  DashboardOwnerUsersIndexRouteImport.update({
-    id: '/users/',
-    path: '/users/',
-    getParentRoute: () => DashboardOwnerLayoutRoute,
+const DashboardKitchensNewIndexRoute =
+  DashboardKitchensNewIndexRouteImport.update({
+    id: '/kitchens/new/',
+    path: '/kitchens/new/',
+    getParentRoute: () => DashboardLayoutRoute,
   } as any)
-const DashboardOwnerKitchensIndexRoute =
-  DashboardOwnerKitchensIndexRouteImport.update({
-    id: '/kitchens/',
-    path: '/kitchens/',
-    getParentRoute: () => DashboardOwnerLayoutRoute,
+const DashboardKitchensKitchenIdIndexRoute =
+  DashboardKitchensKitchenIdIndexRouteImport.update({
+    id: '/kitchens/$kitchenId/',
+    path: '/kitchens/$kitchenId/',
+    getParentRoute: () => DashboardLayoutRoute,
   } as any)
-const DashboardOwnerUsersNewRoute = DashboardOwnerUsersNewRouteImport.update({
-  id: '/users/new',
-  path: '/users/new',
-  getParentRoute: () => DashboardOwnerLayoutRoute,
-} as any)
-const DashboardOwnerUsersUseridRoute =
-  DashboardOwnerUsersUseridRouteImport.update({
-    id: '/users/$userid',
-    path: '/users/$userid',
-    getParentRoute: () => DashboardOwnerLayoutRoute,
+const DashboardKitchensKitchenIdStaffRoute =
+  DashboardKitchensKitchenIdStaffRouteImport.update({
+    id: '/kitchens/$kitchenId/staff',
+    path: '/kitchens/$kitchenId/staff',
+    getParentRoute: () => DashboardLayoutRoute,
   } as any)
-const DashboardOwnerOnboardingKitchenIndexRoute =
-  DashboardOwnerOnboardingKitchenIndexRouteImport.update({
-    id: '/onboarding/kitchen/',
-    path: '/onboarding/kitchen/',
-    getParentRoute: () => DashboardOwnerLayoutRoute,
+const DashboardKitchensKitchenIdSettingsRoute =
+  DashboardKitchensKitchenIdSettingsRouteImport.update({
+    id: '/kitchens/$kitchenId/settings',
+    path: '/kitchens/$kitchenId/settings',
+    getParentRoute: () => DashboardLayoutRoute,
   } as any)
-const DashboardOwnerKitchensOrgIdIndexRoute =
-  DashboardOwnerKitchensOrgIdIndexRouteImport.update({
-    id: '/kitchens/$orgId/',
-    path: '/kitchens/$orgId/',
-    getParentRoute: () => DashboardOwnerLayoutRoute,
+const DashboardKitchensKitchenIdOrdersRoute =
+  DashboardKitchensKitchenIdOrdersRouteImport.update({
+    id: '/kitchens/$kitchenId/orders',
+    path: '/kitchens/$kitchenId/orders',
+    getParentRoute: () => DashboardLayoutRoute,
   } as any)
-const DashboardOwnerKitchensOrgIdMembersRoute =
-  DashboardOwnerKitchensOrgIdMembersRouteImport.update({
-    id: '/kitchens/$orgId/members',
-    path: '/kitchens/$orgId/members',
-    getParentRoute: () => DashboardOwnerLayoutRoute,
+const DashboardKitchensKitchenIdMenuRoute =
+  DashboardKitchensKitchenIdMenuRouteImport.update({
+    id: '/kitchens/$kitchenId/menu',
+    path: '/kitchens/$kitchenId/menu',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+const DashboardKitchensKitchenIdCuisinesRoute =
+  DashboardKitchensKitchenIdCuisinesRouteImport.update({
+    id: '/kitchens/$kitchenId/cuisines',
+    path: '/kitchens/$kitchenId/cuisines',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+const DashboardKitchensKitchenIdAuditRoute =
+  DashboardKitchensKitchenIdAuditRouteImport.update({
+    id: '/kitchens/$kitchenId/audit',
+    path: '/kitchens/$kitchenId/audit',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+const DashboardKitchensKitchenIdUsersIndexRoute =
+  DashboardKitchensKitchenIdUsersIndexRouteImport.update({
+    id: '/kitchens/$kitchenId/users/',
+    path: '/kitchens/$kitchenId/users/',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+const DashboardKitchensKitchenIdUsersNewRoute =
+  DashboardKitchensKitchenIdUsersNewRouteImport.update({
+    id: '/kitchens/$kitchenId/users/new',
+    path: '/kitchens/$kitchenId/users/new',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+const DashboardKitchensKitchenIdUsersUseridRoute =
+  DashboardKitchensKitchenIdUsersUseridRouteImport.update({
+    id: '/kitchens/$kitchenId/users/$userid',
+    path: '/kitchens/$kitchenId/users/$userid',
+    getParentRoute: () => DashboardLayoutRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthLayoutRouteWithChildren
-  '/dashboard': typeof DashboardLayoutRouteWithChildren
   '/search': typeof SearchRoute
-  '/dashboard/owner': typeof DashboardOwnerLayoutRouteWithChildren
-  '/dashboard/staff': typeof DashboardStaffLayoutRouteWithChildren
-  '/dashboard/user': typeof DashboardUserLayoutRouteWithChildren
+  '/explore': typeof DashboardExploreRoute
+  '/favorites': typeof DashboardFavoritesRoute
+  '/orders': typeof DashboardOrdersRoute
+  '/profile': typeof DashboardProfileRoute
+  '/reviews': typeof DashboardReviewsRoute
+  '/settings': typeof DashboardSettingsRoute
   '/auth/signup': typeof AuthSignupRoute
   '/auth/': typeof AuthIndexRoute
-  '/dashboard/': typeof DashboardIndexRoute
-  '/profile/': typeof ProfileIndexRoute
-  '/dashboard/owner/audit': typeof DashboardOwnerAuditRoute
-  '/dashboard/owner/menu': typeof DashboardOwnerMenuRoute
-  '/dashboard/owner/orders': typeof DashboardOwnerOrdersRoute
-  '/dashboard/owner/profile': typeof DashboardOwnerProfileRoute
-  '/dashboard/owner/reviews': typeof DashboardOwnerReviewsRoute
-  '/dashboard/owner/staff': typeof DashboardOwnerStaffRoute
-  '/dashboard/staff/members': typeof DashboardStaffMembersRoute
-  '/dashboard/staff/menu': typeof DashboardStaffMenuRoute
-  '/dashboard/staff/orders': typeof DashboardStaffOrdersRoute
-  '/dashboard/staff/profile': typeof DashboardStaffProfileRoute
-  '/dashboard/staff/reviews': typeof DashboardStaffReviewsRoute
-  '/dashboard/user/favorites': typeof DashboardUserFavoritesRoute
-  '/dashboard/user/kitchens': typeof DashboardUserKitchensRoute
-  '/dashboard/user/orders': typeof DashboardUserOrdersRoute
-  '/dashboard/user/profile': typeof DashboardUserProfileRoute
-  '/dashboard/user/reviews': typeof DashboardUserReviewsRoute
-  '/dashboard/owner/': typeof DashboardOwnerIndexRoute
-  '/dashboard/staff/': typeof DashboardStaffIndexRoute
-  '/dashboard/user/': typeof DashboardUserIndexRoute
-  '/dashboard/owner/users/$userid': typeof DashboardOwnerUsersUseridRoute
-  '/dashboard/owner/users/new': typeof DashboardOwnerUsersNewRoute
-  '/dashboard/owner/kitchens/': typeof DashboardOwnerKitchensIndexRoute
-  '/dashboard/owner/users/': typeof DashboardOwnerUsersIndexRoute
-  '/dashboard/owner/kitchens/$orgId/members': typeof DashboardOwnerKitchensOrgIdMembersRoute
-  '/dashboard/owner/kitchens/$orgId/': typeof DashboardOwnerKitchensOrgIdIndexRoute
-  '/dashboard/owner/onboarding/kitchen/': typeof DashboardOwnerOnboardingKitchenIndexRoute
+  '/admin/': typeof DashboardAdminIndexRoute
+  '/kitchens/': typeof DashboardKitchensIndexRoute
+  '/kitchens/$kitchenId/audit': typeof DashboardKitchensKitchenIdAuditRoute
+  '/kitchens/$kitchenId/cuisines': typeof DashboardKitchensKitchenIdCuisinesRoute
+  '/kitchens/$kitchenId/menu': typeof DashboardKitchensKitchenIdMenuRoute
+  '/kitchens/$kitchenId/orders': typeof DashboardKitchensKitchenIdOrdersRoute
+  '/kitchens/$kitchenId/settings': typeof DashboardKitchensKitchenIdSettingsRoute
+  '/kitchens/$kitchenId/staff': typeof DashboardKitchensKitchenIdStaffRoute
+  '/kitchens/$kitchenId/': typeof DashboardKitchensKitchenIdIndexRoute
+  '/kitchens/new/': typeof DashboardKitchensNewIndexRoute
+  '/kitchens/$kitchenId/users/$userid': typeof DashboardKitchensKitchenIdUsersUseridRoute
+  '/kitchens/$kitchenId/users/new': typeof DashboardKitchensKitchenIdUsersNewRoute
+  '/kitchens/$kitchenId/users/': typeof DashboardKitchensKitchenIdUsersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/search': typeof SearchRoute
+  '/explore': typeof DashboardExploreRoute
+  '/favorites': typeof DashboardFavoritesRoute
+  '/orders': typeof DashboardOrdersRoute
+  '/profile': typeof DashboardProfileRoute
+  '/reviews': typeof DashboardReviewsRoute
+  '/settings': typeof DashboardSettingsRoute
   '/auth/signup': typeof AuthSignupRoute
   '/auth': typeof AuthIndexRoute
-  '/dashboard': typeof DashboardIndexRoute
-  '/profile': typeof ProfileIndexRoute
-  '/dashboard/owner/audit': typeof DashboardOwnerAuditRoute
-  '/dashboard/owner/menu': typeof DashboardOwnerMenuRoute
-  '/dashboard/owner/orders': typeof DashboardOwnerOrdersRoute
-  '/dashboard/owner/profile': typeof DashboardOwnerProfileRoute
-  '/dashboard/owner/reviews': typeof DashboardOwnerReviewsRoute
-  '/dashboard/owner/staff': typeof DashboardOwnerStaffRoute
-  '/dashboard/staff/members': typeof DashboardStaffMembersRoute
-  '/dashboard/staff/menu': typeof DashboardStaffMenuRoute
-  '/dashboard/staff/orders': typeof DashboardStaffOrdersRoute
-  '/dashboard/staff/profile': typeof DashboardStaffProfileRoute
-  '/dashboard/staff/reviews': typeof DashboardStaffReviewsRoute
-  '/dashboard/user/favorites': typeof DashboardUserFavoritesRoute
-  '/dashboard/user/kitchens': typeof DashboardUserKitchensRoute
-  '/dashboard/user/orders': typeof DashboardUserOrdersRoute
-  '/dashboard/user/profile': typeof DashboardUserProfileRoute
-  '/dashboard/user/reviews': typeof DashboardUserReviewsRoute
-  '/dashboard/owner': typeof DashboardOwnerIndexRoute
-  '/dashboard/staff': typeof DashboardStaffIndexRoute
-  '/dashboard/user': typeof DashboardUserIndexRoute
-  '/dashboard/owner/users/$userid': typeof DashboardOwnerUsersUseridRoute
-  '/dashboard/owner/users/new': typeof DashboardOwnerUsersNewRoute
-  '/dashboard/owner/kitchens': typeof DashboardOwnerKitchensIndexRoute
-  '/dashboard/owner/users': typeof DashboardOwnerUsersIndexRoute
-  '/dashboard/owner/kitchens/$orgId/members': typeof DashboardOwnerKitchensOrgIdMembersRoute
-  '/dashboard/owner/kitchens/$orgId': typeof DashboardOwnerKitchensOrgIdIndexRoute
-  '/dashboard/owner/onboarding/kitchen': typeof DashboardOwnerOnboardingKitchenIndexRoute
+  '/admin': typeof DashboardAdminIndexRoute
+  '/kitchens': typeof DashboardKitchensIndexRoute
+  '/kitchens/$kitchenId/audit': typeof DashboardKitchensKitchenIdAuditRoute
+  '/kitchens/$kitchenId/cuisines': typeof DashboardKitchensKitchenIdCuisinesRoute
+  '/kitchens/$kitchenId/menu': typeof DashboardKitchensKitchenIdMenuRoute
+  '/kitchens/$kitchenId/orders': typeof DashboardKitchensKitchenIdOrdersRoute
+  '/kitchens/$kitchenId/settings': typeof DashboardKitchensKitchenIdSettingsRoute
+  '/kitchens/$kitchenId/staff': typeof DashboardKitchensKitchenIdStaffRoute
+  '/kitchens/$kitchenId': typeof DashboardKitchensKitchenIdIndexRoute
+  '/kitchens/new': typeof DashboardKitchensNewIndexRoute
+  '/kitchens/$kitchenId/users/$userid': typeof DashboardKitchensKitchenIdUsersUseridRoute
+  '/kitchens/$kitchenId/users/new': typeof DashboardKitchensKitchenIdUsersNewRoute
+  '/kitchens/$kitchenId/users': typeof DashboardKitchensKitchenIdUsersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_dashboard': typeof DashboardLayoutRouteWithChildren
   '/auth': typeof AuthLayoutRouteWithChildren
-  '/dashboard': typeof DashboardLayoutRouteWithChildren
   '/search': typeof SearchRoute
-  '/dashboard/owner': typeof DashboardOwnerLayoutRouteWithChildren
-  '/dashboard/staff': typeof DashboardStaffLayoutRouteWithChildren
-  '/dashboard/user': typeof DashboardUserLayoutRouteWithChildren
+  '/_dashboard/explore': typeof DashboardExploreRoute
+  '/_dashboard/favorites': typeof DashboardFavoritesRoute
+  '/_dashboard/orders': typeof DashboardOrdersRoute
+  '/_dashboard/profile': typeof DashboardProfileRoute
+  '/_dashboard/reviews': typeof DashboardReviewsRoute
+  '/_dashboard/settings': typeof DashboardSettingsRoute
   '/auth/signup': typeof AuthSignupRoute
   '/auth/': typeof AuthIndexRoute
-  '/dashboard/': typeof DashboardIndexRoute
-  '/profile/': typeof ProfileIndexRoute
-  '/dashboard/owner/audit': typeof DashboardOwnerAuditRoute
-  '/dashboard/owner/menu': typeof DashboardOwnerMenuRoute
-  '/dashboard/owner/orders': typeof DashboardOwnerOrdersRoute
-  '/dashboard/owner/profile': typeof DashboardOwnerProfileRoute
-  '/dashboard/owner/reviews': typeof DashboardOwnerReviewsRoute
-  '/dashboard/owner/staff': typeof DashboardOwnerStaffRoute
-  '/dashboard/staff/members': typeof DashboardStaffMembersRoute
-  '/dashboard/staff/menu': typeof DashboardStaffMenuRoute
-  '/dashboard/staff/orders': typeof DashboardStaffOrdersRoute
-  '/dashboard/staff/profile': typeof DashboardStaffProfileRoute
-  '/dashboard/staff/reviews': typeof DashboardStaffReviewsRoute
-  '/dashboard/user/favorites': typeof DashboardUserFavoritesRoute
-  '/dashboard/user/kitchens': typeof DashboardUserKitchensRoute
-  '/dashboard/user/orders': typeof DashboardUserOrdersRoute
-  '/dashboard/user/profile': typeof DashboardUserProfileRoute
-  '/dashboard/user/reviews': typeof DashboardUserReviewsRoute
-  '/dashboard/owner/': typeof DashboardOwnerIndexRoute
-  '/dashboard/staff/': typeof DashboardStaffIndexRoute
-  '/dashboard/user/': typeof DashboardUserIndexRoute
-  '/dashboard/owner/users/$userid': typeof DashboardOwnerUsersUseridRoute
-  '/dashboard/owner/users/new': typeof DashboardOwnerUsersNewRoute
-  '/dashboard/owner/kitchens/': typeof DashboardOwnerKitchensIndexRoute
-  '/dashboard/owner/users/': typeof DashboardOwnerUsersIndexRoute
-  '/dashboard/owner/kitchens/$orgId/members': typeof DashboardOwnerKitchensOrgIdMembersRoute
-  '/dashboard/owner/kitchens/$orgId/': typeof DashboardOwnerKitchensOrgIdIndexRoute
-  '/dashboard/owner/onboarding/kitchen/': typeof DashboardOwnerOnboardingKitchenIndexRoute
+  '/_dashboard/admin/': typeof DashboardAdminIndexRoute
+  '/_dashboard/kitchens/': typeof DashboardKitchensIndexRoute
+  '/_dashboard/kitchens/$kitchenId/audit': typeof DashboardKitchensKitchenIdAuditRoute
+  '/_dashboard/kitchens/$kitchenId/cuisines': typeof DashboardKitchensKitchenIdCuisinesRoute
+  '/_dashboard/kitchens/$kitchenId/menu': typeof DashboardKitchensKitchenIdMenuRoute
+  '/_dashboard/kitchens/$kitchenId/orders': typeof DashboardKitchensKitchenIdOrdersRoute
+  '/_dashboard/kitchens/$kitchenId/settings': typeof DashboardKitchensKitchenIdSettingsRoute
+  '/_dashboard/kitchens/$kitchenId/staff': typeof DashboardKitchensKitchenIdStaffRoute
+  '/_dashboard/kitchens/$kitchenId/': typeof DashboardKitchensKitchenIdIndexRoute
+  '/_dashboard/kitchens/new/': typeof DashboardKitchensNewIndexRoute
+  '/_dashboard/kitchens/$kitchenId/users/$userid': typeof DashboardKitchensKitchenIdUsersUseridRoute
+  '/_dashboard/kitchens/$kitchenId/users/new': typeof DashboardKitchensKitchenIdUsersNewRoute
+  '/_dashboard/kitchens/$kitchenId/users/': typeof DashboardKitchensKitchenIdUsersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/auth'
-    | '/dashboard'
     | '/search'
-    | '/dashboard/owner'
-    | '/dashboard/staff'
-    | '/dashboard/user'
+    | '/explore'
+    | '/favorites'
+    | '/orders'
+    | '/profile'
+    | '/reviews'
+    | '/settings'
     | '/auth/signup'
     | '/auth/'
-    | '/dashboard/'
-    | '/profile/'
-    | '/dashboard/owner/audit'
-    | '/dashboard/owner/menu'
-    | '/dashboard/owner/orders'
-    | '/dashboard/owner/profile'
-    | '/dashboard/owner/reviews'
-    | '/dashboard/owner/staff'
-    | '/dashboard/staff/members'
-    | '/dashboard/staff/menu'
-    | '/dashboard/staff/orders'
-    | '/dashboard/staff/profile'
-    | '/dashboard/staff/reviews'
-    | '/dashboard/user/favorites'
-    | '/dashboard/user/kitchens'
-    | '/dashboard/user/orders'
-    | '/dashboard/user/profile'
-    | '/dashboard/user/reviews'
-    | '/dashboard/owner/'
-    | '/dashboard/staff/'
-    | '/dashboard/user/'
-    | '/dashboard/owner/users/$userid'
-    | '/dashboard/owner/users/new'
-    | '/dashboard/owner/kitchens/'
-    | '/dashboard/owner/users/'
-    | '/dashboard/owner/kitchens/$orgId/members'
-    | '/dashboard/owner/kitchens/$orgId/'
-    | '/dashboard/owner/onboarding/kitchen/'
+    | '/admin/'
+    | '/kitchens/'
+    | '/kitchens/$kitchenId/audit'
+    | '/kitchens/$kitchenId/cuisines'
+    | '/kitchens/$kitchenId/menu'
+    | '/kitchens/$kitchenId/orders'
+    | '/kitchens/$kitchenId/settings'
+    | '/kitchens/$kitchenId/staff'
+    | '/kitchens/$kitchenId/'
+    | '/kitchens/new/'
+    | '/kitchens/$kitchenId/users/$userid'
+    | '/kitchens/$kitchenId/users/new'
+    | '/kitchens/$kitchenId/users/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/search'
+    | '/explore'
+    | '/favorites'
+    | '/orders'
+    | '/profile'
+    | '/reviews'
+    | '/settings'
     | '/auth/signup'
     | '/auth'
-    | '/dashboard'
-    | '/profile'
-    | '/dashboard/owner/audit'
-    | '/dashboard/owner/menu'
-    | '/dashboard/owner/orders'
-    | '/dashboard/owner/profile'
-    | '/dashboard/owner/reviews'
-    | '/dashboard/owner/staff'
-    | '/dashboard/staff/members'
-    | '/dashboard/staff/menu'
-    | '/dashboard/staff/orders'
-    | '/dashboard/staff/profile'
-    | '/dashboard/staff/reviews'
-    | '/dashboard/user/favorites'
-    | '/dashboard/user/kitchens'
-    | '/dashboard/user/orders'
-    | '/dashboard/user/profile'
-    | '/dashboard/user/reviews'
-    | '/dashboard/owner'
-    | '/dashboard/staff'
-    | '/dashboard/user'
-    | '/dashboard/owner/users/$userid'
-    | '/dashboard/owner/users/new'
-    | '/dashboard/owner/kitchens'
-    | '/dashboard/owner/users'
-    | '/dashboard/owner/kitchens/$orgId/members'
-    | '/dashboard/owner/kitchens/$orgId'
-    | '/dashboard/owner/onboarding/kitchen'
+    | '/admin'
+    | '/kitchens'
+    | '/kitchens/$kitchenId/audit'
+    | '/kitchens/$kitchenId/cuisines'
+    | '/kitchens/$kitchenId/menu'
+    | '/kitchens/$kitchenId/orders'
+    | '/kitchens/$kitchenId/settings'
+    | '/kitchens/$kitchenId/staff'
+    | '/kitchens/$kitchenId'
+    | '/kitchens/new'
+    | '/kitchens/$kitchenId/users/$userid'
+    | '/kitchens/$kitchenId/users/new'
+    | '/kitchens/$kitchenId/users'
   id:
     | '__root__'
     | '/'
+    | '/_dashboard'
     | '/auth'
-    | '/dashboard'
     | '/search'
-    | '/dashboard/owner'
-    | '/dashboard/staff'
-    | '/dashboard/user'
+    | '/_dashboard/explore'
+    | '/_dashboard/favorites'
+    | '/_dashboard/orders'
+    | '/_dashboard/profile'
+    | '/_dashboard/reviews'
+    | '/_dashboard/settings'
     | '/auth/signup'
     | '/auth/'
-    | '/dashboard/'
-    | '/profile/'
-    | '/dashboard/owner/audit'
-    | '/dashboard/owner/menu'
-    | '/dashboard/owner/orders'
-    | '/dashboard/owner/profile'
-    | '/dashboard/owner/reviews'
-    | '/dashboard/owner/staff'
-    | '/dashboard/staff/members'
-    | '/dashboard/staff/menu'
-    | '/dashboard/staff/orders'
-    | '/dashboard/staff/profile'
-    | '/dashboard/staff/reviews'
-    | '/dashboard/user/favorites'
-    | '/dashboard/user/kitchens'
-    | '/dashboard/user/orders'
-    | '/dashboard/user/profile'
-    | '/dashboard/user/reviews'
-    | '/dashboard/owner/'
-    | '/dashboard/staff/'
-    | '/dashboard/user/'
-    | '/dashboard/owner/users/$userid'
-    | '/dashboard/owner/users/new'
-    | '/dashboard/owner/kitchens/'
-    | '/dashboard/owner/users/'
-    | '/dashboard/owner/kitchens/$orgId/members'
-    | '/dashboard/owner/kitchens/$orgId/'
-    | '/dashboard/owner/onboarding/kitchen/'
+    | '/_dashboard/admin/'
+    | '/_dashboard/kitchens/'
+    | '/_dashboard/kitchens/$kitchenId/audit'
+    | '/_dashboard/kitchens/$kitchenId/cuisines'
+    | '/_dashboard/kitchens/$kitchenId/menu'
+    | '/_dashboard/kitchens/$kitchenId/orders'
+    | '/_dashboard/kitchens/$kitchenId/settings'
+    | '/_dashboard/kitchens/$kitchenId/staff'
+    | '/_dashboard/kitchens/$kitchenId/'
+    | '/_dashboard/kitchens/new/'
+    | '/_dashboard/kitchens/$kitchenId/users/$userid'
+    | '/_dashboard/kitchens/$kitchenId/users/new'
+    | '/_dashboard/kitchens/$kitchenId/users/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthLayoutRoute: typeof AuthLayoutRouteWithChildren
   DashboardLayoutRoute: typeof DashboardLayoutRouteWithChildren
+  AuthLayoutRoute: typeof AuthLayoutRouteWithChildren
   SearchRoute: typeof SearchRoute
-  ProfileIndexRoute: typeof ProfileIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -484,18 +347,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardLayoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/auth': {
       id: '/auth'
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_dashboard': {
+      id: '/_dashboard'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof DashboardLayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -504,20 +367,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/profile/': {
-      id: '/profile/'
-      path: '/profile'
-      fullPath: '/profile/'
-      preLoaderRoute: typeof ProfileIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/': {
-      id: '/dashboard/'
-      path: '/'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof DashboardIndexRouteImport
-      parentRoute: typeof DashboardLayoutRoute
     }
     '/auth/': {
       id: '/auth/'
@@ -533,211 +382,194 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignupRouteImport
       parentRoute: typeof AuthLayoutRoute
     }
-    '/dashboard/user': {
-      id: '/dashboard/user'
-      path: '/user'
-      fullPath: '/dashboard/user'
-      preLoaderRoute: typeof DashboardUserLayoutRouteImport
+    '/_dashboard/settings': {
+      id: '/_dashboard/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
-    '/dashboard/staff': {
-      id: '/dashboard/staff'
-      path: '/staff'
-      fullPath: '/dashboard/staff'
-      preLoaderRoute: typeof DashboardStaffLayoutRouteImport
-      parentRoute: typeof DashboardLayoutRoute
-    }
-    '/dashboard/owner': {
-      id: '/dashboard/owner'
-      path: '/owner'
-      fullPath: '/dashboard/owner'
-      preLoaderRoute: typeof DashboardOwnerLayoutRouteImport
-      parentRoute: typeof DashboardLayoutRoute
-    }
-    '/dashboard/user/': {
-      id: '/dashboard/user/'
-      path: '/'
-      fullPath: '/dashboard/user/'
-      preLoaderRoute: typeof DashboardUserIndexRouteImport
-      parentRoute: typeof DashboardUserLayoutRoute
-    }
-    '/dashboard/staff/': {
-      id: '/dashboard/staff/'
-      path: '/'
-      fullPath: '/dashboard/staff/'
-      preLoaderRoute: typeof DashboardStaffIndexRouteImport
-      parentRoute: typeof DashboardStaffLayoutRoute
-    }
-    '/dashboard/owner/': {
-      id: '/dashboard/owner/'
-      path: '/'
-      fullPath: '/dashboard/owner/'
-      preLoaderRoute: typeof DashboardOwnerIndexRouteImport
-      parentRoute: typeof DashboardOwnerLayoutRoute
-    }
-    '/dashboard/user/reviews': {
-      id: '/dashboard/user/reviews'
+    '/_dashboard/reviews': {
+      id: '/_dashboard/reviews'
       path: '/reviews'
-      fullPath: '/dashboard/user/reviews'
-      preLoaderRoute: typeof DashboardUserReviewsRouteImport
-      parentRoute: typeof DashboardUserLayoutRoute
+      fullPath: '/reviews'
+      preLoaderRoute: typeof DashboardReviewsRouteImport
+      parentRoute: typeof DashboardLayoutRoute
     }
-    '/dashboard/user/profile': {
-      id: '/dashboard/user/profile'
+    '/_dashboard/profile': {
+      id: '/_dashboard/profile'
       path: '/profile'
-      fullPath: '/dashboard/user/profile'
-      preLoaderRoute: typeof DashboardUserProfileRouteImport
-      parentRoute: typeof DashboardUserLayoutRoute
+      fullPath: '/profile'
+      preLoaderRoute: typeof DashboardProfileRouteImport
+      parentRoute: typeof DashboardLayoutRoute
     }
-    '/dashboard/user/orders': {
-      id: '/dashboard/user/orders'
+    '/_dashboard/orders': {
+      id: '/_dashboard/orders'
       path: '/orders'
-      fullPath: '/dashboard/user/orders'
-      preLoaderRoute: typeof DashboardUserOrdersRouteImport
-      parentRoute: typeof DashboardUserLayoutRoute
+      fullPath: '/orders'
+      preLoaderRoute: typeof DashboardOrdersRouteImport
+      parentRoute: typeof DashboardLayoutRoute
     }
-    '/dashboard/user/kitchens': {
-      id: '/dashboard/user/kitchens'
-      path: '/kitchens'
-      fullPath: '/dashboard/user/kitchens'
-      preLoaderRoute: typeof DashboardUserKitchensRouteImport
-      parentRoute: typeof DashboardUserLayoutRoute
-    }
-    '/dashboard/user/favorites': {
-      id: '/dashboard/user/favorites'
+    '/_dashboard/favorites': {
+      id: '/_dashboard/favorites'
       path: '/favorites'
-      fullPath: '/dashboard/user/favorites'
-      preLoaderRoute: typeof DashboardUserFavoritesRouteImport
-      parentRoute: typeof DashboardUserLayoutRoute
+      fullPath: '/favorites'
+      preLoaderRoute: typeof DashboardFavoritesRouteImport
+      parentRoute: typeof DashboardLayoutRoute
     }
-    '/dashboard/staff/reviews': {
-      id: '/dashboard/staff/reviews'
-      path: '/reviews'
-      fullPath: '/dashboard/staff/reviews'
-      preLoaderRoute: typeof DashboardStaffReviewsRouteImport
-      parentRoute: typeof DashboardStaffLayoutRoute
+    '/_dashboard/explore': {
+      id: '/_dashboard/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof DashboardExploreRouteImport
+      parentRoute: typeof DashboardLayoutRoute
     }
-    '/dashboard/staff/profile': {
-      id: '/dashboard/staff/profile'
-      path: '/profile'
-      fullPath: '/dashboard/staff/profile'
-      preLoaderRoute: typeof DashboardStaffProfileRouteImport
-      parentRoute: typeof DashboardStaffLayoutRoute
-    }
-    '/dashboard/staff/orders': {
-      id: '/dashboard/staff/orders'
-      path: '/orders'
-      fullPath: '/dashboard/staff/orders'
-      preLoaderRoute: typeof DashboardStaffOrdersRouteImport
-      parentRoute: typeof DashboardStaffLayoutRoute
-    }
-    '/dashboard/staff/menu': {
-      id: '/dashboard/staff/menu'
-      path: '/menu'
-      fullPath: '/dashboard/staff/menu'
-      preLoaderRoute: typeof DashboardStaffMenuRouteImport
-      parentRoute: typeof DashboardStaffLayoutRoute
-    }
-    '/dashboard/staff/members': {
-      id: '/dashboard/staff/members'
-      path: '/members'
-      fullPath: '/dashboard/staff/members'
-      preLoaderRoute: typeof DashboardStaffMembersRouteImport
-      parentRoute: typeof DashboardStaffLayoutRoute
-    }
-    '/dashboard/owner/staff': {
-      id: '/dashboard/owner/staff'
-      path: '/staff'
-      fullPath: '/dashboard/owner/staff'
-      preLoaderRoute: typeof DashboardOwnerStaffRouteImport
-      parentRoute: typeof DashboardOwnerLayoutRoute
-    }
-    '/dashboard/owner/reviews': {
-      id: '/dashboard/owner/reviews'
-      path: '/reviews'
-      fullPath: '/dashboard/owner/reviews'
-      preLoaderRoute: typeof DashboardOwnerReviewsRouteImport
-      parentRoute: typeof DashboardOwnerLayoutRoute
-    }
-    '/dashboard/owner/profile': {
-      id: '/dashboard/owner/profile'
-      path: '/profile'
-      fullPath: '/dashboard/owner/profile'
-      preLoaderRoute: typeof DashboardOwnerProfileRouteImport
-      parentRoute: typeof DashboardOwnerLayoutRoute
-    }
-    '/dashboard/owner/orders': {
-      id: '/dashboard/owner/orders'
-      path: '/orders'
-      fullPath: '/dashboard/owner/orders'
-      preLoaderRoute: typeof DashboardOwnerOrdersRouteImport
-      parentRoute: typeof DashboardOwnerLayoutRoute
-    }
-    '/dashboard/owner/menu': {
-      id: '/dashboard/owner/menu'
-      path: '/menu'
-      fullPath: '/dashboard/owner/menu'
-      preLoaderRoute: typeof DashboardOwnerMenuRouteImport
-      parentRoute: typeof DashboardOwnerLayoutRoute
-    }
-    '/dashboard/owner/audit': {
-      id: '/dashboard/owner/audit'
-      path: '/audit'
-      fullPath: '/dashboard/owner/audit'
-      preLoaderRoute: typeof DashboardOwnerAuditRouteImport
-      parentRoute: typeof DashboardOwnerLayoutRoute
-    }
-    '/dashboard/owner/users/': {
-      id: '/dashboard/owner/users/'
-      path: '/users'
-      fullPath: '/dashboard/owner/users/'
-      preLoaderRoute: typeof DashboardOwnerUsersIndexRouteImport
-      parentRoute: typeof DashboardOwnerLayoutRoute
-    }
-    '/dashboard/owner/kitchens/': {
-      id: '/dashboard/owner/kitchens/'
+    '/_dashboard/kitchens/': {
+      id: '/_dashboard/kitchens/'
       path: '/kitchens'
-      fullPath: '/dashboard/owner/kitchens/'
-      preLoaderRoute: typeof DashboardOwnerKitchensIndexRouteImport
-      parentRoute: typeof DashboardOwnerLayoutRoute
+      fullPath: '/kitchens/'
+      preLoaderRoute: typeof DashboardKitchensIndexRouteImport
+      parentRoute: typeof DashboardLayoutRoute
     }
-    '/dashboard/owner/users/new': {
-      id: '/dashboard/owner/users/new'
-      path: '/users/new'
-      fullPath: '/dashboard/owner/users/new'
-      preLoaderRoute: typeof DashboardOwnerUsersNewRouteImport
-      parentRoute: typeof DashboardOwnerLayoutRoute
+    '/_dashboard/admin/': {
+      id: '/_dashboard/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof DashboardAdminIndexRouteImport
+      parentRoute: typeof DashboardLayoutRoute
     }
-    '/dashboard/owner/users/$userid': {
-      id: '/dashboard/owner/users/$userid'
-      path: '/users/$userid'
-      fullPath: '/dashboard/owner/users/$userid'
-      preLoaderRoute: typeof DashboardOwnerUsersUseridRouteImport
-      parentRoute: typeof DashboardOwnerLayoutRoute
+    '/_dashboard/kitchens/new/': {
+      id: '/_dashboard/kitchens/new/'
+      path: '/kitchens/new'
+      fullPath: '/kitchens/new/'
+      preLoaderRoute: typeof DashboardKitchensNewIndexRouteImport
+      parentRoute: typeof DashboardLayoutRoute
     }
-    '/dashboard/owner/onboarding/kitchen/': {
-      id: '/dashboard/owner/onboarding/kitchen/'
-      path: '/onboarding/kitchen'
-      fullPath: '/dashboard/owner/onboarding/kitchen/'
-      preLoaderRoute: typeof DashboardOwnerOnboardingKitchenIndexRouteImport
-      parentRoute: typeof DashboardOwnerLayoutRoute
+    '/_dashboard/kitchens/$kitchenId/': {
+      id: '/_dashboard/kitchens/$kitchenId/'
+      path: '/kitchens/$kitchenId'
+      fullPath: '/kitchens/$kitchenId/'
+      preLoaderRoute: typeof DashboardKitchensKitchenIdIndexRouteImport
+      parentRoute: typeof DashboardLayoutRoute
     }
-    '/dashboard/owner/kitchens/$orgId/': {
-      id: '/dashboard/owner/kitchens/$orgId/'
-      path: '/kitchens/$orgId'
-      fullPath: '/dashboard/owner/kitchens/$orgId/'
-      preLoaderRoute: typeof DashboardOwnerKitchensOrgIdIndexRouteImport
-      parentRoute: typeof DashboardOwnerLayoutRoute
+    '/_dashboard/kitchens/$kitchenId/staff': {
+      id: '/_dashboard/kitchens/$kitchenId/staff'
+      path: '/kitchens/$kitchenId/staff'
+      fullPath: '/kitchens/$kitchenId/staff'
+      preLoaderRoute: typeof DashboardKitchensKitchenIdStaffRouteImport
+      parentRoute: typeof DashboardLayoutRoute
     }
-    '/dashboard/owner/kitchens/$orgId/members': {
-      id: '/dashboard/owner/kitchens/$orgId/members'
-      path: '/kitchens/$orgId/members'
-      fullPath: '/dashboard/owner/kitchens/$orgId/members'
-      preLoaderRoute: typeof DashboardOwnerKitchensOrgIdMembersRouteImport
-      parentRoute: typeof DashboardOwnerLayoutRoute
+    '/_dashboard/kitchens/$kitchenId/settings': {
+      id: '/_dashboard/kitchens/$kitchenId/settings'
+      path: '/kitchens/$kitchenId/settings'
+      fullPath: '/kitchens/$kitchenId/settings'
+      preLoaderRoute: typeof DashboardKitchensKitchenIdSettingsRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/_dashboard/kitchens/$kitchenId/orders': {
+      id: '/_dashboard/kitchens/$kitchenId/orders'
+      path: '/kitchens/$kitchenId/orders'
+      fullPath: '/kitchens/$kitchenId/orders'
+      preLoaderRoute: typeof DashboardKitchensKitchenIdOrdersRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/_dashboard/kitchens/$kitchenId/menu': {
+      id: '/_dashboard/kitchens/$kitchenId/menu'
+      path: '/kitchens/$kitchenId/menu'
+      fullPath: '/kitchens/$kitchenId/menu'
+      preLoaderRoute: typeof DashboardKitchensKitchenIdMenuRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/_dashboard/kitchens/$kitchenId/cuisines': {
+      id: '/_dashboard/kitchens/$kitchenId/cuisines'
+      path: '/kitchens/$kitchenId/cuisines'
+      fullPath: '/kitchens/$kitchenId/cuisines'
+      preLoaderRoute: typeof DashboardKitchensKitchenIdCuisinesRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/_dashboard/kitchens/$kitchenId/audit': {
+      id: '/_dashboard/kitchens/$kitchenId/audit'
+      path: '/kitchens/$kitchenId/audit'
+      fullPath: '/kitchens/$kitchenId/audit'
+      preLoaderRoute: typeof DashboardKitchensKitchenIdAuditRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/_dashboard/kitchens/$kitchenId/users/': {
+      id: '/_dashboard/kitchens/$kitchenId/users/'
+      path: '/kitchens/$kitchenId/users'
+      fullPath: '/kitchens/$kitchenId/users/'
+      preLoaderRoute: typeof DashboardKitchensKitchenIdUsersIndexRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/_dashboard/kitchens/$kitchenId/users/new': {
+      id: '/_dashboard/kitchens/$kitchenId/users/new'
+      path: '/kitchens/$kitchenId/users/new'
+      fullPath: '/kitchens/$kitchenId/users/new'
+      preLoaderRoute: typeof DashboardKitchensKitchenIdUsersNewRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/_dashboard/kitchens/$kitchenId/users/$userid': {
+      id: '/_dashboard/kitchens/$kitchenId/users/$userid'
+      path: '/kitchens/$kitchenId/users/$userid'
+      fullPath: '/kitchens/$kitchenId/users/$userid'
+      preLoaderRoute: typeof DashboardKitchensKitchenIdUsersUseridRouteImport
+      parentRoute: typeof DashboardLayoutRoute
     }
   }
 }
+
+interface DashboardLayoutRouteChildren {
+  DashboardExploreRoute: typeof DashboardExploreRoute
+  DashboardFavoritesRoute: typeof DashboardFavoritesRoute
+  DashboardOrdersRoute: typeof DashboardOrdersRoute
+  DashboardProfileRoute: typeof DashboardProfileRoute
+  DashboardReviewsRoute: typeof DashboardReviewsRoute
+  DashboardSettingsRoute: typeof DashboardSettingsRoute
+  DashboardAdminIndexRoute: typeof DashboardAdminIndexRoute
+  DashboardKitchensIndexRoute: typeof DashboardKitchensIndexRoute
+  DashboardKitchensKitchenIdAuditRoute: typeof DashboardKitchensKitchenIdAuditRoute
+  DashboardKitchensKitchenIdCuisinesRoute: typeof DashboardKitchensKitchenIdCuisinesRoute
+  DashboardKitchensKitchenIdMenuRoute: typeof DashboardKitchensKitchenIdMenuRoute
+  DashboardKitchensKitchenIdOrdersRoute: typeof DashboardKitchensKitchenIdOrdersRoute
+  DashboardKitchensKitchenIdSettingsRoute: typeof DashboardKitchensKitchenIdSettingsRoute
+  DashboardKitchensKitchenIdStaffRoute: typeof DashboardKitchensKitchenIdStaffRoute
+  DashboardKitchensKitchenIdIndexRoute: typeof DashboardKitchensKitchenIdIndexRoute
+  DashboardKitchensNewIndexRoute: typeof DashboardKitchensNewIndexRoute
+  DashboardKitchensKitchenIdUsersUseridRoute: typeof DashboardKitchensKitchenIdUsersUseridRoute
+  DashboardKitchensKitchenIdUsersNewRoute: typeof DashboardKitchensKitchenIdUsersNewRoute
+  DashboardKitchensKitchenIdUsersIndexRoute: typeof DashboardKitchensKitchenIdUsersIndexRoute
+}
+
+const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
+  DashboardExploreRoute: DashboardExploreRoute,
+  DashboardFavoritesRoute: DashboardFavoritesRoute,
+  DashboardOrdersRoute: DashboardOrdersRoute,
+  DashboardProfileRoute: DashboardProfileRoute,
+  DashboardReviewsRoute: DashboardReviewsRoute,
+  DashboardSettingsRoute: DashboardSettingsRoute,
+  DashboardAdminIndexRoute: DashboardAdminIndexRoute,
+  DashboardKitchensIndexRoute: DashboardKitchensIndexRoute,
+  DashboardKitchensKitchenIdAuditRoute: DashboardKitchensKitchenIdAuditRoute,
+  DashboardKitchensKitchenIdCuisinesRoute:
+    DashboardKitchensKitchenIdCuisinesRoute,
+  DashboardKitchensKitchenIdMenuRoute: DashboardKitchensKitchenIdMenuRoute,
+  DashboardKitchensKitchenIdOrdersRoute: DashboardKitchensKitchenIdOrdersRoute,
+  DashboardKitchensKitchenIdSettingsRoute:
+    DashboardKitchensKitchenIdSettingsRoute,
+  DashboardKitchensKitchenIdStaffRoute: DashboardKitchensKitchenIdStaffRoute,
+  DashboardKitchensKitchenIdIndexRoute: DashboardKitchensKitchenIdIndexRoute,
+  DashboardKitchensNewIndexRoute: DashboardKitchensNewIndexRoute,
+  DashboardKitchensKitchenIdUsersUseridRoute:
+    DashboardKitchensKitchenIdUsersUseridRoute,
+  DashboardKitchensKitchenIdUsersNewRoute:
+    DashboardKitchensKitchenIdUsersNewRoute,
+  DashboardKitchensKitchenIdUsersIndexRoute:
+    DashboardKitchensKitchenIdUsersIndexRoute,
+}
+
+const DashboardLayoutRouteWithChildren = DashboardLayoutRoute._addFileChildren(
+  DashboardLayoutRouteChildren,
+)
 
 interface AuthLayoutRouteChildren {
   AuthSignupRoute: typeof AuthSignupRoute
@@ -753,111 +585,11 @@ const AuthLayoutRouteWithChildren = AuthLayoutRoute._addFileChildren(
   AuthLayoutRouteChildren,
 )
 
-interface DashboardOwnerLayoutRouteChildren {
-  DashboardOwnerAuditRoute: typeof DashboardOwnerAuditRoute
-  DashboardOwnerMenuRoute: typeof DashboardOwnerMenuRoute
-  DashboardOwnerOrdersRoute: typeof DashboardOwnerOrdersRoute
-  DashboardOwnerProfileRoute: typeof DashboardOwnerProfileRoute
-  DashboardOwnerReviewsRoute: typeof DashboardOwnerReviewsRoute
-  DashboardOwnerStaffRoute: typeof DashboardOwnerStaffRoute
-  DashboardOwnerIndexRoute: typeof DashboardOwnerIndexRoute
-  DashboardOwnerUsersUseridRoute: typeof DashboardOwnerUsersUseridRoute
-  DashboardOwnerUsersNewRoute: typeof DashboardOwnerUsersNewRoute
-  DashboardOwnerKitchensIndexRoute: typeof DashboardOwnerKitchensIndexRoute
-  DashboardOwnerUsersIndexRoute: typeof DashboardOwnerUsersIndexRoute
-  DashboardOwnerKitchensOrgIdMembersRoute: typeof DashboardOwnerKitchensOrgIdMembersRoute
-  DashboardOwnerKitchensOrgIdIndexRoute: typeof DashboardOwnerKitchensOrgIdIndexRoute
-  DashboardOwnerOnboardingKitchenIndexRoute: typeof DashboardOwnerOnboardingKitchenIndexRoute
-}
-
-const DashboardOwnerLayoutRouteChildren: DashboardOwnerLayoutRouteChildren = {
-  DashboardOwnerAuditRoute: DashboardOwnerAuditRoute,
-  DashboardOwnerMenuRoute: DashboardOwnerMenuRoute,
-  DashboardOwnerOrdersRoute: DashboardOwnerOrdersRoute,
-  DashboardOwnerProfileRoute: DashboardOwnerProfileRoute,
-  DashboardOwnerReviewsRoute: DashboardOwnerReviewsRoute,
-  DashboardOwnerStaffRoute: DashboardOwnerStaffRoute,
-  DashboardOwnerIndexRoute: DashboardOwnerIndexRoute,
-  DashboardOwnerUsersUseridRoute: DashboardOwnerUsersUseridRoute,
-  DashboardOwnerUsersNewRoute: DashboardOwnerUsersNewRoute,
-  DashboardOwnerKitchensIndexRoute: DashboardOwnerKitchensIndexRoute,
-  DashboardOwnerUsersIndexRoute: DashboardOwnerUsersIndexRoute,
-  DashboardOwnerKitchensOrgIdMembersRoute:
-    DashboardOwnerKitchensOrgIdMembersRoute,
-  DashboardOwnerKitchensOrgIdIndexRoute: DashboardOwnerKitchensOrgIdIndexRoute,
-  DashboardOwnerOnboardingKitchenIndexRoute:
-    DashboardOwnerOnboardingKitchenIndexRoute,
-}
-
-const DashboardOwnerLayoutRouteWithChildren =
-  DashboardOwnerLayoutRoute._addFileChildren(DashboardOwnerLayoutRouteChildren)
-
-interface DashboardStaffLayoutRouteChildren {
-  DashboardStaffMembersRoute: typeof DashboardStaffMembersRoute
-  DashboardStaffMenuRoute: typeof DashboardStaffMenuRoute
-  DashboardStaffOrdersRoute: typeof DashboardStaffOrdersRoute
-  DashboardStaffProfileRoute: typeof DashboardStaffProfileRoute
-  DashboardStaffReviewsRoute: typeof DashboardStaffReviewsRoute
-  DashboardStaffIndexRoute: typeof DashboardStaffIndexRoute
-}
-
-const DashboardStaffLayoutRouteChildren: DashboardStaffLayoutRouteChildren = {
-  DashboardStaffMembersRoute: DashboardStaffMembersRoute,
-  DashboardStaffMenuRoute: DashboardStaffMenuRoute,
-  DashboardStaffOrdersRoute: DashboardStaffOrdersRoute,
-  DashboardStaffProfileRoute: DashboardStaffProfileRoute,
-  DashboardStaffReviewsRoute: DashboardStaffReviewsRoute,
-  DashboardStaffIndexRoute: DashboardStaffIndexRoute,
-}
-
-const DashboardStaffLayoutRouteWithChildren =
-  DashboardStaffLayoutRoute._addFileChildren(DashboardStaffLayoutRouteChildren)
-
-interface DashboardUserLayoutRouteChildren {
-  DashboardUserFavoritesRoute: typeof DashboardUserFavoritesRoute
-  DashboardUserKitchensRoute: typeof DashboardUserKitchensRoute
-  DashboardUserOrdersRoute: typeof DashboardUserOrdersRoute
-  DashboardUserProfileRoute: typeof DashboardUserProfileRoute
-  DashboardUserReviewsRoute: typeof DashboardUserReviewsRoute
-  DashboardUserIndexRoute: typeof DashboardUserIndexRoute
-}
-
-const DashboardUserLayoutRouteChildren: DashboardUserLayoutRouteChildren = {
-  DashboardUserFavoritesRoute: DashboardUserFavoritesRoute,
-  DashboardUserKitchensRoute: DashboardUserKitchensRoute,
-  DashboardUserOrdersRoute: DashboardUserOrdersRoute,
-  DashboardUserProfileRoute: DashboardUserProfileRoute,
-  DashboardUserReviewsRoute: DashboardUserReviewsRoute,
-  DashboardUserIndexRoute: DashboardUserIndexRoute,
-}
-
-const DashboardUserLayoutRouteWithChildren =
-  DashboardUserLayoutRoute._addFileChildren(DashboardUserLayoutRouteChildren)
-
-interface DashboardLayoutRouteChildren {
-  DashboardOwnerLayoutRoute: typeof DashboardOwnerLayoutRouteWithChildren
-  DashboardStaffLayoutRoute: typeof DashboardStaffLayoutRouteWithChildren
-  DashboardUserLayoutRoute: typeof DashboardUserLayoutRouteWithChildren
-  DashboardIndexRoute: typeof DashboardIndexRoute
-}
-
-const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
-  DashboardOwnerLayoutRoute: DashboardOwnerLayoutRouteWithChildren,
-  DashboardStaffLayoutRoute: DashboardStaffLayoutRouteWithChildren,
-  DashboardUserLayoutRoute: DashboardUserLayoutRouteWithChildren,
-  DashboardIndexRoute: DashboardIndexRoute,
-}
-
-const DashboardLayoutRouteWithChildren = DashboardLayoutRoute._addFileChildren(
-  DashboardLayoutRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthLayoutRoute: AuthLayoutRouteWithChildren,
   DashboardLayoutRoute: DashboardLayoutRouteWithChildren,
+  AuthLayoutRoute: AuthLayoutRouteWithChildren,
   SearchRoute: SearchRoute,
-  ProfileIndexRoute: ProfileIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

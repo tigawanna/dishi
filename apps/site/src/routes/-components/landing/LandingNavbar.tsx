@@ -53,7 +53,7 @@ export function LandingNavbar() {
             aria-label="Toggle theme">
             {theme === "light" ? <Moon className="size-4" /> : <Sun className="size-4" />}
           </button>
-          <Link to="/auth/signup" search={{ intent: "kitchen-owner" }}>
+          <Link to="/auth/signup" search={{ returnTo: "/kitchens/new" }}>
             <Button size="sm" variant="ghost" className="rounded-full px-4">
               Start Your Kitchen
             </Button>
@@ -94,7 +94,7 @@ export function LandingNavbar() {
           ))}
           <Link
             to="/auth/signup"
-            search={{ intent: "kitchen-owner" }}
+            search={{ returnTo: "/kitchens/new" }}
             onClick={() => setMobileOpen(false)}>
             <Button variant="outline" className="w-full rounded-full">
               Start Your Kitchen

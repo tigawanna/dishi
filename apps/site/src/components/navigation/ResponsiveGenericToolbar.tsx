@@ -105,7 +105,7 @@ export function ResponsiveGenericToolbar({ children }: ResponsiveGenericToolbarP
             </Link>
           </li>
           <li>
-            <Link to="/dashboard" className="gap-3">
+            <Link to="/profile" className="gap-3">
               <LayoutDashboard className="size-5" />
               Dashboard
             </Link>
@@ -120,13 +120,13 @@ export function ResponsiveGenericToolbar({ children }: ResponsiveGenericToolbarP
           <div className="divider my-2">Explore</div>
 
           <li>
-            <Link to="/dashboard/user/kitchens" className="gap-3">
+            <Link to="/explore" className="gap-3">
               <MapPin className="size-5" />
               <span>Kitchens</span>
             </Link>
           </li>
           <li>
-            <Link to="/dashboard/user/orders" className="gap-3">
+            <Link to="/orders" className="gap-3">
               <ShoppingBag className="size-5" />
               <span>Orders</span>
             </Link>

@@ -31,7 +31,7 @@ export function LandingCTA() {
                   <ArrowRight className="size-4" />
                 </Button>
               </Link>
-              <Link to="/auth/signup" search={{ intent: "kitchen-owner" }}>
+              <Link to="/auth/signup" search={{ returnTo: "/kitchens/new" }}>
                 <Button
                   variant="ghost"
                   size="lg"

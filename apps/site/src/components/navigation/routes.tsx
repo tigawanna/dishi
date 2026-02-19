@@ -1,4 +1,4 @@
-import { owner_routes } from "@/routes/dashboard/-components/dashoboard-sidebar/dashboard_routes";
+import { dashboard_routes } from "@/routes/_dashboard/-components/dashoboard-sidebar/dashboard_routes";
 import {
   Home,
   Store,
@@ -14,9 +14,9 @@ export const routes = [
   },
   {
     title: "Dashboard",
-    href: "/dashboard",
+    href: "/profile",
     icon: Store,
-    sublinks: owner_routes,
+    sublinks: dashboard_routes,
   },
   {
     title: "Profile",

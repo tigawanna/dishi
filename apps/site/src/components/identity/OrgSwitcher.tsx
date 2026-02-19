@@ -24,7 +24,7 @@ import {
   setActiveOrganizationMutationOptions,
 } from "@/data-access-layer/users/user-orgs";
 import { authClient } from "@/lib/better-auth/client";
-import { CreateOrg } from "@/routes/dashboard/owner/kitchens/-components/OrgDialogs";
+import { CreateOrg } from "@/routes/_dashboard/kitchens/-components/OrgDialogs";
 import { useLiveQuery } from "@tanstack/react-db";
 import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";

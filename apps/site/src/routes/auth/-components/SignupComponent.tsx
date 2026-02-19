@@ -1,15 +1,12 @@
 import { viewerqueryOptions } from "@/data-access-layer/users/viewer";
 import { authClient } from "@/lib/better-auth/client";
-import { treatyClient } from "@/lib/elysia/eden-treaty";
 import { useAppForm } from "@/lib/tanstack/form";
 import { formOptions } from "@tanstack/react-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Link, useRouter, useSearch } from "@tanstack/react-router";
+import { Link, useNavigate, useRouter, useSearch } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
-
-type SignupIntent = "kitchen-owner" | "staff" | "user";
 
 type SignupUserPayload = {
   name: string;
@@ -17,18 +14,6 @@ type SignupUserPayload = {
   password: string;
   passwordConfirm: string;
   image: string | undefined;
-};
-
-const INTENT_HEADINGS: Record<SignupIntent, string> = {
-  "kitchen-owner": "Start Your Kitchen",
-  staff: "Join Your Team",
-  user: "Sign up",
-};
-
-const INTENT_REDIRECT: Record<SignupIntent, string> = {
-  "kitchen-owner": "/dashboard/owner/onboarding/kitchen",
-  staff: "/dashboard/staff/profile",
-  user: "/dashboard/user/profile",
 };
 
 const formOpts = formOptions({
@@ -42,21 +27,11 @@ const formOpts = formOptions({
 });
 
 export function SignupComponent() {
-  const { returnTo, intent: rawIntent } = useSearch({
-    from: "/auth/signup",
-  });
-  const intent = rawIntent ?? "user";
-  console.log("[Signup] intent:", intent, "| rawIntent:", rawIntent, "| returnTo:", returnTo);
+  const { returnTo } = useSearch({ from: "/auth/signup" });
   const [showPassword, setShowPassword] = useState(false);
   const qc = useQueryClient();
   const router = useRouter();
-
-  const claimOwnerMutation = useMutation({
-    mutationFn: async () => {
-      const { error } = await treatyClient.kitchen["claim-owner"].post();
-      if (error) throw new Error(String(error));
-    },
-  });
+  const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: (data: SignupUserPayload) => {
@@ -68,8 +43,6 @@ export function SignupComponent() {
       });
     },
     async onSuccess(data) {
-      console.log("[Signup] onSuccess | intent:", intent, "| error:", data.error);
-
       if (data.error) {
         toast.error("Something went wrong", {
           description: `${data.error.message}`,
@@ -77,32 +50,12 @@ export function SignupComponent() {
         return;
       }
 
-      if (intent === "kitchen-owner") {
-        console.log("[Signup] claiming owner role...");
-        try {
-          await claimOwnerMutation.mutateAsync();
-          console.log("[Signup] claim-owner succeeded");
-        } catch (err) {
-          console.error("[Signup] claim-owner failed:", err);
-          await authClient.signOut();
-          qc.invalidateQueries(viewerqueryOptions);
-          router.invalidate();
-          toast.error("Signup failed", {
-            description:
-              err instanceof Error
-                ? err.message
-                : "Could not assign owner role. Please try again.",
-          });
-          return;
-        }
-      }
-
       toast.success("Signed up", {
         description: `Welcome ${data.data?.user.name}`,
       });
-      qc.invalidateQueries(viewerqueryOptions);
-      router.invalidate();
-      window.location.href = INTENT_REDIRECT[intent];
+      await qc.invalidateQueries(viewerqueryOptions);
+      await router.invalidate();
+      navigate({ to: returnTo ?? "/profile" });
     },
     onError(error) {
       toast.error("Something went wrong", {
@@ -134,7 +87,7 @@ export function SignupComponent() {
         }}
         className="bg-base-300/20 flex h-full w-[90%] flex-col items-center justify-center gap-6 rounded-lg p-[2%] md:w-[70%] lg:w-[40%]">
         <div className="flex h-full w-full flex-col items-center justify-center gap-4">
-          <h1 className="text-4xl font-bold">{INTENT_HEADINGS[intent]}</h1>
+          <h1 className="text-4xl font-bold">Sign up</h1>
 
           <form.AppField
             name="name"
@@ -195,7 +148,7 @@ export function SignupComponent() {
 
         <div className="flex items-center gap-1">
           <span>Already have an account?</span>
-          <Link to="/auth" search={{ returnTo: returnTo ?? "/", intent }} className="link link-primary">
+          <Link to="/auth" search={{ returnTo: returnTo ?? "/" }} className="link link-primary">
             Sign in
           </Link>
         </div>

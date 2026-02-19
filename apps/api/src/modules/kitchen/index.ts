@@ -54,19 +54,8 @@ export const kitchenRoute = new Elysia({ name: "kitchen", prefix: "/kitchen" })
   .post(
     "/claim-owner",
     async ({ user }) => {
-      console.log("[claim-owner] called by user:", { id: user.id, role: user.role });
-
-      // if (user.role !== "user") {
-      //   console.log("[claim-owner] rejected: role is", user.role);
-      //   return status(403, {
-      //     error: "Only customers can claim the owner role",
-      //   });
-      // }
-      const isKitchenClaimed = await db.select().from(kitchenProfile).where(eq(kitchenProfile.organizationId, user.id));
-      if (isKitchenClaimed) {
-        return status(400, {
-          error: "Kitchen already claimed",
-        });
+      if (user.role === "owner") {
+        return { success: true };
       }
 
       const [updated] = await db
@@ -76,11 +65,9 @@ export const kitchenRoute = new Elysia({ name: "kitchen", prefix: "/kitchen" })
         .returning({ id: userTable.id, role: userTable.role });
 
       if (!updated) {
-        console.log("[claim-owner] DB update failed for user:", user.id);
         return status(500, { error: "Failed to update user role" });
       }
 
-      console.log("[claim-owner] success:", updated);
       return { success: true };
     },
     { auth: true },
