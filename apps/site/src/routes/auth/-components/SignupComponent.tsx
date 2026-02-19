@@ -34,24 +34,25 @@ export function SignupComponent() {
   const navigate = useNavigate();
 
   const mutation = useMutation({
-    mutationFn: (data: SignupUserPayload) => {
-      return authClient.signUp.email({
+    mutationFn: async (data: SignupUserPayload) => {
+      const result = await authClient.signUp.email({
         email: data.email,
         password: data.password,
         name: data.name,
         image: data.image,
       });
+      return result;
     },
     async onSuccess(data) {
-      if (data.error) {
+      if (data?.error) {
         toast.error("Something went wrong", {
-          description: `${data.error.message}`,
+          description: data.error.message,
+          duration: 10_000,
         });
         return;
       }
-
       toast.success("Signed up", {
-        description: `Welcome ${data.data?.user.name}`,
+        description: `Welcome ${data?.data?.user?.name}`,
       });
       await qc.invalidateQueries(viewerqueryOptions);
       await router.invalidate();
@@ -59,7 +60,7 @@ export function SignupComponent() {
     },
     onError(error) {
       toast.error("Something went wrong", {
-        description: `${error.message}`,
+        description: error.message,
       });
     },
   });
@@ -69,10 +70,23 @@ export function SignupComponent() {
     onSubmit: async ({ value }) => {
       const formData = value as SignupUserPayload;
       if (formData.password !== formData.passwordConfirm) {
-        toast.error("Passwords don't match");
+        toast.error("Passwords don't match", { position: "top-center" });
         return;
       }
-      await mutation.mutate(formData);
+      try {
+        await mutation.mutateAsync(formData);
+      } catch (err) {
+        const message =
+          err instanceof Error
+            ? err.message
+            : typeof err === "object" && err !== null && "message" in err
+              ? String((err as { message: unknown }).message)
+              : "Something went wrong";
+        toast.error("Something went wrong", {
+          description: message,
+          position: "top-center",
+        });
+      }
     },
   });
 

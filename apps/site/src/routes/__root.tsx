@@ -8,6 +8,7 @@ import { TanstackDevtools } from "@/lib/tanstack/devtools/devtools";
 import { ThemeProvider } from "@/lib/tanstack/router/theme-provider";
 import type { QueryClient } from "@tanstack/react-query";
 import { z } from "zod";
+import { Toaster } from "@/components/ui/sonner";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -78,6 +79,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <TooltipProvider>
             {children}
             <TanstackDevtools />
+            <Toaster/>
           </TooltipProvider>
         </ThemeProvider>
         <Scripts />
