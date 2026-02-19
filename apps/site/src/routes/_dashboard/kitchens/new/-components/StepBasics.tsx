@@ -43,8 +43,7 @@ export function StepBasics({ onSubmit, onBack, isPending, initialData }: StepBas
         e.stopPropagation();
         form.handleSubmit();
       }}
-      className="space-y-4"
-    >
+      className="space-y-4">
       <form.AppField
         name="name"
         validators={{ onChange: z.string().min(2, "Kitchen name must be at least 2 characters") }}
@@ -54,34 +53,21 @@ export function StepBasics({ onSubmit, onBack, isPending, initialData }: StepBas
             if (!value || value.trim() === "") return;
             form.setFieldValue("slug", slugify(value));
           },
-        }}
-      >
-        {(f) => (
-          <f.TextField
-            label="Kitchen Name"
-            placeholder="e.g. Mama Aisha's Kitchen"
-          />
-        )}
+        }}>
+        {(f) => <f.TextField label="Kitchen Name" placeholder="e.g. Mama Aisha's Kitchen" />}
       </form.AppField>
 
       <form.AppField
         name="slug"
-        validators={{ onChange: z.string().min(2, "Slug must be at least 2 characters") }}
-      >
-        {(f) => (
-          <f.TextField
-            label="URL Slug"
-            placeholder="e.g. mama-aishas-kitchen"
-          />
-        )}
+        validators={{ onChange: z.string().min(2, "Slug must be at least 2 characters") }}>
+        {(f) => <f.TextField label="URL Slug" placeholder="e.g. mama-aishas-kitchen" />}
       </form.AppField>
 
       <form.AppField
         name="description"
         validators={{
           onChange: z.string().max(500, "Description must be 500 characters or less").optional(),
-        }}
-      >
+        }}>
         {(f) => (
           <f.TextAreaField
             label="Description"
@@ -94,14 +80,8 @@ export function StepBasics({ onSubmit, onBack, isPending, initialData }: StepBas
         name="phone"
         validators={{
           onChange: z.string().optional(),
-        }}
-      >
-        {(f) => (
-          <f.TextField
-            label="WhatsApp Phone"
-            placeholder="e.g. +254 712 345 678"
-          />
-        )}
+        }}>
+        {(f) => <f.TextField label="WhatsApp Phone" placeholder="e.g. +254 712 345 678" />}
       </form.AppField>
 
       <div className="flex justify-between pt-2">

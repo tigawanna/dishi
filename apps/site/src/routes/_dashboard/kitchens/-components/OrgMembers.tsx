@@ -46,6 +46,16 @@ interface OrgMembersProps {
   orgId: string;
 }
 
+interface StaffSearchParams extends Record<string, unknown> {
+  searchValue?: string;
+  limit?: number;
+  page?: number;
+  sortBy?: string;
+  sortDirection?: "asc" | "desc";
+  filterField?: string;
+  filterValue?: string | number | boolean;
+}
+
 const sortableColumns = createSortableColumns(organizationMembersCollection, [
   { value: "createdAt", label: "Joined" },
   { value: "role", label: "Role" },
@@ -53,14 +63,11 @@ const sortableColumns = createSortableColumns(organizationMembersCollection, [
 ]);
 
 export function OrgMembers({ orgId }: OrgMembersProps) {
-  // Read current route search values - Types come from validateSearch in the route definition
   const qc = useQueryClient();
-  const search = useSearch({
-    from: "/_dashboard/kitchens/$kitchenId/staff",
-  });
-  const navigate = useNavigate({
-    from: "/_dashboard/kitchens/$kitchenId/staff",
-  });
+  const staffFrom = "/_dashboard/kitchens/$kitchenId/staff";
+  const search = useSearch({ from: staffFrom }) as StaffSearchParams;
+  // @ts-expect-error TS2820 - route path literal differs from generated FromPathOption
+  const navigate = useNavigate({ from: staffFrom });
   // const [filterDialogOpen, setFilterDialogOpen] = useState(false);
   const [actionsOpen, setActionsOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState<(typeof membersList)[0] | null>(null);

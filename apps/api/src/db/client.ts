@@ -4,8 +4,12 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { EnhancedQueryLogger } from "drizzle-query-logger";
 import * as schema from "./schema/index";
 
-export const db = drizzle(envVariables.DATABASE_URL, {
-  schema,
+const connectionString = envVariables.DATABASE_URL;
+if (!connectionString) {
+  throw new Error("DATABASE_URL is required");
+}
 
+export const db = drizzle(connectionString, {
+  schema,
   logger: new EnhancedQueryLogger(),
 });

@@ -48,7 +48,7 @@ export function SigninComponent() {
       });
       qc.setQueryData(["viewer"], () => data);
       router.invalidate();
-      navigate({ to: returnTo || "/" });
+      navigate({ to: returnTo || "/", search: { returnTo: returnTo || "/" } });
     },
     onError(error) {
       console.log(error.name);

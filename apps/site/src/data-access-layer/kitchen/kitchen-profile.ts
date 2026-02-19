@@ -39,9 +39,8 @@ export const kitchenProfileByOrgQueryOptions = (orgId: string) =>
   queryOptions({
     queryKey: [queryKeyPrefixes.kitchenProfile, "by-org", orgId] as const,
     queryFn: async () => {
-      const { data, error } = await treatyClient.kitchen.profile["by-org"][":orgId"].get({
-        params: { orgId },
-      });
+      const byOrg = (treatyClient.kitchen.profile as unknown as Record<string, Record<string, { get: (opts: { params: { orgId: string } }) => Promise<{ data: unknown; error: unknown }> }>>)["by-org"][":orgId"];
+      const { data, error } = await byOrg.get({ params: { orgId } });
       if (error) throw new Error(String(error));
       return data;
     },
@@ -61,7 +60,8 @@ export const kitchenCuisinesQueryOptions = (
       params?.perPage ?? 100,
     ] as const,
     queryFn: async () => {
-      const { data, error } = await treatyClient.kitchen.profile[":kitchenId"].cuisines.get({
+      const profile = treatyClient.kitchen.profile as unknown as Record<string, { cuisines: { get: (opts: { params: { kitchenId: string }; query?: { page?: number; perPage?: number; sortBy?: string; sortOrder?: string } }) => Promise<{ data: unknown; error: unknown }> } }>;
+      const { data, error } = await profile[":kitchenId"].cuisines.get({
         params: { kitchenId },
         query: {
           page: params?.page ?? 1,
@@ -105,7 +105,8 @@ export const createKitchenProfileMutation = mutationOptions({
 
 export const setKitchenCuisinesMutation = mutationOptions({
   mutationFn: async ({ kitchenId, cuisineIds }: SetKitchenCuisinesPayload) => {
-    const { data, error } = await treatyClient.kitchen.profile[":kitchenId"].cuisines.put(
+    const profile = treatyClient.kitchen.profile as unknown as Record<string, { cuisines: { put: (body: { cuisineIds: string[] }, opts: { params: { kitchenId: string } }) => Promise<{ data: unknown; error: unknown }> } }>;
+    const { data, error } = await profile[":kitchenId"].cuisines.put(
       { cuisineIds },
       { params: { kitchenId } },
     );
