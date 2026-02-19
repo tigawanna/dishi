@@ -50,7 +50,7 @@ export function UserActionsDialog({
   const queryClient = useQueryClient();
   const [selectedAction, setSelectedAction] = useState<string>("");
   const [formData, setFormData] = useState({
-    role: user.role || "user",
+    role: user.role || "manager",
     memberRole: "member",
     password: "",
     banReason: "",

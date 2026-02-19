@@ -1,6 +1,6 @@
 import { db } from "@backend/db/client";
 import { AUTHORIZED_ORIGINS } from "@backend/utils/constants";
-import { ac, roles } from "@repo/isomorphic/auth-roles";
+import { organizationAc, organizationRoles } from "@repo/isomorphic/auth-roles";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { admin, apiKey, bearer, openAPI, organization } from "better-auth/plugins";
@@ -19,13 +19,12 @@ export const auth = betterAuth({
     apiKey(),
     bearer(),
     openAPI(),
-    admin({
-      ac,
-      roles,
-      defaultRole: "user",
-      adminRoles: ["owner"],
+    admin(),
+    organization({
+      ac: organizationAc,
+      roles: organizationRoles,
+      adminRoles: ["owner", "manager"],
     }),
-    organization(),
   ],
   experimental: {
     joins: true,

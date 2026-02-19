@@ -18,15 +18,15 @@
  *
  * Available Roles:
  * - owner: Platform super admin, full user/session/org management
- * - user: Default role, browse kitchens, favorites, saved addresses
+ * - manager: Default role (extends admin), browse kitchens, favorites, saved addresses
  */
 
 import { auth } from "@backend/lib/auth";
-import { ac, BetterAuthUserRoles } from "@repo/isomorphic/auth-roles";
+import { organizationAc, BetterAuthUserRoles } from "@repo/isomorphic/auth-roles";
 import type { ReadonlyToMutable } from "@repo/isomorphic/typescript-helpers";
 import { Elysia } from "elysia";
 
-type PermissionsStatements = ReadonlyToMutable<typeof ac.statements>;
+type PermissionsStatements = ReadonlyToMutable<typeof organizationAc.statements>;
 
 // Better Auth middleware with authentication and RBAC macros
 export const betterAuthZMiddleware = new Elysia({ name: "better-auth" }).mount(auth.handler).macro({
@@ -62,7 +62,7 @@ export const betterAuthZMiddleware = new Elysia({ name: "better-auth" }).mount(a
      * app.post('/admin', handler, { requireRole: ['admin'] })
      *
      * // Allow admins or users
-     * app.get('/data', handler, { requireRole: ['admin', 'user'] })
+     * app.get('/data', handler, { requireRole: ['admin', 'manager'] })
      */
     async resolve({ status, request: { headers } }) {
       const session = await auth.api.getSession({
@@ -79,7 +79,7 @@ export const betterAuthZMiddleware = new Elysia({ name: "better-auth" }).mount(a
           message: "Authentication required to access this resource.",
         });
 
-      const userRole = (session.user.role || "user") as BetterAuthUserRoles;
+      const userRole = (session.user.role || "manager") as BetterAuthUserRoles;
       if (!requireRole.includes(userRole)) {
         return status(403, {
           code: "FORBIDDEN",
@@ -122,7 +122,7 @@ export const betterAuthZMiddleware = new Elysia({ name: "better-auth" }).mount(a
           message: "Authentication required to access this resource.",
         });
 
-      const userRole = (session.user.role || "user") as BetterAuthUserRoles;
+      const userRole = (session.user.role || "manager") as BetterAuthUserRoles;
       const hasPermission = await auth.api.userHasPermission({
         body: {
           role: userRole,

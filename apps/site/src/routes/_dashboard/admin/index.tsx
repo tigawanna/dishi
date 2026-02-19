@@ -1,3 +1,4 @@
+import { authClient } from "@/lib/better-auth/client";
 import { createFileRoute } from "@tanstack/react-router";
 import { Shield } from "lucide-react";
 
@@ -6,11 +7,13 @@ export const Route = createFileRoute("/_dashboard/admin/")({
 });
 
 function AdminPage() {
+  const { data: organizations } = authClient.useListOrganizations();
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-6">
       <Shield className="text-base-content/30 size-16" />
       <h1 className="text-2xl font-bold">Admin</h1>
       <p className="text-base-content/70">Global administration and platform management</p>
+      <pre>{JSON.stringify(organizations, null, 2)}</pre>
     </div>
   );
 }

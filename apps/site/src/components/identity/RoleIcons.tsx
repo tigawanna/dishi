@@ -43,7 +43,7 @@ export function RoleIcons({ role }: RoleIconsProps) {
       </svg>
     );
   }
-  if (role === "user") {
+  if (role === "manager") {
     return (
       <svg
         className="text-success size-10"

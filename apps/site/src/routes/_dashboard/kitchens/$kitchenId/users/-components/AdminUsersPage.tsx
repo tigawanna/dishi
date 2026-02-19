@@ -237,7 +237,7 @@ export function AdminUsersPage() {
                   <CardHeader className="pb-3">
                     <div className="flex min-w-0 items-start gap-3">
                       <div className="shrink-0">
-                        <RoleIcons role={(u.role as BetterAuthUserRoles) ?? "user"} />
+                        <RoleIcons role={(u.role as BetterAuthUserRoles) ?? "manager"} />
                       </div>
                       <CardTitle className="min-w-0 truncate text-base">{u.name ?? "—"}</CardTitle>
                     </div>
@@ -363,7 +363,7 @@ export function AdminUsersPage() {
                   >
                     <TableCell>
                       <div className="flex items-center justify-center">
-                        <RoleIcons role={(u.role as BetterAuthUserRoles) ?? "user"} />
+                        <RoleIcons role={(u.role as BetterAuthUserRoles) ?? "manager"} />
                       </div>
                     </TableCell>
                     <TableCell className="font-medium">{u.name ?? "—"}</TableCell>

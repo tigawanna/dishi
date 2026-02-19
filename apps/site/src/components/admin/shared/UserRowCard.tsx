@@ -42,7 +42,7 @@ export function UserRowCard({
           <div className="flex items-center justify-between">
             <div className="flex min-w-0 items-center gap-3">
               <div className="shrink-0">
-                <RoleIcons role={(user.role as BetterAuthUserRoles) ?? "user"} />
+                <RoleIcons role={(user.role as BetterAuthUserRoles) ?? "manager"} />
               </div>
               <CardTitle className="truncate text-base">{user.name ?? "—"}</CardTitle>
             </div>

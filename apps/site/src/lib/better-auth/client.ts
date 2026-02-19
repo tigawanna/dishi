@@ -1,4 +1,4 @@
-import { ac, roles } from "@repo/isomorphic/auth-roles";
+import { organizationAc, organizationRoles } from "@repo/isomorphic/auth-roles";
 import { adminClient, organizationClient } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
 import { envVariables } from "../env";
@@ -7,15 +7,15 @@ export const authClient = createAuthClient({
   baseURL: envVariables.VITE_API_URL,
   plugins: [
     adminClient({
-      ac: ac as any,
-      roles,
+      ac: organizationAc as any,
+      roles: organizationRoles,
     }),
     organizationClient(),
   ],
 });
 
 export type BetterAuthSession = typeof authClient.$Infer.Session;
-export type BetterAuthUserRoles = keyof typeof roles;
+export type BetterAuthUserRoles = keyof typeof organizationRoles;
 export type BetterAuthOrgRoles = "owner" | "staff" | "member" | ("owner" | "staff" | "member")[];
 
-export const userRoles = Object.keys(roles);
+export const userRoles = Object.keys(organizationRoles);

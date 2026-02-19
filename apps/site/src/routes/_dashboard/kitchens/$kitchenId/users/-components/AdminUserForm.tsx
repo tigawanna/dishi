@@ -35,7 +35,7 @@ const formOpts = formOptions({
     name: "",
     email: "",
     password: "",
-    role: "user" as BetterAuthUserRoles,
+    role: "manager" as BetterAuthUserRoles,
   },
 });
 
@@ -153,7 +153,7 @@ export function AdminUserForm({ mode = "create", user, onSuccess }: Props) {
                   <label className="text-sm">Change role immediately</label>
                   <div className="mt-2 flex items-center gap-2">
                     <Select
-                      value={user?.role ?? "user"}
+                      value={user?.role ?? "manager"}
                       onValueChange={(v: BetterAuthUserRoles) =>
                         setRoleMutation.mutateAsync({
                           userId: user.id,

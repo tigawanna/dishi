@@ -1,62 +1,55 @@
 import { createAccessControl } from "better-auth/plugins/access";
+import {
+  adminAc,
+  defaultStatements,
+  memberAc,
+  ownerAc
+} from "better-auth/plugins/organization/access";
 
 const statement = {
+  ...defaultStatements,
   kitchen: ["list", "view", "create", "update", "delete", "set-availability"],
   cuisine: ["list", "view", "assign"],
   menu: ["list", "view", "create", "update", "delete"],
   order: ["list", "view", "create", "update", "cancel"],
-  member: ["list", "invite", "remove", "assign-role"],
-  organization: ["list", "view", "update", "delete"],
   favorite: ["list", "create", "delete"],
   location: ["list", "create", "update", "delete"],
-  user: ["create", "list", "set-role", "ban", "delete", "impersonate"],
-  session: ["list", "revoke", "delete"],
 } as const;
 
-const ac = createAccessControl(statement);
+const organizationAc = createAccessControl(statement);
 
-const roles = {
-  owner: ac.newRole({
+const organizationRoles = {
+  owner: organizationAc.newRole({
+    ...ownerAc.statements,
     kitchen: ["list", "view", "create", "update", "delete", "set-availability"],
     cuisine: ["list", "view", "assign"],
     menu: ["list", "view", "create", "update", "delete"],
     order: ["list", "view", "create", "update", "cancel"],
-    member: ["list", "invite", "remove", "assign-role"],
-    organization: ["list", "view", "update", "delete"],
     favorite: ["list", "create", "delete"],
     location: ["list", "create", "update", "delete"],
-    user: ["create", "list", "set-role", "ban", "delete", "impersonate"],
-    session: ["list", "revoke", "delete"],
   }),
-
-  staff: ac.newRole({
-    kitchen: ["list", "view"],
-    cuisine: ["list", "view"],
-    menu: ["list", "view", "create", "update", "delete"],
-    order: ["list", "view", "create", "update"],
-    member: ["list"],
-    organization: ["list", "view"],
-    favorite: ["list", "create", "delete"],
-    location: ["list", "create", "update", "delete"],
-    user: [],
-    session: [],
-  }),
-
-  user: ac.newRole({
+  manager: organizationAc.newRole({
+    ...adminAc.statements,
     kitchen: ["list", "view"],
     cuisine: ["list", "view"],
     menu: ["list", "view"],
     order: ["list", "view", "create", "cancel"],
-    member: [],
-    organization: [],
     favorite: ["list", "create", "delete"],
     location: ["list", "create", "update", "delete"],
-    user: [],
-    session: [],
   }),
+  staff: organizationAc.newRole({
+    ...memberAc.statements,
+    kitchen: ["list", "view"],
+    cuisine: ["list", "view"],
+    menu: ["list", "view", "create", "update", "delete"],
+    order: ["list", "view", "create", "update"],
+    favorite: ["list", "create", "delete"],
+    location: ["list", "create", "update", "delete"],
+  }),
+
 };
 
-type BetterAuthUserRoles = keyof typeof roles;
+type BetterAuthUserRoles = keyof typeof organizationRoles;
 type BetterAuthOrgRoles = "owner" | "staff" | "member" | ("owner" | "staff" | "member")[];
 
-export { ac, roles, type BetterAuthUserRoles, type BetterAuthOrgRoles };
+export { organizationAc, organizationRoles, type BetterAuthOrgRoles, type BetterAuthUserRoles };
