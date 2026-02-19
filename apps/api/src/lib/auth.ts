@@ -6,6 +6,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { admin, apiKey, bearer, openAPI, organization } from "better-auth/plugins";
 
 export const auth = betterAuth({
+  appName:"Dishi",
   trustedOrigins: AUTHORIZED_ORIGINS,
   emailAndPassword: {
     enabled: true,
