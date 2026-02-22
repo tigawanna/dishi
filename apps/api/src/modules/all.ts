@@ -1,6 +1,5 @@
-import { isProductionEnv } from "@backend/env";
+import { auth, BetterAuthOpenAPI } from "@backend/lib/auth";
 import { AUTHORIZED_ORIGINS } from "@backend/utils/constants";
-import { logger } from "@bogeychan/elysia-logger";
 import { cors } from "@elysiajs/cors";
 import { fromTypes, openapi } from "@elysiajs/openapi";
 import { Elysia } from "elysia";
@@ -9,7 +8,6 @@ import { crudRouteGroup } from "./crud";
 import { indexRoute } from "./home";
 import { kitchenRoute } from "./kitchen";
 import { viewerRoute } from "./viewer";
-import { auth, BetterAuthOpenAPI } from "@backend/lib/auth";
 
 export const allRoutes = new Elysia()
   // .use(onErrorMiddleware)
@@ -69,10 +67,7 @@ export const allRoutes = new Elysia()
       },
     }),
   )
-  .mount(async(request) => {
-    console.log("=== MOUNT CALLED ===", request.method, new URL(request.url).pathname);
-    return await auth.handler(request);
-  })
+  .mount(auth.handler)
   .use(indexRoute)
   .use(viewerRoute)
   .use(adminRoute)
