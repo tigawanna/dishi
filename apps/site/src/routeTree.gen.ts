@@ -20,6 +20,7 @@ import { Route as DashboardReviewsRouteImport } from './routes/_dashboard/review
 import { Route as DashboardProfileRouteImport } from './routes/_dashboard/profile'
 import { Route as DashboardOrdersRouteImport } from './routes/_dashboard/orders'
 import { Route as DashboardFavoritesRouteImport } from './routes/_dashboard/favorites'
+import { Route as DashboardDashboardRouteImport } from './routes/_dashboard/dashboard'
 import { Route as DashboardKitchensIndexRouteImport } from './routes/_dashboard/kitchens/index'
 import { Route as DashboardAdminIndexRouteImport } from './routes/_dashboard/admin/index'
 import { Route as DashboardKitchensNewIndexRouteImport } from './routes/_dashboard/kitchens/new/index'
@@ -86,6 +87,11 @@ const DashboardOrdersRoute = DashboardOrdersRouteImport.update({
 const DashboardFavoritesRoute = DashboardFavoritesRouteImport.update({
   id: '/favorites',
   path: '/favorites',
+  getParentRoute: () => DashboardLayoutRoute,
+} as any)
+const DashboardDashboardRoute = DashboardDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => DashboardLayoutRoute,
 } as any)
 const DashboardKitchensIndexRoute = DashboardKitchensIndexRouteImport.update({
@@ -169,6 +175,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthLayoutRouteWithChildren
   '/search': typeof SearchRoute
+  '/dashboard': typeof DashboardDashboardRoute
   '/favorites': typeof DashboardFavoritesRoute
   '/orders': typeof DashboardOrdersRoute
   '/profile': typeof DashboardProfileRoute
@@ -193,6 +200,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/search': typeof SearchRoute
+  '/dashboard': typeof DashboardDashboardRoute
   '/favorites': typeof DashboardFavoritesRoute
   '/orders': typeof DashboardOrdersRoute
   '/profile': typeof DashboardProfileRoute
@@ -220,6 +228,7 @@ export interface FileRoutesById {
   '/_dashboard': typeof DashboardLayoutRouteWithChildren
   '/auth': typeof AuthLayoutRouteWithChildren
   '/search': typeof SearchRoute
+  '/_dashboard/dashboard': typeof DashboardDashboardRoute
   '/_dashboard/favorites': typeof DashboardFavoritesRoute
   '/_dashboard/orders': typeof DashboardOrdersRoute
   '/_dashboard/profile': typeof DashboardProfileRoute
@@ -247,6 +256,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/search'
+    | '/dashboard'
     | '/favorites'
     | '/orders'
     | '/profile'
@@ -271,6 +281,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/search'
+    | '/dashboard'
     | '/favorites'
     | '/orders'
     | '/profile'
@@ -297,6 +308,7 @@ export interface FileRouteTypes {
     | '/_dashboard'
     | '/auth'
     | '/search'
+    | '/_dashboard/dashboard'
     | '/_dashboard/favorites'
     | '/_dashboard/orders'
     | '/_dashboard/profile'
@@ -405,6 +417,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardFavoritesRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
+    '/_dashboard/dashboard': {
+      id: '/_dashboard/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardDashboardRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
     '/_dashboard/kitchens/': {
       id: '/_dashboard/kitchens/'
       path: '/kitchens'
@@ -500,6 +519,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface DashboardLayoutRouteChildren {
+  DashboardDashboardRoute: typeof DashboardDashboardRoute
   DashboardFavoritesRoute: typeof DashboardFavoritesRoute
   DashboardOrdersRoute: typeof DashboardOrdersRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
@@ -521,6 +541,7 @@ interface DashboardLayoutRouteChildren {
 }
 
 const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
+  DashboardDashboardRoute: DashboardDashboardRoute,
   DashboardFavoritesRoute: DashboardFavoritesRoute,
   DashboardOrdersRoute: DashboardOrdersRoute,
   DashboardProfileRoute: DashboardProfileRoute,

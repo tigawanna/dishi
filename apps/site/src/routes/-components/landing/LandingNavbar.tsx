@@ -2,7 +2,10 @@ import { Button } from "@/components/ui/button";
 import { useTheme } from "@/lib/tanstack/router/use-theme";
 import { Link, useLocation } from "@tanstack/react-router";
 import { Menu, Moon, Sun, X } from "lucide-react";
-import { useState } from "react";
+
+import { lazy, Suspense, useState } from "react";
+
+const DashboardLink = lazy(() => import("./LandingDashboardLink"));
 
 const NAV_LINKS = [
   { label: "How it works", href: "#features" },
@@ -58,11 +61,16 @@ export function LandingNavbar() {
               Start Your Kitchen
             </Button>
           </Link>
-          <Link to="/auth" search={{ returnTo: pathname }}>
-            <Button size="sm" className="rounded-full px-6">
-              Get Started
-            </Button>
-          </Link>
+          <Suspense
+            fallback={
+              <Link to="/auth" search={{ returnTo: pathname }}>
+                <Button size="sm" className="rounded-full px-6">
+                  Get Started
+                </Button>
+              </Link>
+            }>
+            <DashboardLink />
+          </Suspense>
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
