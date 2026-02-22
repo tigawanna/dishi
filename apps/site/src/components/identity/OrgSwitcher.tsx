@@ -19,9 +19,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { organizationsCollection } from "@/data-access-layer/collections/admin/organizations-collection";
-import {
-  setActiveOrganizationMutationOptions
-} from "@/data-access-layer/users/user-orgs";
+import { setActiveOrganizationMutationOptions } from "@/data-access-layer/users/user-orgs";
 import { authClient } from "@/lib/better-auth/client";
 import { CreateOrg } from "@/routes/_dashboard/kitchens/-components/OrgDialogs";
 import { useLiveQuery } from "@tanstack/react-db";

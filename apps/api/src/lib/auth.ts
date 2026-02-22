@@ -3,10 +3,10 @@ import { AUTHORIZED_ORIGINS } from "@backend/utils/constants";
 import { organizationAc, organizationRoles } from "@repo/isomorphic/auth-roles";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { admin, apiKey, bearer, openAPI, organization } from "better-auth/plugins";
+import { admin, apiKey, bearer, openAPI, organization, multiSession } from "better-auth/plugins";
 
 export const auth = betterAuth({
-  appName:"Dishi",
+  appName: "Dishi",
   trustedOrigins: AUTHORIZED_ORIGINS,
   emailAndPassword: {
     enabled: true,
@@ -20,7 +20,12 @@ export const auth = betterAuth({
     apiKey(),
     bearer(),
     openAPI(),
-    admin(),
+    multiSession({
+      maximumSessions: 5,
+    }),
+    admin({
+      defaultRole: "user",
+    }),
     organization({
       ac: organizationAc,
       roles: organizationRoles,

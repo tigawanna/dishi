@@ -1,5 +1,5 @@
 import { organizationAc, organizationRoles } from "@repo/isomorphic/auth-roles";
-import { adminClient, organizationClient } from "better-auth/client/plugins";
+import { adminClient, multiSessionClient, organizationClient } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
 import { envVariables } from "../env";
 export const authClient = createAuthClient({
@@ -11,6 +11,7 @@ export const authClient = createAuthClient({
       roles: organizationRoles,
     }),
     organizationClient(),
+    multiSessionClient(),
   ],
 });
 

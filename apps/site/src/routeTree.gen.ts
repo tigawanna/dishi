@@ -20,12 +20,10 @@ import { Route as DashboardReviewsRouteImport } from './routes/_dashboard/review
 import { Route as DashboardProfileRouteImport } from './routes/_dashboard/profile'
 import { Route as DashboardOrdersRouteImport } from './routes/_dashboard/orders'
 import { Route as DashboardFavoritesRouteImport } from './routes/_dashboard/favorites'
-import { Route as DashboardExploreRouteImport } from './routes/_dashboard/explore'
 import { Route as DashboardKitchensIndexRouteImport } from './routes/_dashboard/kitchens/index'
 import { Route as DashboardAdminIndexRouteImport } from './routes/_dashboard/admin/index'
 import { Route as DashboardKitchensNewIndexRouteImport } from './routes/_dashboard/kitchens/new/index'
 import { Route as DashboardKitchensKitchenIdIndexRouteImport } from './routes/_dashboard/kitchens/$kitchenId/index'
-import { Route as DashboardKitchensNewWizardRouteImport } from './routes/_dashboard/kitchens/new/wizard'
 import { Route as DashboardKitchensKitchenIdStaffRouteImport } from './routes/_dashboard/kitchens/$kitchenId/staff'
 import { Route as DashboardKitchensKitchenIdSettingsRouteImport } from './routes/_dashboard/kitchens/$kitchenId/settings'
 import { Route as DashboardKitchensKitchenIdOrdersRouteImport } from './routes/_dashboard/kitchens/$kitchenId/orders'
@@ -90,11 +88,6 @@ const DashboardFavoritesRoute = DashboardFavoritesRouteImport.update({
   path: '/favorites',
   getParentRoute: () => DashboardLayoutRoute,
 } as any)
-const DashboardExploreRoute = DashboardExploreRouteImport.update({
-  id: '/explore',
-  path: '/explore',
-  getParentRoute: () => DashboardLayoutRoute,
-} as any)
 const DashboardKitchensIndexRoute = DashboardKitchensIndexRouteImport.update({
   id: '/kitchens/',
   path: '/kitchens/',
@@ -115,12 +108,6 @@ const DashboardKitchensKitchenIdIndexRoute =
   DashboardKitchensKitchenIdIndexRouteImport.update({
     id: '/kitchens/$kitchenId/',
     path: '/kitchens/$kitchenId/',
-    getParentRoute: () => DashboardLayoutRoute,
-  } as any)
-const DashboardKitchensNewWizardRoute =
-  DashboardKitchensNewWizardRouteImport.update({
-    id: '/kitchens/new/wizard',
-    path: '/kitchens/new/wizard',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
 const DashboardKitchensKitchenIdStaffRoute =
@@ -182,7 +169,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthLayoutRouteWithChildren
   '/search': typeof SearchRoute
-  '/explore': typeof DashboardExploreRoute
   '/favorites': typeof DashboardFavoritesRoute
   '/orders': typeof DashboardOrdersRoute
   '/profile': typeof DashboardProfileRoute
@@ -198,7 +184,6 @@ export interface FileRoutesByFullPath {
   '/kitchens/$kitchenId/orders': typeof DashboardKitchensKitchenIdOrdersRoute
   '/kitchens/$kitchenId/settings': typeof DashboardKitchensKitchenIdSettingsRoute
   '/kitchens/$kitchenId/staff': typeof DashboardKitchensKitchenIdStaffRoute
-  '/kitchens/new/wizard': typeof DashboardKitchensNewWizardRoute
   '/kitchens/$kitchenId/': typeof DashboardKitchensKitchenIdIndexRoute
   '/kitchens/new/': typeof DashboardKitchensNewIndexRoute
   '/kitchens/$kitchenId/users/$userid': typeof DashboardKitchensKitchenIdUsersUseridRoute
@@ -208,7 +193,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/search': typeof SearchRoute
-  '/explore': typeof DashboardExploreRoute
   '/favorites': typeof DashboardFavoritesRoute
   '/orders': typeof DashboardOrdersRoute
   '/profile': typeof DashboardProfileRoute
@@ -224,7 +208,6 @@ export interface FileRoutesByTo {
   '/kitchens/$kitchenId/orders': typeof DashboardKitchensKitchenIdOrdersRoute
   '/kitchens/$kitchenId/settings': typeof DashboardKitchensKitchenIdSettingsRoute
   '/kitchens/$kitchenId/staff': typeof DashboardKitchensKitchenIdStaffRoute
-  '/kitchens/new/wizard': typeof DashboardKitchensNewWizardRoute
   '/kitchens/$kitchenId': typeof DashboardKitchensKitchenIdIndexRoute
   '/kitchens/new': typeof DashboardKitchensNewIndexRoute
   '/kitchens/$kitchenId/users/$userid': typeof DashboardKitchensKitchenIdUsersUseridRoute
@@ -237,7 +220,6 @@ export interface FileRoutesById {
   '/_dashboard': typeof DashboardLayoutRouteWithChildren
   '/auth': typeof AuthLayoutRouteWithChildren
   '/search': typeof SearchRoute
-  '/_dashboard/explore': typeof DashboardExploreRoute
   '/_dashboard/favorites': typeof DashboardFavoritesRoute
   '/_dashboard/orders': typeof DashboardOrdersRoute
   '/_dashboard/profile': typeof DashboardProfileRoute
@@ -253,7 +235,6 @@ export interface FileRoutesById {
   '/_dashboard/kitchens/$kitchenId/orders': typeof DashboardKitchensKitchenIdOrdersRoute
   '/_dashboard/kitchens/$kitchenId/settings': typeof DashboardKitchensKitchenIdSettingsRoute
   '/_dashboard/kitchens/$kitchenId/staff': typeof DashboardKitchensKitchenIdStaffRoute
-  '/_dashboard/kitchens/new/wizard': typeof DashboardKitchensNewWizardRoute
   '/_dashboard/kitchens/$kitchenId/': typeof DashboardKitchensKitchenIdIndexRoute
   '/_dashboard/kitchens/new/': typeof DashboardKitchensNewIndexRoute
   '/_dashboard/kitchens/$kitchenId/users/$userid': typeof DashboardKitchensKitchenIdUsersUseridRoute
@@ -266,7 +247,6 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/search'
-    | '/explore'
     | '/favorites'
     | '/orders'
     | '/profile'
@@ -282,7 +262,6 @@ export interface FileRouteTypes {
     | '/kitchens/$kitchenId/orders'
     | '/kitchens/$kitchenId/settings'
     | '/kitchens/$kitchenId/staff'
-    | '/kitchens/new/wizard'
     | '/kitchens/$kitchenId/'
     | '/kitchens/new/'
     | '/kitchens/$kitchenId/users/$userid'
@@ -292,7 +271,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/search'
-    | '/explore'
     | '/favorites'
     | '/orders'
     | '/profile'
@@ -308,7 +286,6 @@ export interface FileRouteTypes {
     | '/kitchens/$kitchenId/orders'
     | '/kitchens/$kitchenId/settings'
     | '/kitchens/$kitchenId/staff'
-    | '/kitchens/new/wizard'
     | '/kitchens/$kitchenId'
     | '/kitchens/new'
     | '/kitchens/$kitchenId/users/$userid'
@@ -320,7 +297,6 @@ export interface FileRouteTypes {
     | '/_dashboard'
     | '/auth'
     | '/search'
-    | '/_dashboard/explore'
     | '/_dashboard/favorites'
     | '/_dashboard/orders'
     | '/_dashboard/profile'
@@ -336,7 +312,6 @@ export interface FileRouteTypes {
     | '/_dashboard/kitchens/$kitchenId/orders'
     | '/_dashboard/kitchens/$kitchenId/settings'
     | '/_dashboard/kitchens/$kitchenId/staff'
-    | '/_dashboard/kitchens/new/wizard'
     | '/_dashboard/kitchens/$kitchenId/'
     | '/_dashboard/kitchens/new/'
     | '/_dashboard/kitchens/$kitchenId/users/$userid'
@@ -430,13 +405,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardFavoritesRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
-    '/_dashboard/explore': {
-      id: '/_dashboard/explore'
-      path: '/explore'
-      fullPath: '/explore'
-      preLoaderRoute: typeof DashboardExploreRouteImport
-      parentRoute: typeof DashboardLayoutRoute
-    }
     '/_dashboard/kitchens/': {
       id: '/_dashboard/kitchens/'
       path: '/kitchens'
@@ -463,13 +431,6 @@ declare module '@tanstack/react-router' {
       path: '/kitchens/$kitchenId'
       fullPath: '/kitchens/$kitchenId/'
       preLoaderRoute: typeof DashboardKitchensKitchenIdIndexRouteImport
-      parentRoute: typeof DashboardLayoutRoute
-    }
-    '/_dashboard/kitchens/new/wizard': {
-      id: '/_dashboard/kitchens/new/wizard'
-      path: '/kitchens/new/wizard'
-      fullPath: '/kitchens/new/wizard'
-      preLoaderRoute: typeof DashboardKitchensNewWizardRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
     '/_dashboard/kitchens/$kitchenId/staff': {
@@ -539,7 +500,6 @@ declare module '@tanstack/react-router' {
 }
 
 interface DashboardLayoutRouteChildren {
-  DashboardExploreRoute: typeof DashboardExploreRoute
   DashboardFavoritesRoute: typeof DashboardFavoritesRoute
   DashboardOrdersRoute: typeof DashboardOrdersRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
@@ -553,7 +513,6 @@ interface DashboardLayoutRouteChildren {
   DashboardKitchensKitchenIdOrdersRoute: typeof DashboardKitchensKitchenIdOrdersRoute
   DashboardKitchensKitchenIdSettingsRoute: typeof DashboardKitchensKitchenIdSettingsRoute
   DashboardKitchensKitchenIdStaffRoute: typeof DashboardKitchensKitchenIdStaffRoute
-  DashboardKitchensNewWizardRoute: typeof DashboardKitchensNewWizardRoute
   DashboardKitchensKitchenIdIndexRoute: typeof DashboardKitchensKitchenIdIndexRoute
   DashboardKitchensNewIndexRoute: typeof DashboardKitchensNewIndexRoute
   DashboardKitchensKitchenIdUsersUseridRoute: typeof DashboardKitchensKitchenIdUsersUseridRoute
@@ -562,7 +521,6 @@ interface DashboardLayoutRouteChildren {
 }
 
 const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
-  DashboardExploreRoute: DashboardExploreRoute,
   DashboardFavoritesRoute: DashboardFavoritesRoute,
   DashboardOrdersRoute: DashboardOrdersRoute,
   DashboardProfileRoute: DashboardProfileRoute,
@@ -578,7 +536,6 @@ const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
   DashboardKitchensKitchenIdSettingsRoute:
     DashboardKitchensKitchenIdSettingsRoute,
   DashboardKitchensKitchenIdStaffRoute: DashboardKitchensKitchenIdStaffRoute,
-  DashboardKitchensNewWizardRoute: DashboardKitchensNewWizardRoute,
   DashboardKitchensKitchenIdIndexRoute: DashboardKitchensKitchenIdIndexRoute,
   DashboardKitchensNewIndexRoute: DashboardKitchensNewIndexRoute,
   DashboardKitchensKitchenIdUsersUseridRoute:

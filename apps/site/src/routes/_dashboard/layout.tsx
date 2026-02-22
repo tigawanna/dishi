@@ -1,9 +1,18 @@
 import { viewerMiddleware } from "@/data-access-layer/users/viewer";
+import { authClient } from "@/lib/better-auth/client";
+import { RouterNotFoundComponent } from "@/lib/tanstack/router/RouterNotFoundComponent";
+import { RouterPendingComponent } from "@/lib/tanstack/router/RouterPendingComponent";
+import { RouterErrorComponent } from "@/lib/tanstack/router/routerErrorComponent";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { DashboardLayout } from "./-components/dashoboard-sidebar/DashboardLayout";
-import { dashboard_routes } from "./-components/dashoboard-sidebar/dashboard_routes";
+import {
+  getDashboardRoutes
+} from "./-components/dashoboard-sidebar/dashboard_routes";
 
 export const Route = createFileRoute("/_dashboard")({
+  pendingComponent: () => <RouterPendingComponent />,
+  notFoundComponent: () => <RouterNotFoundComponent />,
+  errorComponent: ({ error }) => <RouterErrorComponent error={error} />,
   server: {
     middleware: [viewerMiddleware],
   },
@@ -24,5 +33,8 @@ export const Route = createFileRoute("/_dashboard")({
 });
 
 function DashboardShell() {
+  const { data: organizations } = authClient.useListOrganizations();
+  const hasKitchen = organizations?.length && organizations.length > 0;
+  const dashboard_routes = getDashboardRoutes(Boolean(hasKitchen));
   return <DashboardLayout sidebarRoutes={dashboard_routes} sidebarLabel="Menu" />;
 }

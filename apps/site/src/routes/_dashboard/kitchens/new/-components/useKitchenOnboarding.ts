@@ -7,7 +7,6 @@ import {
 import { queryKeyPrefixes } from "@/data-access-layer/query-keys";
 import { viewerqueryOptions } from "@/data-access-layer/users/viewer";
 import { authClient } from "@/lib/better-auth/client";
-import { treatyClient } from "@/lib/elysia/eden-treaty";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
@@ -59,12 +58,6 @@ export function useKitchenOnboarding() {
   const createOrgMut = useMutation(createOrganizationMutation);
   const createProfileMut = useMutation(createKitchenProfileMutation);
   const setCuisinesMut = useMutation(setKitchenCuisinesMutation);
-  const claimOwnerMut = useMutation({
-    mutationFn: async () => {
-      const { error } = await treatyClient.kitchen["claim-owner"].post();
-      if (error) throw new Error(String(error));
-    },
-  });
 
   const stepIndex = STEPS.indexOf(currentStep);
   const progress = Math.round(((stepIndex + 1) / STEPS.length) * 100);
@@ -96,7 +89,7 @@ export function useKitchenOnboarding() {
         organizationId: org.id,
       }));
 
-      // goToStep("location");
+      goToStep("location");
     } catch (err) {
       toast.error("Failed to create organization", {
         description: err instanceof Error ? err.message : String(err),
@@ -179,10 +172,6 @@ export function useKitchenOnboarding() {
     submitLocation,
     submitCuisines,
     finishOnboarding,
-    isPending:
-      createOrgMut.isPending ||
-      claimOwnerMut.isPending ||
-      createProfileMut.isPending ||
-      setCuisinesMut.isPending,
+    isPending: createOrgMut.isPending || createProfileMut.isPending || setCuisinesMut.isPending,
   } as const;
 }

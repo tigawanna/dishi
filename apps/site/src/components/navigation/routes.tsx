@@ -1,9 +1,5 @@
 import { dashboard_routes } from "@/routes/_dashboard/-components/dashoboard-sidebar/dashboard_routes";
-import {
-  Home,
-  Store,
-  User,
-} from "lucide-react";
+import { Home, Store, User } from "lucide-react";
 
 export const routes = [
   {

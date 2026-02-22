@@ -9,6 +9,7 @@ export const Route = createFileRoute("/_dashboard/kitchens/")({
     sortBy: z.string().optional(),
     sortDirection: z.enum(["asc", "desc"]).optional(),
   }),
+  ssr:"data-only",
 });
 
 function KitchensListPage() {
