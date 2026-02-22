@@ -3,10 +3,15 @@ import { useAppForm } from "@/lib/tanstack/form";
 import { formOptions } from "@tanstack/react-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate, useRouter } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Route } from "../index";
+
+interface SigninComponentProps {
+  onBackToSessions?: () => void;
+}
 
 interface PropertyUserLogin {
   email: string;
@@ -20,7 +25,7 @@ const formOpts = formOptions({
   } satisfies PropertyUserLogin,
 });
 
-export function SigninComponent() {
+export function SigninComponent({ onBackToSessions }: SigninComponentProps) {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const qc = useQueryClient();
@@ -77,6 +82,16 @@ export function SigninComponent() {
         className="flex h-full w-[90%] flex-col items-center justify-center gap-6 rounded-lg p-[2%] md:w-[70%] lg:w-[40%]"
       >
         <div className="flex w-full flex-col items-center justify-center gap-4">
+          {onBackToSessions && (
+            <button
+              type="button"
+              onClick={onBackToSessions}
+              className="text-muted-foreground hover:text-foreground flex items-center gap-1 self-start text-sm transition-colors"
+            >
+              <ArrowLeft className="size-4" />
+              Back to accounts
+            </button>
+          )}
           <h1 className="text-4xl font-bold">Sign in</h1>
 
           <form.AppField

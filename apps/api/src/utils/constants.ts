@@ -1,1 +1,3 @@
-export const AUTHORIZED_ORIGINS = [process.env.FRONTEND_URL ?? ""];
+import { envVariables } from "@backend/env";
+
+export const AUTHORIZED_ORIGINS = [envVariables.FRONTEND_URL ?? ""];

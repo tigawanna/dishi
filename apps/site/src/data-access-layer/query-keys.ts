@@ -5,4 +5,5 @@ export const queryKeyPrefixes = {
   invitations: "invitations",
   kitchenProfile: "kitchenProfile",
   cuisineTypes: "cuisineTypes",
+  deviceSessions: "deviceSessions",
 } as const;

@@ -11,5 +11,5 @@ if (!connectionString) {
 
 export const db = drizzle(connectionString, {
   schema,
-  logger: new EnhancedQueryLogger(),
+  logger: envVariables.DB_LOG_LEVEL === "info" ? new EnhancedQueryLogger() : undefined,
 });

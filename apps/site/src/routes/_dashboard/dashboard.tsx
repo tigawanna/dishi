@@ -16,9 +16,14 @@ function RouteComponent() {
     },
   });
   const selectSessionMutation = useMutation({
-    mutationFn: async (sessionId: string) => {
+    mutationFn: async (sessionToken: string) => {
       const { data, error } = await authClient.multiSession.setActive({
-        sessionToken: sessionId,
+        sessionToken: sessionToken,
+        fetchOptions:{
+          headers:{
+            Cookie: `better-auth.session_token=${sessionToken}`,
+          }
+        }
       });
       if (error) throw error;
       return data;

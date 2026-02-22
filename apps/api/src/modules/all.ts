@@ -1,5 +1,4 @@
 import { isProductionEnv } from "@backend/env";
-import { auth, BetterAuthOpenAPI } from "@backend/lib/auth";
 import { AUTHORIZED_ORIGINS } from "@backend/utils/constants";
 import { logger } from "@bogeychan/elysia-logger";
 import { cors } from "@elysiajs/cors";
@@ -10,22 +9,23 @@ import { crudRouteGroup } from "./crud";
 import { indexRoute } from "./home";
 import { kitchenRoute } from "./kitchen";
 import { viewerRoute } from "./viewer";
+import { auth, BetterAuthOpenAPI } from "@backend/lib/auth";
 
 export const allRoutes = new Elysia()
   // .use(onErrorMiddleware)
-  .use(
-    logger({
-      level: "info",
-      transport: isProductionEnv
-        ? undefined
-        : {
-            target: "pino-pretty",
-            options: {
-              colorize: true,
-            },
-          },
-    }),
-  )
+  // .use(
+  //   logger({
+  //     level: "info",
+  //     transport: isProductionEnv
+  //       ? undefined
+  //       : {
+  //           target: "pino-pretty",
+  //           options: {
+  //             colorize: true,
+  //           },
+  //         },
+  //   }),
+  // )
   .use(
     cors({
       origin: AUTHORIZED_ORIGINS,
@@ -69,7 +69,10 @@ export const allRoutes = new Elysia()
       },
     }),
   )
-  .mount(auth.handler)
+  .mount(async(request) => {
+    console.log("=== MOUNT CALLED ===", request.method, new URL(request.url).pathname);
+    return await auth.handler(request);
+  })
   .use(indexRoute)
   .use(viewerRoute)
   .use(adminRoute)
