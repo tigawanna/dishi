@@ -9,6 +9,7 @@ import { useNavigate, useRouter } from "@tanstack/react-router";
 import { UserPlus } from "lucide-react";
 import { toast } from "sonner";
 import { Route } from "../index";
+import { viewerqueryOptions } from "@/data-access-layer/users/viewer";
 
 interface SessionPickerProps {
   onUseAnotherAccount: () => void;
@@ -29,17 +30,18 @@ export function SessionPicker({ onUseAnotherAccount }: SessionPickerProps) {
   const router = useRouter();
   const qc = useQueryClient();
   const { returnTo } = Route.useSearch();
-  const navigate = useNavigate({ from: "/auth/" });
+  const navigate = useNavigate();
   const { data: sessions = [] } = useQuery(deviceSessionsQueryOptions);
   const setActiveMutation = useMutation(setActiveSessionMutationOptions);
 
   const handleSelectSession = (sessionToken: string) => {
     setActiveMutation.mutate(sessionToken, {
-      onSuccess: () => {
+      onSuccess: async() => {
         toast.success("Welcome back");
-        qc.invalidateQueries({ queryKey: ["viewer"] });
-        router.invalidate();
-        navigate({ to: returnTo || "/", search: { returnTo: returnTo || "/" } });
+        await qc.invalidateQueries({ queryKey: ["viewer"] });
+        await router.invalidate();
+        await qc.fetchQuery(viewerqueryOptions)
+        navigate({ to: returnTo || "/dashboard"});
       },
       onError: (error) => {
         toast.error("Failed to switch session", {
