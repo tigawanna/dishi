@@ -36,7 +36,7 @@ export const allRoutes = new Elysia()
           const sData = JSON.parse(s) as TStreamWrite;
           const endpointUrl = new URL(sData.request.url);
           const endpointString = `${endpointUrl.pathname}${endpointUrl.search}`;
-          return `${colorizeMethod(sData.request.method)} ${sData.request.referrer} -> ${endpointString} - ${sData.responseTime.toFixed(2)}ms\n`;
+          return `${colorizeMethod(sData.request.method)} ${sData.request.referrer} -> ${endpointString} - ${sData?.responseTime?.toFixed(2)}ms\n`;
         },
       },
     }),
