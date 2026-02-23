@@ -22,14 +22,15 @@
  */
 
 import { auth } from "@backend/lib/auth";
-import { organizationAc, BetterAuthUserRoles } from "@repo/isomorphic/auth-roles";
+import { BetterAuthOrgRole, organizationAc } from "@repo/isomorphic/auth-roles";
 import type { ReadonlyToMutable } from "@repo/isomorphic/typescript-helpers";
 import { Elysia } from "elysia";
 
 type PermissionsStatements = ReadonlyToMutable<typeof organizationAc.statements>;
 
 // Better Auth middleware with authentication and RBAC macros
-export const betterAuthZMiddleware = new Elysia({ name: "better-auth" }).mount(auth.handler).macro({
+export const betterAuthZMiddleware = new Elysia({ name: "better-auth" })
+.mount(auth.handler).macro({
   auth: {
     async resolve({ status, request: { headers } }) {
       const session = await auth.api.getSession({
@@ -52,7 +53,7 @@ export const betterAuthZMiddleware = new Elysia({ name: "better-auth" }).mount(a
       };
     },
   },
-  requireRole: (requireRole: BetterAuthUserRoles[]) => ({
+  requireOrgRole: (requireRole: BetterAuthOrgRole[]) => ({
     /**
      * Checks if the authenticated user has one of the required roles
      * @param requireRole - Array of role names allowed to access this route
@@ -79,14 +80,14 @@ export const betterAuthZMiddleware = new Elysia({ name: "better-auth" }).mount(a
           message: "Authentication required to access this resource.",
         });
 
-      const userRole = (session.user.role || "manager") as BetterAuthUserRoles;
-      if (!requireRole.includes(userRole)) {
+      const memberRole = (session.user.role || "staff") as BetterAuthOrgRole;
+      if (!requireRole.includes(memberRole)) {
         return status(403, {
           code: "FORBIDDEN",
           name: "Forbidden",
           message: `Access denied. Requires one of the following roles: ${requireRole.join(
             ", ",
-          )}. Your role: ${userRole}.`,
+          )}. Your role: ${memberRole}.`,
         });
       }
 
@@ -96,7 +97,7 @@ export const betterAuthZMiddleware = new Elysia({ name: "better-auth" }).mount(a
       };
     },
   }),
-  requirePermission: (permission: PermissionsStatements) => ({
+  requireOrgPermission: (permission: PermissionsStatements) => ({
     /**
      * Checks if the authenticated user's role has specific permissions
      * @param permission - Object mapping resources to required actions
@@ -114,7 +115,7 @@ export const betterAuthZMiddleware = new Elysia({ name: "better-auth" }).mount(a
       const session = await auth.api.getSession({
         headers,
       });
-      console.log("betterAuthZMiddleware - requirePermission:", session?.user.id);
+      console.log("betterAuthZMiddleware - requirePermission:", session?.user);
       if (!session)
         return status(401, {
           code: "UNAUTHORIZED",
@@ -122,10 +123,11 @@ export const betterAuthZMiddleware = new Elysia({ name: "better-auth" }).mount(a
           message: "Authentication required to access this resource.",
         });
 
-      const userRole = (session.user.role || "manager") as BetterAuthUserRoles;
-      const hasPermission = await auth.api.userHasPermission({
+      const memberRole = (session.user.role || "manager") as BetterAuthOrgRole;
+
+      const hasPermission = await auth.api.hasPermission({
+        headers,
         body: {
-          role: userRole,
           permissions: permission,
         },
       });

@@ -49,7 +49,8 @@ const organizationRoles = {
 
 };
 
-type BetterAuthUserRoles = keyof typeof organizationRoles;
-type BetterAuthOrgRoles = "owner" | "staff" | "member" | ("owner" | "staff" | "member")[];
+type BetterAuthUserRoles = "user"|"admin"
+type BetterAuthOrgRole = "owner" | "staff" | "member" 
+type BetterAuthOrgRoles = BetterAuthOrgRole| BetterAuthOrgRole[];
 
-export { organizationAc, organizationRoles, type BetterAuthOrgRoles, type BetterAuthUserRoles };
+export { organizationAc, organizationRoles, type BetterAuthOrgRole, type BetterAuthOrgRoles, type BetterAuthUserRoles };

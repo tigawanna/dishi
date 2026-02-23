@@ -1,4 +1,5 @@
 import { authClient, type BetterAuthSession } from "@/lib/better-auth/client";
+import { treatyClient } from "@/lib/elysia/eden-treaty";
 import { mutationOptions, queryOptions } from "@tanstack/react-query";
 import { queryKeyPrefixes } from "../query-keys";
 
@@ -19,7 +20,7 @@ export const deviceSessionsQueryOptions = queryOptions({
 
 export const setActiveSessionMutationOptions = mutationOptions({
   mutationFn: async (sessionToken: string) => {
-    const { data, error } = await authClient.multiSession.setActive({
+    const { data, error } = await treatyClient.api.session["set-active"].post({
       sessionToken,
     });
     if (error) throw error;

@@ -7,7 +7,7 @@ export const viewerRoute = new Elysia().get(
     const session = await auth.api.getSession({
       headers: request.headers,
     });
-    console.log("========= viewerRoute - session:", request.headers);
+    // console.log("========= viewerRoute - session:", request.headers);
 
     if (!session) {
       set.status = 401;

@@ -37,7 +37,6 @@ export const auth = betterAuth({
   },
 });
 
-
 let _schema: ReturnType<typeof auth.api.generateOpenAPISchema>;
 const getSchema = async () => (_schema ??= auth.api.generateOpenAPISchema());
 

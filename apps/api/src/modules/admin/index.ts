@@ -175,13 +175,13 @@ export const adminRoute = new Elysia()
       }
     },
     {
-      requireRole: ["owner"],
+      requireOrgPermissionRole: ["owner"],
       query: listQueryParamsSchema,
     },
   )
   .post(
     "/admin/add-to-organization",
-    ({ body, user }) => {
+    ({ body }) => {
       return auth.api.addMember({
         body: {
           userId: body.userId,
