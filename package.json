@@ -13,7 +13,6 @@
     "quality:fix": "turbo run //#lint:fix //#format:fix"
   },
   "dependencies": {
-    "better-auth": "^1.4.19"
   },
   "devDependencies": {
     "oxfmt": "^0.27.0",

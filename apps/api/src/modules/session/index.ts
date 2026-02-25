@@ -37,9 +37,6 @@ function hasMainSessionCookie(cookieHeader: string): boolean {
 }
 
 export const sessionRoute = new Elysia()
-  .get("/api/session/get-active", async () => {
-    throw new Error("Not implemented");
-  })
   .post(
     "/api/session/set-active",
     async ({ body, request, set }) => {

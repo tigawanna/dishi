@@ -2,6 +2,7 @@ import { db } from "@backend/db/client";
 import { AUTHORIZED_ORIGINS } from "@backend/utils/constants";
 import { organizationAc, organizationRoles } from "@repo/isomorphic/auth-roles";
 import { betterAuth } from "better-auth";
+import { createAuthMiddleware } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { admin, apiKey, bearer, openAPI, organization, multiSession } from "better-auth/plugins";
 
@@ -11,12 +12,34 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  logger: {
+    disabled: false,
+    disableColors: false,
+  },
   database: drizzleAdapter(db, {
-    provider: "pg", // or "mysql", "sqlite"
+    provider: "pg",
   }),
 
+  hooks: {
+    //  not working consider a cutom auth endpoint with custom cookie sending
+    // after: createAuthMiddleware(async (ctx) => {
+    //   const newSession = ctx.context.newSession;
+    //   if (!newSession) return;
+    //   console.log("========= after - newSession:", newSession);
+    //   ctx.setCookie("test", "test", {
+    //     httpOnly: true,
+    //     secure: true,
+    //     maxAge: 60 * 60 * 24 * 30,
+    //     path: "/",
+    //   });
+    //   console.log("========= after - authCookies:", ctx.context.authCookies);
+    //   console.log("---  aftre headers -- ",ctx.headers)
+    //   const { name, attributes } = ctx.context.authCookies.sessionToken;
+    //   await ctx.setSignedCookie(name, newSession.session.token, ctx.context.secret, attributes);
+    // }),
+  },
+
   plugins: [
-    // tanstackStartCookies(),
     apiKey(),
     bearer(),
     openAPI(),

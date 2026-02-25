@@ -5,7 +5,7 @@ export default defineConfig({
   out: "./src/db/migrations",
   schema: "./src/db/schema/*",
   dialect: "postgresql",
-  extensionsFilters: ["postgis", "pg_vector"],
+  extensionsFilters: ["postgis"],
   dbCredentials: {
     url: process.env.DATABASE_URL!,
   },
