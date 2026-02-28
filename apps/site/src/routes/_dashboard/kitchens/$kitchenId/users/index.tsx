@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import { AdminUsersPage } from "./-components/AdminUsersPage";
 
 export const Route = createFileRoute("/_dashboard/kitchens/$kitchenId/users/")({
   component: KitchenUsersPage,
@@ -14,7 +13,7 @@ export const Route = createFileRoute("/_dashboard/kitchens/$kitchenId/users/")({
 function KitchenUsersPage() {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
-      <AdminUsersPage />
+      <div className="text-2xl font-bold">Users</div>
     </div>
   );
 }
