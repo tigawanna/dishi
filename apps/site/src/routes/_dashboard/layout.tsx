@@ -1,4 +1,3 @@
-import { viewerMiddleware } from "@/data-access-layer/users/viewer";
 import { authClient } from "@/lib/better-auth/client";
 import { RouterNotFoundComponent } from "@/lib/tanstack/router/RouterNotFoundComponent";
 import { RouterPendingComponent } from "@/lib/tanstack/router/RouterPendingComponent";
@@ -8,6 +7,7 @@ import { DashboardLayout } from "./-components/dashoboard-sidebar/DashboardLayou
 import {
   getDashboardRoutes
 } from "./-components/dashoboard-sidebar/dashboard_routes";
+import { viewerMiddleware } from "@/data-access-layer/auth/viewer";
 
 export const Route = createFileRoute("/_dashboard")({
   pendingComponent: () => <RouterPendingComponent />,

@@ -2,14 +2,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  Empty,
-  EmptyContent,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyMedia,
-  EmptyTitle,
+    Empty,
+    EmptyContent,
+    EmptyDescription,
+    EmptyHeader,
+    EmptyMedia,
+    EmptyTitle,
 } from "@/components/ui/empty";
-import { fullOrganizationQueryOptions } from "@/data-access-layer/users/user-orgs";
+import { fullOrganizationQueryOptions } from "@/data-access-layer/orgs/organisation-query-options";
 import { getRelativeTimeString } from "@/utils/date-helpers";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
@@ -46,10 +46,7 @@ export function OrgDetails({ orgId }: OrgDetailsProps) {
           </EmptyHeader>
           <EmptyContent>
             <div className="flex gap-2">
-              <Button
-                variant="outline"
-                onClick={() => navigate({ to: "/kitchens" })}
-              >
+              <Button variant="outline" onClick={() => navigate({ to: "/kitchens" })}>
                 Back to List
               </Button>
               <Button onClick={() => query.refetch()}>Try Again</Button>
@@ -83,9 +80,7 @@ export function OrgDetails({ orgId }: OrgDetailsProps) {
             </EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
-            <Button onClick={() => navigate({ to: "/kitchens" })}>
-              Back to Organizations
-            </Button>
+            <Button onClick={() => navigate({ to: "/kitchens" })}>Back to Organizations</Button>
           </EmptyContent>
         </Empty>
       </div>
@@ -99,11 +94,7 @@ export function OrgDetails({ orgId }: OrgDetailsProps) {
       {/* Header */}
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-3">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => navigate({ to: "/kitchens" })}
-          >
+          <Button variant="ghost" size="icon" onClick={() => navigate({ to: "/kitchens" })}>
             <ArrowLeft className="h-4 w-4" />
           </Button>
           <div>
@@ -212,8 +203,7 @@ export function OrgDetails({ orgId }: OrgDetailsProps) {
                     to: `/kitchens/$kitchenId/staff`,
                     params: { kitchenId: org.id },
                   })
-                }
-              >
+                }>
                 View All
               </Button>
             </div>
@@ -223,8 +213,7 @@ export function OrgDetails({ orgId }: OrgDetailsProps) {
               {org.members.slice(0, 5).map((member) => (
                 <div
                   key={member?.id}
-                  className="hover:bg-muted/50 flex items-center justify-between rounded p-2"
-                >
+                  className="hover:bg-muted/50 flex items-center justify-between rounded p-2">
                   <div>
                     <p className="text-sm font-medium">{member?.userId ?? "Unknown"}</p>
                     <p className="text-muted-foreground text-xs">

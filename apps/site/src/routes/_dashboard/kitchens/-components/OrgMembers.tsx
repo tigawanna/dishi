@@ -28,7 +28,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { organizationMembersCollection } from "@/data-access-layer/collections/admin/organization-members-collection";
+import { organizationMembersCollection } from "@/data-access-layer/orgs/organization-members-collection";
+
 import { BetterAuthUserRoles } from "@/lib/better-auth/client";
 import { TanstackDBColumnFilters } from "@/lib/tanstack/db/TanstackDBColumnfilters";
 import { createSortableColumns } from "@/lib/tanstack/db/sortable-columns";

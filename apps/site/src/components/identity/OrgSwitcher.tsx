@@ -3,23 +3,23 @@
 import { Building2, ChevronsUpDown, Plus } from "lucide-react";
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem,
+    useSidebar,
 } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { organizationsCollection } from "@/data-access-layer/collections/admin/organizations-collection";
-import { setActiveOrganizationMutationOptions } from "@/data-access-layer/users/user-orgs";
+import { setActiveOrganizationMutationOptions } from "@/data-access-layer/orgs/organisation-query-options";
+import { organizationsCollection } from "@/data-access-layer/orgs/organizations-collection";
 import { authClient } from "@/lib/better-auth/client";
 import { CreateOrg } from "@/routes/_dashboard/kitchens/-components/OrgDialogs";
 import { useLiveQuery } from "@tanstack/react-db";

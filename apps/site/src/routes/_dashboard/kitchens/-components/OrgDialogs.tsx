@@ -1,21 +1,21 @@
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-  createOrganizationMutationOptions,
-  updateOrganizationMutationOptions,
-} from "@/data-access-layer/users/user-orgs";
+    createOrganizationMutationOptions,
+    updateOrganizationMutationOptions,
+} from "@/data-access-layer/orgs/organisation-query-options";
 import { useMutation } from "@tanstack/react-query";
+import { Plus } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { OrgForm } from "./OrgForm";
-import { Plus } from "lucide-react";
 
 interface CreateOrgProps {
   onCreated?: (org: any) => void;

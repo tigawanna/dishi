@@ -1,11 +1,11 @@
+import { viewerqueryOptions } from "@/data-access-layer/auth/viewer";
 import {
-  createKitchenProfileMutation,
-  createOrganizationMutation,
-  setKitchenCuisinesMutation,
-  type OperatingHours,
+    createKitchenProfileMutation,
+    createOrganizationMutation,
+    setKitchenCuisinesMutation,
+    type OperatingHours,
 } from "@/data-access-layer/kitchen/kitchen-profile";
 import { queryKeyPrefixes } from "@/data-access-layer/query-keys";
-import { viewerqueryOptions } from "@/data-access-layer/users/viewer";
 import { authClient } from "@/lib/better-auth/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useRouter } from "@tanstack/react-router";

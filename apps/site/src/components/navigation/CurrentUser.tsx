@@ -1,18 +1,18 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuGroup,
-  DropdownMenuSeparator,
-  DropdownMenuItem,
-  DropdownMenuShortcut,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { User, CreditCard, Settings, Keyboard, Mail, UserCircle } from "lucide-react";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useViewer } from "@/data-access-layer/auth/viewer";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
 import { Link, useLocation } from "@tanstack/react-router";
-import { useViewer } from "@/data-access-layer/users/viewer";
+import { CreditCard, Keyboard, Mail, Settings, User, UserCircle } from "lucide-react";
 
 interface CurrentUserProps {}
 
@@ -34,8 +34,7 @@ export function CurrentUser({}: CurrentUserProps) {
               <Link
                 className="flex items-center gap-2"
                 search={{ returnTo: location.pathname }}
-                to="/auth"
-              >
+                to="/auth">
                 <User className="mr-2 size-4" />
                 <span>Login</span>
                 <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>

@@ -1,6 +1,6 @@
-import { AsyncSelect } from "../custom-ui/AsyncSelect";
+import { userOrgsQueryOptions } from "@/data-access-layer/orgs/organisation-query-options";
 import { useState } from "react";
-import { userOrgsQueryOptions } from "@/data-access-layer/users/user-orgs";
+import { AsyncSelect } from "../custom-ui/AsyncSelect";
 
 interface ListOrgsProps {}
 

@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { userOrgsQueryOptions } from "@/data-access-layer/users/user-orgs";
+import { userOrgsQueryOptions } from "@/data-access-layer/orgs/organisation-query-options";
 import { getRelativeTimeString } from "@/utils/date-helpers";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";

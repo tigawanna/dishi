@@ -27,7 +27,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { organizationsCollection } from "@/data-access-layer/collections/admin/organizations-collection";
+
 import { useTSRSearchQuery } from "@/lib/tanstack/router/use-search-query";
 import { getRelativeTimeString } from "@/utils/date-helpers";
 import { count, ilike } from "@tanstack/db";
@@ -38,6 +38,7 @@ import { useState } from "react";
 import { EditOrg } from "./OrgDialogs";
 import { createSortableColumns } from "@/lib/tanstack/db/sortable-columns";
 import { TanstackDBColumnFilters } from "@/lib/tanstack/db/TanstackDBColumnfilters";
+import { organizationsCollection } from "@/data-access-layer/orgs/organizations-collection";
 
 export function OrgList() {
   const search = useSearch({ from: "/_dashboard/kitchens/" });

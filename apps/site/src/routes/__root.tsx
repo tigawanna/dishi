@@ -1,14 +1,14 @@
-import { viewerqueryOptions, type TViewer } from "@/data-access-layer/users/viewer";
+import { viewerqueryOptions, type TViewer } from "@/data-access-layer/auth/viewer";
 import { HeadContent, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
 
+import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { TanstackDevtools } from "@/lib/tanstack/devtools/devtools";
 import { ThemeProvider } from "@/lib/tanstack/router/theme-provider";
 import type { QueryClient } from "@tanstack/react-query";
 import { z } from "zod";
-import { Toaster } from "@/components/ui/sonner";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -79,7 +79,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <TooltipProvider>
             {children}
             <TanstackDevtools />
-            <Toaster/>
+            <Toaster />
           </TooltipProvider>
         </ThemeProvider>
         <Scripts />

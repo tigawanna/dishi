@@ -1,4 +1,4 @@
-import { useViewer } from "@/data-access-layer/users/viewer";
+import { useViewer } from "@/data-access-layer/auth/viewer";
 import { MutationButton } from "@/lib/tanstack/query/MutationButton";
 
 export function LogoutButton() {

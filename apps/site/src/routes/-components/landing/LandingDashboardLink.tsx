@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useViewer } from "@/data-access-layer/users/viewer";
+import { useViewer } from "@/data-access-layer/auth/viewer";
 import { Link } from "@tanstack/react-router";
 
 export default function LandingDashboardLink() {

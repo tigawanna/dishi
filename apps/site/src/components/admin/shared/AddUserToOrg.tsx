@@ -1,17 +1,17 @@
-import { organizationsCollection } from "@/data-access-layer/collections/admin/organizations-collection";
-import { useLiveQuery } from "@tanstack/react-db";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from "@/components/ui/dialog";
-import { Plus } from "lucide-react";
+import { organizationsCollection } from "@/data-access-layer/orgs/organizations-collection";
 import { useAppForm } from "@/lib/tanstack/form";
+import { useLiveQuery } from "@tanstack/react-db";
 import { formOptions } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
+import { Plus } from "lucide-react";
 
 interface AddUserToOrgProps {
   orgIds?: string[];

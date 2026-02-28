@@ -1,5 +1,6 @@
-import { auth } from "@/lib/auth";
+
 import { authClient, BetterAuthSession } from "@/lib/better-auth/client";
+import { treatyClient } from "@/lib/elysia/eden-treaty";
 import { safeStringToUrl } from "@/utils/url";
 import { queryOptions, useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { redirect } from "@tanstack/react-router";
@@ -53,10 +54,10 @@ export function useViewer() {
 export const viewerMiddleware = createMiddleware()
 .server(async ({ next, request }) => {
   const headers = getRequestHeaders();
-  const data = await auth.api.getSession({
+  const data = await treatyClient.viewer.get({
     headers,
   });
-  if (!data?.user) {
+  if (!data?.data?.user) {
     const returnTo = safeStringToUrl(request.url)?.pathname ?? "/";
     throw redirect({ to: "/auth", search: { returnTo } });
   }
