@@ -1,4 +1,4 @@
-import { viewerqueryOptions } from "@/data-access-layer/users/viewer";
+import { viewerqueryOptions } from "@/data-access-layer/auth/viewer";
 import { authClient } from "@/lib/better-auth/client";
 import { useAppForm } from "@/lib/tanstack/form";
 import { formOptions } from "@tanstack/react-form";
@@ -41,26 +41,21 @@ export function SignupComponent() {
         name: data.name,
         image: data.image,
       });
-      return result;
+      if (result.error) throw result.error;
+      return result.data;
     },
     async onSuccess(data) {
-      if (data?.error) {
-        toast.error("Something went wrong", {
-          description: data.error.message,
-          duration: 10_000,
-        });
-        return;
-      }
       toast.success("Signed up", {
-        description: `Welcome ${data?.data?.user?.name}`,
+        description: `Welcome ${data?.user?.name}`,
       });
-      await qc.invalidateQueries(viewerqueryOptions);
       await router.invalidate();
+      await qc.fetchQuery(viewerqueryOptions);
       navigate({ to: returnTo ?? "/profile" });
     },
     onError(error) {
       toast.error("Something went wrong", {
-        description: error.message,
+        description: error instanceof Error ? error.message : "Unknown error",
+        duration: 10_000,
       });
     },
   });

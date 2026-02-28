@@ -1,13 +1,14 @@
-import { viewerLogin, viewerqueryOptions, type TViewerLoginPayload } from "@/data-access-layer/users/viewer";
 import { useAppForm } from "@/lib/tanstack/form";
 import { formOptions } from "@tanstack/react-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { Route } from "../index";
+import { TViewerLoginPayload, viewerqueryOptions } from "@/data-access-layer/auth/viewer";
+import { authClient } from "@/lib/better-auth/client";
 
 interface SigninComponentProps {
   onBackToSessions?: () => void;
@@ -23,32 +24,32 @@ const formOpts = formOptions({
 export function SigninComponent({ onBackToSessions }: SigninComponentProps) {
   const [showPassword, setShowPassword] = useState(false);
   const qc = useQueryClient();
+  const router = useRouter();
   const { returnTo } = Route.useSearch();
   const navigate = useNavigate({ from: "/auth/" });
 
   const mutation = useMutation({
-    mutationFn: (data: TViewerLoginPayload) => viewerLogin(data),
-    onSuccess(res) {
-      const data = res.data;
-      const err = res.error;
-      if (err || !data?.user) {
-        toast.error("Something went wrong", {
-          description: err?.message ?? "Invalid email or password",
-          position: "top-center",
-        });
-        return;
-      }
+    mutationFn: async (payload: TViewerLoginPayload) => {
+      const { data, error } = await authClient.signIn.email({
+        email: payload.email,
+        password: payload.password,
+      });
+      if (error) throw error;
+      return data;
+    },
+    onError: async (error) => {
+      toast.error("Something went wrong", {
+        description: error instanceof Error ? error.message : "Unknown error",
+        duration: 10_000,
+      });
+    },
+    onSuccess: async (data) => {
       toast.success("Signed in", {
         description: `Welcome back ${data.user.name}`,
       });
-      qc.setQueryData(viewerqueryOptions.queryKey, () => ({ data, error: null }));
-      qc.invalidateQueries({ queryKey: viewerqueryOptions.queryKey });
+      await router.invalidate();
+      await qc.fetchQuery(viewerqueryOptions);
       navigate({ to: returnTo || "/", search: { returnTo: returnTo || "/" } });
-    },
-    onError(error) {
-      toast.error("Something went wrong", {
-        description: error instanceof Error ? error.message : "Unknown error",
-      });
     },
   });
 
@@ -68,15 +69,13 @@ export function SigninComponent({ onBackToSessions }: SigninComponentProps) {
           e.stopPropagation();
           form.handleSubmit();
         }}
-        className="flex h-full w-[90%] flex-col items-center justify-center gap-6 rounded-lg p-[2%] md:w-[70%] lg:w-[40%]"
-      >
+        className="flex h-full w-[90%] flex-col items-center justify-center gap-6 rounded-lg p-[2%] md:w-[70%] lg:w-[40%]">
         <div className="flex w-full flex-col items-center justify-center gap-4">
           {onBackToSessions && (
             <button
               type="button"
               onClick={onBackToSessions}
-              className="text-muted-foreground hover:text-foreground flex items-center gap-1 self-start text-sm transition-colors"
-            >
+              className="text-muted-foreground hover:text-foreground flex items-center gap-1 self-start text-sm transition-colors">
               <ArrowLeft className="size-4" />
               Back to accounts
             </button>
@@ -87,8 +86,7 @@ export function SigninComponent({ onBackToSessions }: SigninComponentProps) {
             name="email"
             validators={{
               onChange: z.string().min(1, "Email is required"),
-            }}
-          >
+            }}>
             {(field) => <field.TextField label="Email or username" />}
           </form.AppField>
 
@@ -96,8 +94,7 @@ export function SigninComponent({ onBackToSessions }: SigninComponentProps) {
             name="password"
             validators={{
               onChange: z.string().min(8, "Password must be at least 8 characters"),
-            }}
-          >
+            }}>
             {(field) => <field.PasswordField label="Password" showPassword={showPassword} />}
           </form.AppField>
 

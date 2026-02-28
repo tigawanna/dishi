@@ -1,7 +1,7 @@
 import { node } from "@elysiajs/node";
 import { Elysia } from "elysia";
-import { allRoutes } from "./modules/all";
 import { envVariables } from "./env";
+import { allRoutes } from "./modules/all";
 
 // Export app instance for type generation
 export const app = new Elysia({ adapter: node() })

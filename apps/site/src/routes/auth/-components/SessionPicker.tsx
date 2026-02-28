@@ -4,12 +4,12 @@ import {
   deviceSessionsQueryOptions,
   setActiveSessionMutationOptions,
 } from "@/data-access-layer/auth/device-sessions";
+import { viewerqueryOptions } from "@/data-access-layer/auth/viewer";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useRouter } from "@tanstack/react-router";
 import { UserPlus } from "lucide-react";
 import { toast } from "sonner";
 import { Route } from "../index";
-import { viewerqueryOptions } from "@/data-access-layer/users/viewer";
 
 interface SessionPickerProps {
   onUseAnotherAccount: () => void;
@@ -36,12 +36,11 @@ export function SessionPicker({ onUseAnotherAccount }: SessionPickerProps) {
 
   const handleSelectSession = (sessionToken: string) => {
     setActiveMutation.mutate(sessionToken, {
-      onSuccess: async() => {
+      onSuccess: async () => {
         toast.success("Welcome back");
-        await qc.invalidateQueries({ queryKey: ["viewer"] });
         await router.invalidate();
-        await qc.fetchQuery(viewerqueryOptions)
-        navigate({ to: returnTo || "/dashboard"});
+        await qc.fetchQuery(viewerqueryOptions);
+        navigate({ to: returnTo || "/dashboard" });
       },
       onError: (error) => {
         toast.error("Failed to switch session", {
@@ -55,9 +54,9 @@ export function SessionPicker({ onUseAnotherAccount }: SessionPickerProps) {
     <div className="flex h-full w-full flex-1 items-center justify-center p-5">
       <div className="flex w-full max-w-md flex-col items-center gap-6">
         <div className="flex flex-col items-center gap-2">
-          <img src="/logo.svg" alt="Dishi" className="h-12 w-12 object-contain" />
+          <img src="/logo.svg" alt="demo" className="h-12 w-12 object-contain" />
           <h1 className="text-2xl font-bold">Choose an account</h1>
-          <p className="text-muted-foreground text-sm">to continue to Dishi</p>
+          <p className="text-muted-foreground text-sm">to continue to demo</p>
         </div>
 
         <div className="bg-card w-full overflow-hidden rounded-xl border shadow-sm">
@@ -67,8 +66,7 @@ export function SessionPicker({ onUseAnotherAccount }: SessionPickerProps) {
               type="button"
               disabled={setActiveMutation.isPending}
               onClick={() => handleSelectSession(session.token)}
-              className="hover:bg-accent flex w-full items-center gap-4 border-b px-4 py-3 transition-colors last:border-b-0 disabled:opacity-50"
-            >
+              className="hover:bg-accent flex w-full items-center gap-4 border-b px-4 py-3 transition-colors last:border-b-0 disabled:opacity-50">
               <Avatar size="lg">
                 {user.image && <AvatarImage src={user.image} alt={user.name} />}
                 <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
@@ -86,8 +84,7 @@ export function SessionPicker({ onUseAnotherAccount }: SessionPickerProps) {
           <button
             type="button"
             onClick={onUseAnotherAccount}
-            className="hover:bg-accent flex w-full items-center gap-4 px-4 py-3 transition-colors"
-          >
+            className="hover:bg-accent flex w-full items-center gap-4 px-4 py-3 transition-colors">
             <div className="bg-muted flex size-10 items-center justify-center rounded-full">
               <UserPlus className="text-muted-foreground size-5" />
             </div>
