@@ -11,6 +11,7 @@ import { SigninComponent } from "./-components/SigninComponent";
 
 const searchparams = z.object({
   returnTo: z.string().default("/"),
+  useAnotherAccount: z.boolean().default(false).optional(),
 });
 export const Route = createFileRoute("/auth/")({
   component: SigninPage,
@@ -18,7 +19,8 @@ export const Route = createFileRoute("/auth/")({
   async beforeLoad(ctx) {
     const viewer = ctx.context?.viewer;
     const returnTo = ctx.search?.returnTo ?? "/";
-    if (viewer?.user) {
+    const useAnotherAccount = ctx.search?.useAnotherAccount ?? false;
+    if (viewer?.user && !useAnotherAccount) {
       throw redirect({ to: returnTo });
     }
   },
