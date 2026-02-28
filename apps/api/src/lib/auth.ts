@@ -2,10 +2,9 @@ import { db } from "@backend/db/client";
 import { AUTHORIZED_ORIGINS } from "@backend/utils/constants";
 import { organizationAc, organizationRoles } from "@repo/isomorphic/auth-roles";
 import { betterAuth } from "better-auth";
-import { createAuthMiddleware } from "better-auth/api";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { admin, apiKey, bearer, openAPI, organization, multiSession } from "better-auth/plugins";
-
+import { admin, apiKey, bearer, multiSession, openAPI, organization } from "better-auth/plugins";
+import { tanstackStartCookies } from "better-auth/tanstack-start";
 export const auth = betterAuth({
   appName: "Dishi",
   trustedOrigins: AUTHORIZED_ORIGINS,
@@ -40,6 +39,7 @@ export const auth = betterAuth({
   },
 
   plugins: [
+    tanstackStartCookies(),
     apiKey(),
     bearer(),
     openAPI(),

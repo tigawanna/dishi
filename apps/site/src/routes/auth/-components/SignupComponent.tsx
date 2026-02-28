@@ -26,6 +26,8 @@ const formOpts = formOptions({
   } satisfies SignupUserPayload,
 });
 
+
+
 export function SignupComponent() {
   const { returnTo } = useSearch({ from: "/auth/signup" });
   const [showPassword, setShowPassword] = useState(false);
