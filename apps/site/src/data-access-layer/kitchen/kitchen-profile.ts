@@ -1,5 +1,5 @@
 import { authClient } from "@/lib/better-auth/client";
-import { treatyClient } from "@/lib/elysia/eden-treaty";
+import { honoClient } from "@/lib/api/client";
 import { mutationOptions, queryOptions } from "@tanstack/react-query";
 import { queryKeyPrefixes } from "../query-keys";
 
@@ -39,10 +39,11 @@ export const kitchenProfileByOrgQueryOptions = (orgId: string) =>
   queryOptions({
     queryKey: [queryKeyPrefixes.kitchenProfile, "by-org", orgId] as const,
     queryFn: async () => {
-      const byOrg = (treatyClient.kitchen.profile as unknown as Record<string, Record<string, { get: (opts: { params: { orgId: string } }) => Promise<{ data: unknown; error: unknown }> }>>)["by-org"][":orgId"];
-      const { data, error } = await byOrg.get({ params: { orgId } });
-      if (error) throw new Error(String(error));
-      return data;
+      const response = await (honoClient as any)["api/kitchen/profile/by-org/:orgId"].$get({
+        params: { orgId },
+      });
+      if (!response.ok) throw new Error(String(response.error));
+      return response.data;
     },
     enabled: !!orgId,
   });
@@ -60,8 +61,7 @@ export const kitchenCuisinesQueryOptions = (
       params?.perPage ?? 100,
     ] as const,
     queryFn: async () => {
-      const profile = treatyClient.kitchen.profile as unknown as Record<string, { cuisines: { get: (opts: { params: { kitchenId: string }; query?: { page?: number; perPage?: number; sortBy?: string; sortOrder?: string } }) => Promise<{ data: unknown; error: unknown }> } }>;
-      const { data, error } = await profile[":kitchenId"].cuisines.get({
+      const response = await (honoClient as any)["api/kitchen/profile/:kitchenId/cuisines"].$get({
         params: { kitchenId },
         query: {
           page: params?.page ?? 1,
@@ -70,8 +70,8 @@ export const kitchenCuisinesQueryOptions = (
           sortOrder: "asc",
         },
       });
-      if (error) throw new Error(String(error));
-      return data;
+      if (!response.ok) throw new Error(String(response.error));
+      return response.data;
     },
     enabled: !!kitchenId,
   });
@@ -94,9 +94,11 @@ export const createOrganizationMutation = mutationOptions({
 
 export const createKitchenProfileMutation = mutationOptions({
   mutationFn: async (payload: CreateKitchenProfilePayload) => {
-    const { data, error } = await treatyClient.kitchen.profile.post(payload);
-    if (error) throw new Error(String(error));
-    return data;
+    const response = await (honoClient as any)["api/kitchen/profile"].$post({
+      json: payload,
+    });
+    if (!response.ok) throw new Error(String(response.error));
+    return response.data;
   },
   meta: {
     invalidates: [[queryKeyPrefixes.kitchenProfile]],
@@ -105,13 +107,12 @@ export const createKitchenProfileMutation = mutationOptions({
 
 export const setKitchenCuisinesMutation = mutationOptions({
   mutationFn: async ({ kitchenId, cuisineIds }: SetKitchenCuisinesPayload) => {
-    const profile = treatyClient.kitchen.profile as unknown as Record<string, { cuisines: { put: (body: { cuisineIds: string[] }, opts: { params: { kitchenId: string } }) => Promise<{ data: unknown; error: unknown }> } }>;
-    const { data, error } = await profile[":kitchenId"].cuisines.put(
-      { cuisineIds },
-      { params: { kitchenId } },
-    );
-    if (error) throw new Error(String(error));
-    return data;
+    const response = await (honoClient as any)["api/kitchen/profile/:kitchenId/cuisines"].$put({
+      params: { kitchenId },
+      json: { cuisineIds },
+    });
+    if (!response.ok) throw new Error(String(response.error));
+    return response.data;
   },
   meta: {
     invalidates: [[queryKeyPrefixes.kitchenProfile, "cuisines"]],

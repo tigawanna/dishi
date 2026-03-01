@@ -5,7 +5,7 @@
  */
 
 import { authClient } from "@/lib/better-auth/client";
-import { treatyClient } from "@/lib/elysia/eden-treaty";
+import { honoClient } from "@/lib/api/client";
 import { parseParameterizedSorts, parseWhereWithHandlers } from "@/lib/tanstack/db/utils";
 import { queryClient } from "@/lib/tanstack/query/queryclient";
 import { createCollection, parseLoadSubsetOptions } from "@tanstack/db";
@@ -30,11 +30,8 @@ export const organizationMembersCollection = createCollection(
 
       const organizationId = where?.organizationId?._eq as string;
       const page = (where?.page?._eq as number) || 1;
-      const response = await treatyClient.admin
-        .organizations({
-          id: organizationId,
-        })
-        .members.get({
+      const response = await (honoClient as any).api["admin/organizations/:id/members"]
+        .$get({
           query: {
             page: page,
             perPage: loadedSubs?.limit ?? 24,
@@ -58,11 +55,11 @@ export const organizationMembersCollection = createCollection(
               status: "error",
             };
           }
-          const { items: _items, ...metadata } = data;
+          const { items: _items, ...metadata } = (data as any).items || data;
           return metadata;
         },
       );
-      const members = response.data?.items;
+      const members = (response.data as any)?.items;
       return members?.map((member) => ({ ...member, page })) ?? [];
     },
     queryClient,

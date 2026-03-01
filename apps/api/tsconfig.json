@@ -1,23 +1,20 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "Bundler",
     "strict": true,
-    "lib": ["ESNext", "DOM"],
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "noUnusedLocals": false,
-    "resolveJsonModule": true,
-    "noErrorTruncation": true,
     "noEmit": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ESNext", "DOM"],
+    "baseUrl": ".",
     "paths": {
-      "@backend/*": ["./src/*"]
+      "@api/*": ["./src/*"]
     }
   },
-  "tsc-alias": {
-    "resolveFullPaths": true
-  }
+  "include": ["src/**/*"]
 }

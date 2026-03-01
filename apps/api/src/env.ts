@@ -24,21 +24,9 @@ const EnvSchema = z.object({
   BREVO_USER: z.string().optional(),
   EMAIL_FROM: z.string().optional(),
 });
-// .superRefine((input, ctx) => {
-//   if (input.NODE_ENV === "production" && !input.DATABASE_AUTH_TOKEN) {
-//     ctx.addIssue({
-//       code: z.ZodIssueCode.invalid_type,
-//       expected: "string",
-//       received: "undefined",
-//       path: ["DATABASE_AUTH_TOKEN"],
-//       message: "Must be set when NODE_ENV is 'production'",
-//     });
-//   }
-// });
 
 export type env = z.infer<typeof EnvSchema>;
 
-// eslint-disable-next-line ts/no-redeclare
 const { data: env, error } = EnvSchema.safeParse(process.env);
 
 if (error) {
@@ -51,3 +39,5 @@ const envVariables = env!;
 export { envVariables };
 
 export const isProductionEnv = envVariables.NODE_ENV === "production";
+
+export const AUTHORIZED_ORIGINS = [envVariables.FRONTEND_URL ?? ""];

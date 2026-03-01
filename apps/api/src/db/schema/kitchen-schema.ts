@@ -12,8 +12,6 @@ import {
 } from "drizzle-orm/pg-core";
 import { organization } from "./auth-schema";
 
-// Admin-managed reference table of cuisine categories (e.g. "Swahili", "Indian").
-// Used for kitchen tagging and URL-based filtering via slug.
 export const cuisineType = pgTable("cuisine_type", {
   id: text("id").primaryKey(),
   name: text("name").notNull().unique(),
@@ -21,8 +19,6 @@ export const cuisineType = pgTable("cuisine_type", {
   icon: text("icon"),
 });
 
-// Extended profile for a kitchen, 1:1 with Better Auth's organization table.
-// Holds food-platform-specific data: PostGIS location, hours, delivery radius, and availability.
 export const kitchenProfile = pgTable(
   "kitchen_profile",
   {
@@ -56,8 +52,6 @@ export const kitchenProfile = pgTable(
   ],
 );
 
-// Junction table linking kitchens to the cuisines they serve.
-// Composite PK on (kitchen_id, cuisine_id), no surrogate key needed.
 export const kitchenCuisine = pgTable(
   "kitchen_cuisine",
   {
@@ -74,12 +68,10 @@ export const kitchenCuisine = pgTable(
   ],
 );
 
-// cuisineType -> many kitchenCuisine (which kitchens serve this cuisine)
 export const cuisineTypeRelations = relations(cuisineType, ({ many }) => ({
   kitchens: many(kitchenCuisine),
 }));
 
-// kitchenProfile -> one organization (1:1 via unique FK), many cuisines via junction
 export const kitchenProfileRelations = relations(kitchenProfile, ({ one, many }) => ({
   organization: one(organization, {
     fields: [kitchenProfile.organizationId],
@@ -88,7 +80,6 @@ export const kitchenProfileRelations = relations(kitchenProfile, ({ one, many })
   cuisines: many(kitchenCuisine),
 }));
 
-// kitchenCuisine -> resolves both sides of the kitchen <-> cuisine junction
 export const kitchenCuisineRelations = relations(kitchenCuisine, ({ one }) => ({
   kitchen: one(kitchenProfile, {
     fields: [kitchenCuisine.kitchenId],

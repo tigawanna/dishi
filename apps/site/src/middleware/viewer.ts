@@ -1,4 +1,4 @@
-import { auth } from "@backend/lib/auth";
+import { auth } from "@elysia-api/lib/auth";
 import { createMiddleware } from "@tanstack/react-start";
 import { getRequestHeaders } from "@tanstack/react-start/server";
 

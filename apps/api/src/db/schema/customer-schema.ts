@@ -11,8 +11,6 @@ import {
 import { user } from "./auth-schema";
 import { kitchenProfile } from "./kitchen-schema";
 
-// Tracks which kitchens a customer has bookmarked.
-// Unique constraint on (user_id, kitchen_id) prevents duplicate saves.
 export const customerFavorite = pgTable(
   "customer_favorite",
   {
@@ -31,8 +29,6 @@ export const customerFavorite = pgTable(
   ],
 );
 
-// Saved delivery addresses for a customer with a required PostGIS point.
-// Used for "kitchens near me" distance calculations and delivery radius checks.
 export const customerLocation = pgTable(
   "customer_location",
   {
@@ -57,7 +53,6 @@ export const customerLocation = pgTable(
   ],
 );
 
-// customerFavorite -> resolves both the user and the bookmarked kitchen
 export const customerFavoriteRelations = relations(customerFavorite, ({ one }) => ({
   user: one(user, {
     fields: [customerFavorite.userId],
@@ -69,7 +64,6 @@ export const customerFavoriteRelations = relations(customerFavorite, ({ one }) =
   }),
 }));
 
-// customerLocation -> belongs to one user
 export const customerLocationRelations = relations(customerLocation, ({ one }) => ({
   user: one(user, {
     fields: [customerLocation.userId],

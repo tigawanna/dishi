@@ -14,7 +14,7 @@ const config = defineConfig({
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
-      "@backend": fileURLToPath(new URL("../api/src", import.meta.url)),
+      "@elysia-api": fileURLToPath(new URL("../elysia/src", import.meta.url)),
     },
   },
   plugins: [

@@ -11,8 +11,6 @@ import {
 } from "drizzle-orm/pg-core";
 import { kitchenProfile } from "./kitchen-schema";
 
-// Groups menu items into sections within a kitchen (e.g. "Main Dishes", "Drinks").
-// Optional — items can exist without a category. Supports drag-and-drop via sort_order.
 export const menuCategory = pgTable(
   "menu_category",
   {
@@ -27,8 +25,6 @@ export const menuCategory = pgTable(
   (table) => [index("menu_category_kitchen_id_idx").on(table.kitchenId)],
 );
 
-// Individual dish offered by a kitchen. Core searchable entity of the platform.
-// Includes GIN full-text search on name/description and HNSW vector index for semantic search.
 export const menuItem = pgTable(
   "menu_item",
   {
@@ -48,7 +44,6 @@ export const menuItem = pgTable(
     servingSize: text("serving_size"),
     preparationTimeMins: integer("preparation_time_mins"),
     dietaryTags: text("dietary_tags").array(),
-    // TODO: add HNSW index when embeddings are being populated (see SCHEMA.md)
     embedding: vector("embedding", { dimensions: 1536 }),
     sortOrder: integer("sort_order").default(0).notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -70,7 +65,6 @@ export const menuItem = pgTable(
   ],
 );
 
-// menuCategory -> belongs to one kitchen, has many menu items
 export const menuCategoryRelations = relations(menuCategory, ({ one, many }) => ({
   kitchen: one(kitchenProfile, {
     fields: [menuCategory.kitchenId],
@@ -79,7 +73,6 @@ export const menuCategoryRelations = relations(menuCategory, ({ one, many }) => 
   items: many(menuItem),
 }));
 
-// menuItem -> belongs to one kitchen, optionally belongs to one category
 export const menuItemRelations = relations(menuItem, ({ one }) => ({
   kitchen: one(kitchenProfile, {
     fields: [menuItem.kitchenId],

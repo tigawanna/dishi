@@ -1,7 +1,6 @@
-import { envVariables } from "@backend/env";
+import { envVariables } from "../env";
 import "dotenv/config";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { EnhancedQueryLogger } from "drizzle-query-logger";
 import * as schema from "./schema/index";
 
 const connectionString = envVariables.DATABASE_URL;
@@ -11,5 +10,4 @@ if (!connectionString) {
 
 export const db = drizzle(connectionString, {
   schema,
-  logger: envVariables.DB_LOG_LEVEL === "info" ? new EnhancedQueryLogger() : undefined,
 });

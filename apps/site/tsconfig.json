@@ -23,8 +23,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@backend/*": ["../../apps/api/src/*"],
-      "@hono-api/*": ["../../apps/hono/src/*"]
+      "@elysia-api/*": ["../../apps/elysia/src/*"],
+      "@api/*": ["../../apps/api/src/*"]
     }
   }
 }
