@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cuisineTypesQueryOptions } from "@/data-access-layer/kitchen/cuisine-types";
+import { cuisineTypesQueryOptions, type CuisineType } from "@/data-access-layer/kitchen/cuisine-types";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight, UtensilsCrossed } from "lucide-react";
 import { useState } from "react";
@@ -85,7 +85,7 @@ export function StepCuisines({ onSubmit, onBack, isPending, initialData }: StepC
       </div>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-        {cuisines.map((cuisine) => {
+        {cuisines.map((cuisine: CuisineType) => {
           const isSelected = selected.has(cuisine.id);
           return (
             <button

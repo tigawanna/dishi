@@ -57,11 +57,16 @@ interface StaffSearchParams extends Record<string, unknown> {
   filterValue?: string | number | boolean;
 }
 
-const sortableColumns = createSortableColumns(organizationMembersCollection, [
-  { value: "createdAt", label: "Joined" },
-  { value: "role", label: "Role" },
-  { value: "userId", label: "User ID" },
-]);
+import type { OrganizationMember } from "@/data-access-layer/orgs/organization-members-collection";
+
+const sortableColumns = createSortableColumns(
+  organizationMembersCollection,
+  [
+    { value: "createdAt", label: "Joined" },
+    { value: "role", label: "Role" },
+    { value: "userId", label: "User ID" },
+  ],
+) as any;
 
 export function OrgMembers({ orgId }: OrgMembersProps) {
   const qc = useQueryClient();
@@ -88,23 +93,24 @@ export function OrgMembers({ orgId }: OrgMembersProps) {
   // Query for paginated data with limit/offset
   const query = useLiveQuery(
     (q) => {
+      const members: any = organizationMembersCollection;
       let dbQuery = q
-        .from({ members: organizationMembersCollection })
-        .where(({ members }) => and(eq(members.organizationId, orgId), eq(members.page, page)));
+        .from({ members })
+        .where(({ members: m }: any) => and(eq((m as any).organizationId, orgId), eq((m as any).page, page)));
 
       if (debouncedValue) {
         const searchTerm = `%${debouncedValue}%`;
-        dbQuery = dbQuery.where(({ members }) =>
-          or(like(members?.user?.email, searchTerm), like(members?.user?.name, searchTerm)),
+        dbQuery = dbQuery.where(({ members: m }: any) =>
+          or(like((m as any).user?.email, searchTerm), like((m as any).user?.name, searchTerm)),
         );
       }
 
       if (search.filterField === "role" && search.filterValue) {
-        dbQuery = dbQuery.where(({ members }) => eq(members.role, search.filterValue as string));
+        dbQuery = dbQuery.where(({ members: m }: any) => eq((m as any).role, search.filterValue as string));
       }
 
       return dbQuery
-        .orderBy(({ members }) => members[sortBy as keyof typeof members], sortDirection)
+        .orderBy(({ members: m }: any) => (m as any)[sortBy], sortDirection)
         .limit(limit);
     },
     [orgId, debouncedValue, search.filterField, search.filterValue, sortBy, sortDirection, limit],
@@ -113,22 +119,23 @@ export function OrgMembers({ orgId }: OrgMembersProps) {
   // Separate query for total count (without limit/offset)
   const countQuery = useLiveQuery(
     (q) => {
+      const members: any = organizationMembersCollection;
       let dbQuery = q
-        .from({ members: organizationMembersCollection })
-        .where(({ members }) => eq(members.organizationId, orgId));
+        .from({ members })
+        .where(({ members: m }: any) => eq((m as any).organizationId, orgId));
 
       if (debouncedValue) {
         const searchTerm = `%${debouncedValue}%`;
-        dbQuery = dbQuery.where(({ members }) =>
-          or(like(members?.user?.email, searchTerm), like(members?.user?.name, searchTerm)),
+        dbQuery = dbQuery.where(({ members: m }: any) =>
+          or(like((m as any).user?.email, searchTerm), like((m as any).user?.name, searchTerm)),
         );
       }
 
       if (search.filterField === "role" && search.filterValue) {
-        dbQuery = dbQuery.where(({ members }) => eq(members.role, search.filterValue as string));
+        dbQuery = dbQuery.where(({ members: m }: any) => eq((m as any).role, search.filterValue as string));
       }
 
-      return dbQuery.select(({ members }) => ({ total: count(members.id) }));
+      return dbQuery.select(({ members: m }: any) => ({ total: count((m as any).id) }));
     },
     [orgId, debouncedValue, search.filterField, search.filterValue],
   );
@@ -148,7 +155,7 @@ export function OrgMembers({ orgId }: OrgMembersProps) {
 
   console.log(" == metadata:", metadata); // --- DEBUG ---
 
-  const membersList = query.data ?? [];
+  const membersList = (query.data ?? []) as OrganizationMember[];
 
   const total = countQuery.data?.[0]?.total ?? 0;
 
@@ -185,11 +192,10 @@ export function OrgMembers({ orgId }: OrgMembersProps) {
       <div className="flex items-end gap-3">
         <SearchBox {...{ debouncedValue, isDebouncing, keyword, setKeyword }} />
         <TanstackDBColumnFilters
-          collection={organizationMembersCollection}
-          sortableColumns={sortableColumns}
+          collection={organizationMembersCollection as any}
+          sortableColumns={sortableColumns as any}
           search={search}
           navigate={navigate}
-          defaultSortBy="createdAt"
         />
       </div>
 

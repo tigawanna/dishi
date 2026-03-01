@@ -1,6 +1,16 @@
 import { honoClient } from "@/lib/api/client";
 import { queryOptions } from "@tanstack/react-query";
 import { queryKeyPrefixes } from "../query-keys";
+import type { PaginatedResponse } from "@/lib/api/client";
+
+export interface CuisineType {
+  id: string;
+  name: string;
+  icon: string | null;
+  description: string | null;
+}
+
+export type CuisineTypesResponse = PaginatedResponse<CuisineType>;
 
 export const cuisineTypesQueryOptions = (params?: { page?: number; perPage?: number }) =>
   queryOptions({
@@ -15,7 +25,7 @@ export const cuisineTypesQueryOptions = (params?: { page?: number; perPage?: num
         },
       });
       if (!response.ok) throw new Error(String(response.error));
-      return response.data;
+      return response.data as CuisineTypesResponse;
     },
     staleTime: 1000 * 60 * 30,
   });

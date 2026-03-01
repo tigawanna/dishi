@@ -10,12 +10,41 @@ import { parseParameterizedSorts, parseWhereWithHandlers } from "@/lib/tanstack/
 import { queryClient } from "@/lib/tanstack/query/queryclient";
 import { createCollection, parseLoadSubsetOptions } from "@tanstack/db";
 import { queryCollectionOptions } from "@tanstack/query-db-collection";
+import type { BetterAuthUserRoles } from "@/lib/better-auth/client";
+
+interface OrganizationMemberUser {
+  id: string;
+  name: string | null;
+  email: string;
+  image: string | null;
+}
+
+export interface OrganizationMember {
+  id: string;
+  organizationId: string;
+  userId: string;
+  role: BetterAuthUserRoles;
+  createdAt: string;
+  user: OrganizationMemberUser;
+}
+
+import type { PaginatedResponse } from "@/lib/api/client";
 
 type OrganizationMembersWhereClause = {
   organizationId?: { _eq: string };
   page?: { _eq: number };
   _and?: OrganizationMembersWhereClause[];
   [key: string]: any;
+};
+
+type MembersApiResponse = PaginatedResponse<OrganizationMember> & {
+  pagination: {
+    page: number;
+    perPage: number;
+    totalItems: number;
+    totalPages: number;
+    hasMore: boolean;
+  };
 };
 
 export const organizationMembersCollection = createCollection(
@@ -30,22 +59,46 @@ export const organizationMembersCollection = createCollection(
 
       const organizationId = where?.organizationId?._eq as string;
       const page = (where?.page?._eq as number) || 1;
-      const response = await (honoClient as any).api["admin/organizations/:id/members"]
-        .$get({
-          query: {
-            page: page,
-            perPage: loadedSubs?.limit ?? 24,
-            sortBy: asc?.length ? asc[0] : desc?.length ? desc[0] : undefined,
-            sortOrder: asc?.length ? "asc" : desc?.length ? "desc" : "desc",
-          },
-        });
 
+      type AdminMembersClient = typeof honoClient & {
+        api: {
+          "admin/organizations/:id/members": {
+            $get: (opts: {
+              params: { id: string };
+              query: {
+                page: number;
+                perPage: number;
+                sortBy?: string;
+                sortOrder?: string;
+              };
+            }) => Promise<{ ok: boolean; data: MembersApiResponse; error: { message: string } | null }>;
+          };
+        };
+      };
+
+      const response = await (honoClient as AdminMembersClient).api[
+        "admin/organizations/:id/members"
+      ].$get({
+        params: { id: organizationId },
+        query: {
+          page: page,
+          perPage: loadedSubs?.limit ?? 24,
+          sortBy: asc?.length ? asc[0] : desc?.length ? desc[0] : undefined,
+          sortOrder: asc?.length ? "asc" : desc?.length ? "desc" : "desc",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(response.error?.message ?? "Failed to fetch members");
+      }
+
+      const responseData = response.data;
       ctx.client.setQueriesData(
         {
           queryKey: ["organizations", "members", organizationId, page, "metadata"],
         },
         () => {
-          const data = response?.data;
+          const data = responseData;
           if (!data) {
             return {
               page,
@@ -55,23 +108,24 @@ export const organizationMembersCollection = createCollection(
               status: "error",
             };
           }
-          const { items: _items, ...metadata } = (data as any).items || data;
+          const { items: _items, ...metadata } = data;
           return metadata;
         },
       );
-      const members = (response.data as any)?.items;
-      return members?.map((member) => ({ ...member, page })) ?? [];
+      const members = responseData?.items;
+      return (members ?? []).map((member: OrganizationMember) => ({ ...member, page }));
     },
     queryClient,
     getKey: (item) => item.userId,
     onUpdate: async ({ transaction }) => {
       await Promise.all(
         transaction.mutations.map((m) => {
+          const mutation = m as { modified: { organizationId: string; role: string }; key: string };
           return async () => {
             const { data, error } = await authClient.organization.updateMemberRole({
-              organizationId: m.modified.organizationId,
-              role: m.modified.role,
-              memberId: m.key,
+              organizationId: mutation.modified.organizationId,
+              role: mutation.modified.role as any,
+              memberId: mutation.key,
             });
             if (error) throw error;
             return data;
@@ -83,10 +137,11 @@ export const organizationMembersCollection = createCollection(
     onDelete: async ({ transaction }) => {
       await Promise.all(
         transaction.mutations.map((m) => {
+          const mutation = m as { original: { organizationId: string }; key: string };
           return async () => {
             const { error } = await authClient.organization.removeMember({
-              organizationId: m.original.organizationId,
-              memberIdOrEmail: m.key,
+              organizationId: mutation.original.organizationId,
+              memberIdOrEmail: mutation.key,
             });
             if (error) throw error;
           };
