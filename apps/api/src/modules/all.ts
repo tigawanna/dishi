@@ -29,11 +29,12 @@ type TStreamWrite = {
 
 export const allRoutes = new Elysia()
   // .use(onErrorMiddleware)
-  .use(
+  .use(()=>
     logger({
       hooks: {
         streamWrite(s) {
           const sData = JSON.parse(s) as TStreamWrite;
+          console.log("========= headers:");
           const endpointUrl = new URL(sData.request.url);
           const endpointString = `${endpointUrl.pathname}${endpointUrl.search}`;
           return `${colorizeMethod(sData.request.method)} ${sData.request.referrer} -> ${endpointString} - ${sData?.responseTime?.toFixed(2)}ms\n`;
@@ -84,8 +85,8 @@ export const allRoutes = new Elysia()
       },
     }),
   )
+  
   .mount(auth.handler)
-
   .use(sessionRoute)
   .use(indexRoute)
   .use(viewerRoute)

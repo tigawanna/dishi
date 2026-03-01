@@ -1,6 +1,7 @@
 
 import { authClient, BetterAuthSession } from "@/lib/better-auth/client";
 import { treatyClient } from "@/lib/elysia/eden-treaty";
+import { honoClient } from "@/lib/hono/client";
 import { safeStringToUrl } from "@/utils/url";
 import { queryOptions, useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { redirect } from "@tanstack/react-router";
@@ -57,6 +58,10 @@ export const viewerMiddleware = createMiddleware()
   const data = await treatyClient.viewer.get({
     headers,
   });
+  const data2= honoClient.api.viewer.$get({},{
+    headers,
+  })
+  console.log("========= viewerMiddleware - data2:", data2);
   if (!data?.data?.user) {
     const returnTo = safeStringToUrl(request.url)?.pathname ?? "/";
     throw redirect({ to: "/auth", search: { returnTo } });

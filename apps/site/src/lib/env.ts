@@ -3,6 +3,7 @@ import z from "zod";
 const envSchema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).optional(),
   VITE_API_URL: z.url(),
+  VITE_HONO_API_URL: z.url(),
 });
 
 const { success, error, data } = envSchema.safeParse(import.meta.env);
