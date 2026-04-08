@@ -31,7 +31,7 @@
     "better-auth": "^1.4.20",
     "dotenv": "^16.4.7",
     "dotenv-expand": "^12.0.1",
-    "drizzle-orm": "^0.45.1",
+    "drizzle-orm": "^0.45.2",
     "elysia": "^1.4.26",
     "fast-glob": "^3.3.3",
     "ioredis": "^5.9.1",
